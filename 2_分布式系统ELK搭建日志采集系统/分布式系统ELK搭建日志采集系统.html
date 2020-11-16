@@ -1,0 +1,983 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>elk视频教程笔记</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) { 
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:first-child { margin-top: -20px; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.701961); color: rgb(85, 85, 85); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; background-position: 0px 0px; background-repeat: initial initial; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print { 
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid-page; break-before: avoid-page; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid-page; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) { 
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background-color: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; background-position: initial initial; background-repeat: initial initial; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; }
+a.md-print-anchor { white-space: pre !important; border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; text-shadow: initial !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; white-space: nowrap; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; border: none !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-width: 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; word-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; background-position: 0px 0px; background-repeat: initial initial; }
+.CodeMirror-wrap pre { word-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right-width: 30px; border-right-style: solid; border-right-color: transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right-style: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right-style: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background-color: rgba(255, 255, 0, 0.4); background-position: initial initial; background-repeat: initial initial; }
+@media print { 
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Open Sans Regular'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/400.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: normal;
+    src: local('Open Sans Italic'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/400i.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Open Sans Bold'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/700.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: bold;
+    src: local('Open Sans Bold Italic'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/700i.woff') format('woff');
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    /*background: url("file:///Users/xdclass/Library/Application%20Support/images/modules/styleguide/para.png") no-repeat 10px center;*/
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    padding-bottom: .3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+   padding-bottom: .3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #dfe2e5;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 0.2em 1em;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+}
+
+ .typora-export li, .typora-export p, .typora-export,  .footnote-line {white-space: normal;} 
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-mac'><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><p>elk视频教程</p><h2><a name='header-n6' class='md-header-anchor '></a>章节一  2018年 ELK课程计划和效果演示</h2><h3><a name='header-n7' class='md-header-anchor '></a>1、课程安排和效果演示</h3><h5><a name='header-n8' class='md-header-anchor '></a><strong>简介：课程介绍和主要知识点说明，ES搜索接口演示，部署的ELK项目演示</strong></h5><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">es: localhost:9200</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">kibana http://localhost:5601/</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 44px;"></div><div class="CodeMirror-gutters" style="display: none; height: 44px;"></div></div></div></pre><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n14' class='md-header-anchor '></a>章节二 elasticSearch 6.2版本基础讲解到阿里云部署实战</h2><h3><a name='header-n15' class='md-header-anchor '></a>2、搜索引擎知识介绍和相关框架</h3><p><span>	</span><strong>简介：介绍搜索的基本概念，市面上主流的搜索框架elasticSearch和solr等对比</strong></p><ul><li>什么是搜索：</li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">在海量信息中获取我们想要的信息</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 22px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><ul><li>传统做法：<span>		</span></li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">文档中使用系统的Find查找</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">mysql中使用like模糊查询</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 44px;"></div><div class="CodeMirror-gutters" style="display: none; height: 44px;"></div></div></div></pre><ul><li>问题：<span>	</span></li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><span><span>​</span>x</span></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>海量数据中不能及时响应,少量数据可以通过传统的MySql建立索引解决</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>一些无用词不能进行过滤，没法分词</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>数据量大的话难以拓展</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>相同的数据难以进行相似度最高的进行排序</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 154px;"></div><div class="CodeMirror-gutters" style="display: none; height: 154px;"></div></div></div></pre><p>&nbsp;</p><ul><li>搜索引擎:</li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>存储非结构化的数据</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>快速检索和响应我们需要的信息，快-准</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>进行相关性的排序，过滤等</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>可以去掉停用词(没有特殊含义的词，比如英文的a,is等，中文： 这，的，是等)，框架一般支持可以自定义停用词</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 154px;"></div><div class="CodeMirror-gutters" style="display: none; height: 154px;"></div></div></div></pre><ul><li>常用框架：</li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>Lucene</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>Apache下面的一个开源项目，高性能的、可扩展的工具库，提供搜索的基本架构；</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>如果开发人员需用使用的话，需用自己进行开发,成本比较大，但是性能高</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>solr</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>Solr基于Lucene的全文搜索框架，提供了比Lucene更为丰富的功能，</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>同时实现了可配置、可扩展并对查询性能进行了优化</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>建立索引时，搜索效率下降，实时索引搜索效率不高</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>数据量的增加，Solr的搜索效率会变得更低,适合小的搜索应用，对应java客户端的是solrj</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 198px;"></div><div class="CodeMirror-gutters" style="display: none; height: 198px;"></div></div></div></pre><ul><li>elasticSearch</li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">基于Lucene的搜索框架, 它提供了一个分布式多用户能力的全文搜索引擎，基于RESTful web接口</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">上手容易，拓展节点方便，可用于存储和检索海量数据，接近实时搜索，海量数据量增加，搜索响应性能几乎不受影响；</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">分布式搜索框架，自动发现节点，副本机制，保障可用性</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 66px;"></div><div class="CodeMirror-gutters" style="display: none; height: 66px;"></div></div></div></pre><h3><a name='header-n42' class='md-header-anchor '></a>3、新版本 elasticSearch 6.1.2介绍</h3><p><span>	</span><strong>简介：介绍ES的主要特点和使用场景，新特性讲解</strong></p><ul><li>elasticSearch主要特点</li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>特点：全文检索，结构化检索，数据统计、分析，接近实时处理，分布式搜索(可部署数百台服务器)，处理PB级别的数据搜索纠错，自动完成</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>使用场景：日志搜索，数据聚合，数据监控，报表统计分析</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" class="cm-tab-wrap-hack" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>国内外使用者：维基百科，Stack Overflow，GitHub</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 110px;"></div><div class="CodeMirror-gutters" style="display: none; height: 110px;"></div></div></div></pre><ul><li>新特性讲解</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n53" mdtype="fences" style="page-break-inside: unset;">	6.1.x版本基于Lucene 7.1.0，更快，性能进一步提升,对应的序列化组件，升级到Jackson 2.8
+
+	自适应副本选择
+	今天在Elasticsearch中，对同一分片的一系列搜索请求将以循环方式转发到主要和每个副本。如果一个节点启动了长时间的垃圾收集，这可能会出现问题 - 搜索请求仍将被转发到缓慢的节点，并且会影响搜索延迟。
+
+	在6.1中，我们添加了一个称为自适应副本选择的实验性功能。每个节点跟踪并比较搜索请求到其他节点的时间，并使用这些信息来调整向特定节点发送请求的频率。在我们的基准测试中，这样可以大大提高搜索吞吐量，降低99％的延迟。
+
+	这个选项在默认情况下是禁用的
+
+	推荐使用5.0版本推出的Java REST/HTTP客户端，依赖少，比Transport使用更方便，在基准测试中，性能并不输于Transport客户端，
+
+	在5.0到6.0版本中，每次有对应的API更新, 文档中也说明，推荐使用这种方式进行开发使用,所有可用节点间的负载均衡
+
+	在节点故障和特定响应代码的情况下进行故障转移,失败的连接处罚（失败的节点是否重试取决于失败的连续次数;失败的失败次数越多，客户端在再次尝试同一节点之前等待的时间越长）
+
+</pre><ul><li>官方文档：</li></ul><p><span>	</span>(1) 6.0更新特性
+​<span>	</span> <a href='https://www.elastic.co/guide/en/elasticsearch/reference/6.0/release-notes-6.0.0.html#breaking-java-6.0.0' target='_blank' class='url'>https://www.elastic.co/guide/en/elasticsearch/reference/6.0/release-notes-6.0.0.html#breaking-java-6.0.0</a>
+​<span>	</span>(2) 6.1更新特性 
+​<span>	</span><a href='https://www.elastic.co/guide/en/elasticsearch/reference/6.1/release-notes-6.1.0.html' target='_blank' class='url'>https://www.elastic.co/guide/en/elasticsearch/reference/6.1/release-notes-6.1.0.html</a></p><h3><a name='header-n58' class='md-header-anchor '></a>4、windows安装启动ElasticSearch</h3><p><span>	</span><strong>简介：windows环境下安装JDK8和 ElasticSearch</strong></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n63' class='md-header-anchor '></a>5、阿里云服务器 快速安装ElasticSearch</h3><p><span>	</span><strong>简介：阿里云ecs介绍,wget命令下载安装包,快速部署 elasticSearch节点</strong>
+​<span>	</span></p><ul><li>linux下使用wget下载jdk8:</li></ul><ol start='' ><li>进到目录/usr/local/software<span>	</span></li></ol><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n71" mdtype="fences">wget --no-cookies --no-check-certificate --header "Cookie: gpw_e24=http%3A%2F%2Fwww.oracle.com%2F; oraclelicense=accept-securebackup-cookie" "http://download.oracle.com/otn-pub/java/jdk/8u141-b15/336fa29ff2bb4ef291e347e091f7f4a7/jdk-8u141-linux-x64.tar.gz"
+</pre><ol start='2' ><li>vim /etc/profile</li></ol><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n75" mdtype="fences">加入	
+	export JAVA_HOME=/usr/local/software/jdk8
+	export JAVA_BIN=/usr/local/software/jdk8
+	export PATH=$PATH:$JAVA_HOME/bin
+	export CLASSPATH=.:$JAVA_HOME/lib/dt.jar:$JAVA_HOME/lib/tools.jar
+	export JAVA_HOME JAVA_BIN PATH CLASSPATH
+</pre><p><span>	</span></p><ul><li>使用wget 下载elasticsearch安装包</li></ul><p><span>	</span>wget  <a href='https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.2.tar.gz' target='_blank' class='url'>https://artifacts.elastic.co/downloads/elasticsearch/elasticsearch-6.2.2.tar.gz</a></p><ul><li>解压</li></ul><p><span>	</span>tar -zxvf elasticsearch-6.2.2.tar.gz </p><p>&nbsp;</p><ul><li>配置es出现相关问题处理：</li></ul><p><span>	</span>1、问题一</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n90" mdtype="fences">Java HotSpot(TM) 64-Bit Server VM warning: INFO: os::commit_memory(0x00000000c5330000, 986513408, 0) failed; error='Cannot allocate memory' (errno=12)
+#
+# There is insufficient memory for the Java Runtime Environment to continue.
+
+# Native memory allocation (mmap) failed to map 986513408 bytes for committing reserved memory.
+
+# An error report file with more information is saved as:
+
+# /usr/local/software/temp/elasticsearch-6.2.2/hs_err_pid1912.log
+</pre><ul><li><p>解决：</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n94" mdtype="fences">内存不够，购买阿里云的机器可以动态增加内存
+</pre></li></ul><p><span>	</span>2、问题二</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n96" mdtype="fences">[root@iZwz95j86y235aroi85ht0Z bin]# ./elasticsearch
+		[2018-02-22T20:14:04,870][WARN ][o.e.b.ElasticsearchUncaughtExceptionHandler][] uncaught exception in thread [main]
+		org.elasticsearch.bootstrap.StartupException: java.lang.RuntimeException: can not run elasticsearch as root
+		at org.elasticsearch.bootstrap.Elasticsearch.init(Elasticsearch.java:125) ~[elasticsearch-6.2.2.jar:6.2.2]
+		at org.elasticsearch.bootstrap.Elasticsearch.execute(Elasticsearch.java:112) ~[elasticsearch-6.2.2.jar:6.2.2]
+		at org.elasticsearch.cli.EnvironmentAwareCommand.execute(EnvironmentAwareCommand.java:86) ~[elasticsearch-6.2.2.jar:6.2.2]
+		at org.elasticsearch.cli.Command.mainWithoutErrorHandling(Command.java:124) ~[elasticsearch-cli-6.2.2.jar:6.2.2]
+</pre><ul><li><p><span>	</span>解决：</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n100" mdtype="fences">用非root用户
+添加用户：useradd -m 用户名  然后设置密码  passwd 用户名
+</pre></li></ul><p><span>	</span>3、问题三</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n102" mdtype="fences">./elasticsearch
+Exception in thread "main" java.nio.file.AccessDeniedException: /usr/local/software/temp/elasticsearch-6.2.2/config/jvm.options
+</pre><ul><li><p><span>	</span>解决：</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n106" mdtype="fences">权限不够 chmod 777 -R 当前es目录
+</pre><p>&nbsp;</p></li><li><p>常见配置问题资料：<a href='https://www.jianshu.com/p/c5d6ec0f35e0' target='_blank' class='url'>https://www.jianshu.com/p/c5d6ec0f35e0</a></p></li></ul><p>&nbsp;</p><h3><a name='header-n111' class='md-header-anchor '></a>6、ElasticSearch目录和配置文件介绍</h3><p><span>	</span><strong>简介：介绍ES目录结构，配置文件基本说明</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n113" mdtype="fences">		bin: 启动文件
+		log: 日志文件，包括运行日志，慢查询日志
+		config: 核心配置文件
+		lib: 依赖包
+		plugins :插件	
+</pre><p>&nbsp;</p><h3><a name='header-n115' class='md-header-anchor '></a>7、ElasticSearch核心配置文件讲解，性能优化配置</h3><p>   <span>	</span><strong>简介：讲解核心配置文件，JVM参数配置，性能优化</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n117" mdtype="fences">	健康状态检查：http://localhost:9200/_cluster/health
+   jvm.options         虚拟机参数配置文件
+  	配置heap内存一样
+  	elasticsearch.yml   主配置文件
+   cluster.name  集群名称，同一个网段自动加入
+   node.name	  节点名称
+   http.port     http端口   		
+</pre><ul><li>注意事项</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n122" mdtype="fences">本地启动多个节点，复制es安装包的时候，需要删除里面data目录里面的资料，不然无法加入集群
+</pre><p>&nbsp;</p><h3><a name='header-n124' class='md-header-anchor '></a>8、ElasticSearch基础概念讲解</h3><p><span>	</span><strong>简介:es的index索引,document文档对象，副本，多节点集群等基础知识</strong></p><ul><li><p>通俗的解释：</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n129" mdtype="fences">在Elasticsearch中，文档归属于一种类型(type),而这些类型存在于索引(index)中, 索引名称必须是小写
+Relational DB -&gt; Database -&gt; Table -&gt; Row -&gt; Column
+Elasticsearch -&gt; Indice   -&gt; Type  -&gt; Document -&gt; Field
+</pre></li><li><p>分片shards：</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n132" mdtype="fences">数据量特大，没有足够大的硬盘空间来一次性存储，且一次性搜索那么多的数据，响应跟不上es提供把数据进行分片存储，这样方便进行拓展和提高吞吐
+</pre></li><li><p>副本replicas：</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n135" mdtype="fences">分片的拷贝，当主分片不可用的时候，副本就充当主分片进行使用
+</pre></li><li><p>Elasticsearch中的每个索引分配5个主分片和1个副本：</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n138" mdtype="fences">如果你的集群中至少有两个节点，你的索引将会有5个主分片和另外5个复制分片（1个完全拷贝），这样每个索引总共就有10个分片。
+</pre></li></ul><h3><a name='header-n139' class='md-header-anchor '></a>9、search搜索语句入门之URL搜索</h3><p><span>	</span><strong>简介:讲解URL中的_search搜索语句的基本使用，美化响应结果, 索引的基础操作</strong></p><ul><li><p>集群健康检查</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n144" mdtype="fences">	http://localhost:9200/_cat/health?v
+	http://localhost:9200/_cluster/health（推荐）
+</pre></li><li><p>状态说明</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n147" mdtype="fences">	green：正常
+	yellow: 集群正常 数据正常，部分副本不正常
+	red: 集群部分正常，数据可能丢失，需要紧急修复
+</pre></li><li><p>查询节点列表</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n150" mdtype="fences">	http://localhost:9200/_cat/nodes?v
+</pre></li><li><p>查看所有索引</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n153" mdtype="fences">	http://localhost:9200/_cat/indices?v
+	目前 集群中没有任何索引
+</pre></li><li><p>补充</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n156" mdtype="fences">	curl 
+    -X 指定http的请求方法 有HEAD GET POST PUT DELETE 
+    -d 指定要传输的数据 
+    -H 指定http请求头信息 
+</pre></li><li><p>新增索引</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n159" mdtype="fences">	curl -XPUT 'localhost:9201/blog_test?pretty'
+	curl -XPUT 'localhost:9201/blog?pretty'
+</pre></li><li><p>删除索引</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n162" mdtype="fences" style="page-break-inside: unset;">curl -XDELETE 'localhost:9200/blog_test?pretty'
+
+新增一条记录，并指定为article类型，ID为1
+
+curl -XPUT -H "Content-Type: application/json" 'localhost:9201/blog/article/1?pretty' -d '
+{
+  "title": "小D课堂啦啦啦",
+  "content":"xdclass.net  小D课堂成立于2016年的，专注互联网在线教育，课程范围包括前端，后端，大数据，人工智能，微信开发等"
+}'
+
+curl -XPUT -H "Content-Type: application/json" 'localhost:9201/blog/article/2?pretty' -d '
+{
+  "title": "test",
+  "content":"testsfsdfdsfdsf",
+  "PV":10
+}'
+
+curl -XPUT -H "Content-Type: application/json" 'localhost:9201/blog/article/3?pretty' -d '
+{
+  "title": "test",
+  "content":"testsfsdfdsfdsf",
+  "PV":23
+}'
+		空间不够新增失败处理 curl -XPUT -H "Content-Type: application/json" http://localhost:9200/_all/_settings -d '{"index.blocks.read_only_allow_delete": null}'
+
+	{
+		  "error" : {
+		    "root_cause" : [
+		      {
+		        "type" : "cluster_block_exception",
+		        "reason" : "blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];"
+		      }
+		    ],
+		    "type" : "cluster_block_exception",
+		    "reason" : "blocked by: [FORBIDDEN/12/index read-only / allow delete (api)];"
+		  },
+		  "status" : 403
+		}
+
+ID查询记录
+	curl -XGET 'localhost:9200/blog/article/1'
+	curl -XGET 'localhost:9200/blog/article/1?pretty'(美化推荐)
+
+搜索
+	curl -XGET 'http://localhost:9201/blog/article/_search?q=title:小A'
+</pre><p>&nbsp;</p></li></ul><h3><a name='header-n165' class='md-header-anchor '></a>10、search搜索语句入门之结构化查询语句DSL</h3><p><span>	</span><strong>简介：讲解结构化查询语句DSL的使用，bool，filter查询等</strong></p><ul><li>新增数据集</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n170" mdtype="fences">curl -XPUT -H "Content-Type: application/json" 'localhost:9201/blog/article/7?pretty' -d '
+{
+  "title": "elk搭建日志采集系统",
+  "content":"elk elasticsearch logstash kibana",
+  "PV":18
+}'
+</pre><ul><li>什么是query DSL</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n175" mdtype="fences">	Domain Specific Language 领域特定语言
+	Elasticsearch提供了完整的查询DSL，基于JSON定义查询
+	用于构造复杂的查询语句
+</pre><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n176" mdtype="fences">curl查询(空格处理不当,会出问题)
+
+curl -XPOST -H "Content-Type: application/json" 'http://localhost:9201/blog/article/_search' -d '{
+    "query" : {
+        "term" : { "title" : "elk" }
+    }
+}'	
+	建议使用postman工具
+		post方式提交，增加http头信息
+		body里面选row格式，粘贴对应的dsl即可
+</pre><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n177" mdtype="fences" style="page-break-inside: unset;">bool查询入门   
+	{
+	  "query": {
+	    "bool": {
+	      "must": [
+	        { "match": { "title": "elk" } }
+	      ],
+	      "must_not": [
+	        { "match": { "title": "小D" } }
+	      ]
+	    }
+	  }
+	}
+filter查询入门（filtered语法已经在5.0版本后移除了，在2.0时候标记过期，改用filter ）
+参考地址：https://www.elastic.co/guide/en/elasticsearch/reference/5.0/query-dsl-filtered-query.html
+{
+  "query": {
+    "bool": {
+      "filter": {
+        "range": {
+          "PV": {
+            "gt": 15
+          }
+        }
+      },
+      "must": {
+        "match": {
+          "title": "ELK"
+        }
+      }
+    }
+  }
+}
+</pre><ul><li>总结：（官网参考 <a href='https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html' target='_blank' class='url'>https://www.elastic.co/guide/en/elasticsearch/reference/current/query-filter-context.html</a>）</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n182" mdtype="fences">	大部分filter的速度快于query的速度 
+	filter不会计算相关度得分，且结果会有缓存，效率高
+	全文搜索、评分排序，使用query
+	是非过滤，精确匹配，使用filter
+</pre><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><p>&nbsp;</p><h2><a name='header-n186' class='md-header-anchor '></a>章节三  Logstash零基础入门到采集日志实战</h2><h3><a name='header-n187' class='md-header-anchor '></a>11、Logstash基本介绍和使用场景</h3><p><span>	</span><strong>简介：讲解什么是logstash，里面的基本工作流程input,filter,output等说明</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n189" mdtype="fences">什么是logstash (文档地址 https://www.elastic.co/guide/en/logstash/current/index.html)
+开源的日志收集引擎，具备实时传输的能力
+读取不同的数据源，并进行过滤，开发者自定义规范输出到目的地
+日志来源多（如系统日志，应用日志，服务器日志等）
+</pre><ul><li>流程讲解<span>	</span></li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n193" mdtype="fences">logstash通过管道pipeline进行传输，必选的两个组件是输入input和输出output，还有个可选过滤器filter
+logstash将数据流中等每一条数据称之为一个event,即读取每一行数据的行为叫做事件
+</pre><p>&nbsp;</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n195" mdtype="fences" style="page-break-inside: unset;"># 输入
+
+	input {
+	  ...
+	}
+
+# 过滤器
+
+	filter {
+	  ...
+	}
+
+# 输出
+
+	output {
+	  ...
+	}
+
+
+</pre><h3><a name='header-n196' class='md-header-anchor '></a>12、Logstash插件介绍</h3><p><strong>简介：讲解input,filter和output的插件的基本使用</strong></p><ul><li>简单的配置 test.conf</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n201" mdtype="fences" style="page-break-inside: unset;">input {  
+
+# 从文件读取日志信息
+
+  file {  
+     path =&gt; "/var/log/messages"
+     type =&gt; "system"
+     start_position =&gt; "beginning"
+  	}  
+}  
+
+filter {  
+
+}  
+
+output {  
+	#标准输出
+     elasticsearch {
+        hosts =&gt; ["localhost:9200"]      
+        index =&gt; "logstash-test-%{type}-%{host}"        
+    }
+}  
+</pre><ul><li>input插件：<a href='https://www.elastic.co/guide/en/logstash/current/input-plugins.html' target='_blank' class='url'>https://www.elastic.co/guide/en/logstash/current/input-plugins.html</a></li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n206" mdtype="fences">file，http，kafka，rabbitmq等
+</pre><ul><li>filter插件：<a href='https://www.elastic.co/guide/en/logstash/current/filter-plugins.html' target='_blank' class='url'>https://www.elastic.co/guide/en/logstash/current/filter-plugins.html</a></li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n211" mdtype="fences">grok(号称将非标准化的日志数据转换成标准化并且可搜索数据最好的方式，常用于处理Niginx，sysLog等日志)
+</pre><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n212" mdtype="fences">drop(跳过某些日志，不进入output)
+geoip(获取地理信息)
+</pre><ul><li>output插件：<a href='https://www.elastic.co/guide/en/logstash/current/output-plugins.html' target='_blank' class='url'>https://www.elastic.co/guide/en/logstash/current/output-plugins.html</a></li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n216" mdtype="fences">elasticSearch,cvs,email,file等
+</pre><h3><a name='header-n217' class='md-header-anchor '></a>13、阿里云服务器部署Logstash 6.1.2</h3><p><span>	</span><strong>简介：阿里云Centos部署Logstash，目录文件，配置讲解，基本功能测试</strong></p><ul><li>下载安装包</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n223" mdtype="fences">	wget https://artifacts.elastic.co/downloads/logstash/logstash-6.2.2.tar.gz
+	解压：tar -zxvf logstash-6.2.2.tar.gz
+</pre><ul><li>快速启动(需要java8 jre,目前不支持java9)</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n227" mdtype="fences"> ./bin/logstash -e 'input {stdin {}} output {stdout {}}'
+</pre><ul><li>目录文件说明</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n232" mdtype="fences">	https://www.elastic.co/guide/en/logstash/6.2/dir-layout.html
+</pre><ul><li>配置讲解</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n237" mdtype="fences">	https://www.elastic.co/guide/en/logstash/6.2/logstash-settings-file.html
+
+	logstash.yml  修改 pipeline.workers，根据CPU核数增加1到2即可
+	jvm.options	  修改 xms和xmx为相同，一般是系统内存三份之二
+</pre><p>&nbsp;</p><h3><a name='header-n239' class='md-header-anchor '></a>14、Logstash采集输送日志input filter output流程测试</h3><p><span>	</span><strong>简介：讲解Logstash采集日志和输送日志流程测试,包括input，filter和output元素的测试</strong></p><ul><li>bin/logstash -f test1.conf  </li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n244" mdtype="fences">./logstash -f ../config/test1.conf
+</pre><ul><li>codec的使用( Coder/decoder 两个单词首字母缩写）</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n249" mdtype="fences">Codec: 解码编码 数据格式  
+好处 更方便logstash与支持自定义数据格式的运维产品进行使用
+</pre><ul><li>logstash更细化的处理流程</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n253" mdtype="fences">input-&gt;decode-&gt;filter-&gt;encode-&gt;output  
+</pre><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n254" mdtype="fences" style="page-break-inside: unset;">配置一 test1.conf
+========================================
+input {
+
+# 从文件读取日志信息 输送到控制台
+
+		    file {
+		        path =&gt; "/Users/jack/Desktop/person/elk/elasticsearch-6.1.1/logs/elasticsearch.log"
+
+# codec =&gt; "json" ## 以JSON格式读取日志
+
+		        type =&gt; "elasticsearch"
+		        start_position =&gt; "beginning"
+		    	}
+			}
+
+# filter {
+
+			#
+
+# }
+
+			output {
+
+# 标准输出
+
+# stdout {}
+
+# 输出进行格式化，采用Ruby库来解析日志
+
+			     stdout { codec =&gt; rubydebug }
+			}
+</pre><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n255" mdtype="fences">filter使用
+	例子
+		切割插件mutate，随意输入一串以|分割的字符，比如 "123|000|ttter|sdfds*=123|dfwe
+</pre><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n256" mdtype="fences" style="page-break-inside: unset;">配置二 test2_filter.conf
+========================================
+		input {
+		   stdin {}
+		}
+
+	filter {  
+	    mutate {  
+	        split =&gt; ["message", "|"]  
+	    }  
+	}  
+
+	output {
+
+# 标准输出
+
+# stdout {}
+
+# 输出进行格式化，采用Ruby库来解析日志
+
+	     stdout { codec =&gt; rubydebug }
+	}
+</pre><h3><a name='header-n257' class='md-header-anchor '></a>15、logstash案例实战之读取日志输出到elasticsearch</h3><p><span>		</span><strong>简介：从日志文件中读取日志，输出到elasticsearch集群中</strong></p><ul><li>logstash配置文件</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n263" mdtype="fences" style="page-break-inside: unset;">配置三 test3_es.conf
+========================================
+		input {
+		        file {
+		                path =&gt; "/Users/jack/Desktop/person/elk/elasticsearch-6.1.1/logs/elasticsearch.log"
+		                type =&gt; "elasticsearch"
+		                start_position =&gt; "beginning" #从文件开始处读写
+		        }
+		}
+
+		output{
+		    elasticsearch{
+		        hosts=&gt;["127.0.0.1:9201"]  
+		        index =&gt; "es-message-%{+YYYY.MM.dd}"
+		     }
+		   stdout{codec =&gt; rubydebug}
+		}
+	========================================
+</pre><ul><li>验证</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n267" mdtype="fences">查看索引列表 http://localhost:9201/_cat/indices?v
+查看数据 http://localhost:9201/es-message-2018.02.26/_search
+</pre><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><p>&nbsp;</p><h2><a name='header-n271' class='md-header-anchor '></a>章节四  Kibana 6.2版本基础入门到实战 </h2><h3><a name='header-n272' class='md-header-anchor '></a>16、阿里云cenos服务器部署kibana6.2.2</h3><p><span>	</span><strong>简介：快速部署kibana，并配置外网可以访问</strong></p><ul><li>阿里云下载安装kibana</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n278" mdtype="fences">wget https://artifacts.elastic.co/downloads/kibana/kibana-6.2.2-linux-x86_64.tar.gz
+解压 tar -zxvf kibana-6.2.2-linux-x86_64.tar.gz
+</pre><ul><li>访问地址</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n283" mdtype="fences">	本机：localhost:5601
+	阿里云机器：http://120.79.160.143:5601
+</pre><ul><li>阿里云外网访问</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n288" mdtype="fences">开放端口,修改配置文件 confing目录下的kibana.yml
+server.host: "0.0.0.0"
+</pre><ul><li>守护进程后台启动</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n292" mdtype="fences">nohup  XXX  &amp;
+</pre><h3><a name='header-n293' class='md-header-anchor '></a>17、kibana基本介绍、和elasticSearch版本兼容问题</h3><p><span>	</span><strong>简介：讲解什么是kibana，目录文件讲解，配置等</strong>
+​<span>	</span>官网文档地址：<a href='https://www.elastic.co/guide/en/kibana/current/setup.html' target='_blank' class='url'>https://www.elastic.co/guide/en/kibana/current/setup.html</a>
+​<span>	</span>ELK</p><ul><li>注意事项</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n298" mdtype="fences">kibana和elsticserch版本不能差别大，否则无法正常使用 比如 Kibana 6.x 和 Elasticsearch 2.x不能正常使	
+运行比Kibana更高版本的Elasticsearch通常可以工作 例如Kibana 5.0和Elasticsearch 5.1
+
+小版本差异会有一些警告出现，除非两者升级到相同的版本
+
+windows下安装启动文档 https://www.elastic.co/guide/en/kibana/current/windows.html
+</pre><ul><li>kibana.yml常见配置项</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n302" mdtype="fences">	elasticsearch.pingTimeout     日常用的ping
+	elasticsearch.requestTimeout  读取es的超时时间
+	elasticsearch.url			 es主机地址
+	elasticsearch.username		  es鉴权的用户名
+	elasticsearch.password		  es鉴权的密码
+</pre><p>&nbsp;</p><h3><a name='header-n304' class='md-header-anchor '></a>18、kibana面板讲解和功能使用说明</h3><p><span>	</span><strong>简介：讲解kibana的web界面，各个模块划分，功能的基本使用</strong></p><ul><li>kibana状态及服务器资源使用率</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n309" mdtype="fences">http://120.79.160.143:5601/status
+
+基础操作文档：https://www.elastic.co/guide/en/kibana/current/getting-started.html
+</pre><ul><li>创建索引表达式<span>	</span></li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n314" mdtype="fences">使用*统配符，去匹配ES中的一个或多个索引(如果没有匹配，无法点击下一步)
+</pre><ul><li>discover面板发现数据</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n318" mdtype="fences">可以指定时间进行查询
+可以使显示的字段
+查询索引的数据，可以使用lucence语法进行查询
+</pre><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><p>&nbsp;</p><h2><a name='header-n322' class='md-header-anchor '></a>章节五 项目实战系列之阿里云服务器部署ELK，采集业务日志和分析</h2><h3><a name='header-n323' class='md-header-anchor '></a>19、项目实战系列之《采集业务应用日志》配置</h3><p><span>	</span><strong>简介：选择日志源，配置logstash采集并输送到elasticSeach</strong>
+​<span>	</span></p><ul><li>常见问题解决</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n328" mdtype="fences" style="page-break-inside: unset;">	JVM内存溢出导致的 ES或者Logstash服务启不来，报错 insufficient memory
+	解决：升级机器的内存和CPU；
+	或者改elasticSeach和logstash的JVM.option，最大堆内存xmx和初始堆内存xms
+
+	ES启动报错
+	seccomp unavailable: CONFIG_SECCOMP not compiled into kernel, CONFIG_SECCOMP and 			CONFIG_SECCOMP_FILTER are needed
+		
+	修改elasticsearch.yml 添加一下内容			
+	bootstrap.memory_lock: false   为了避免内存和磁盘之间的swap
+	bootstrap.system_call_filter: false  
+
+	ERROR: bootstrap checks failed
+	max virtual memory areas vm.max_map_count [65530] is too low, increase to at least 
+
+	临时设置：sudo sysctl -w vm.max_map_count=262144
+	永久修改：
+	修改/etc/sysctl.conf 文件，添加 “vm.max_map_count”设置
+	并执行：sysctl -p
+</pre><h3><a name='header-n329' class='md-header-anchor '></a>20、项目实战系列一之《采集业务应用日志》应用</h3><p><span>	</span><strong>简介：通过kibana的web管理界面，建立简单的日志分析功能</strong></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n335' class='md-header-anchor '></a>21、项目实战系列之Kibana图形、报表分析</h3><p><span>	</span><strong>简介：讲解业务应用日志在Kibana上的可视化分析，柱状图，饼状图等</strong><span>	</span></p><ul><li>官方文档地址：<span>	</span></li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n340" mdtype="fences">https://www.elastic.co/guide/en/kibana/current/tutorial-load-dataset.html
+</pre><ul><li>下载数据集</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n345" mdtype="fences">wget https://download.elastic.co/demos/kibana/gettingstarted/accounts.zip
+解压 unzip accounts.zip  
+</pre><ul><li>导入数据到es中</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n349" mdtype="fences">	curl -H 'Content-Type: application/x-ndjson' -XPOST 'localhost:9200/bank/account/_bulk?pretty' --data-binary @accounts.json
+</pre><ul><li>示例地址</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n353" mdtype="fences">https://www.elastic.co/guide/en/kibana/current/tutorial-visualizing.html
+</pre><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><p>&nbsp;</p><h2><a name='header-n357' class='md-header-anchor '></a>章节六 课程总结和常见问题处理</h2><h3><a name='header-n358' class='md-header-anchor '></a>22、课程总结和答疑</h3><p><span>	</span><strong>简介：回顾ELK整个课程的知识点和常见问题处理</strong></p><ul><li>课程介绍：</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n364" mdtype="fences">该课程是2018年新录制的ELK日志分析系统，采用elasticSearch+Logstash+Kibana；三个框架都是6.1.1新版本, 在阿里云服务器上安装部署，讲解性能优化等知识点;
+elasticSearch模块会讲解索引、文档、副本、集群搭建等知识点，基本搜索语句，dsl查询讲解；Logstash会讲解基本配置，采集的数据流程，怎样输送到ES中等知识点；Kibana模块会讲解怎用进行分析，可视化图形分析的建立等知识点；项目实战系列会讲解ELK采集业务应用日志，整个流程配置，分析数据等知识点。
+</pre><ul><li>授课计划</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n369" mdtype="fences">ELK课程是2018新录制的，分为18~20节，根据学员的遇到的问题会适当增加课时，项目实战会部署在阿里云Linux服务器上，3个框架的版本都采用6.1以上的新版本，主要是讲解ElasticSearch、Logstash、kibana的基础知识和项目实战，性能优化
+</pre><ul><li>课程目标：</li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n374" mdtype="fences">通过学习该课程，掌握ELK的知识点和整套的搭建方法，基础的性能优化，理解掌握ElasticSearch的基础知识和在阿里云上搭建ES集群，使用Logstash采集并输送日志到ES中，并学会用Kibana进行图形操作分析日志。
+</pre><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n375" mdtype="fences">淘宝 2018年6.2新版本ElasticSearch视频教程 ELK视频教程 全套6.2新版本 日志采集系统 
+CSDN 2018年ElasticSearch6.2.2视频教程 使用ELK搭建自己的日志采集分析系统
+</pre><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n376" mdtype="fences">2018年 6.2新版本elasticSearch视频教程 独家录制
+ELK全套6.2版本实战 阿里云Linux服务器实战部署
+ElasticSearch, Kibana, Logstash基础到项目实战
+包含详细的学习笔记，专属技术交流群
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong>小D课堂，愿景：让编程不在难学，让技术与生活更加有趣</strong></p><p><strong>相信我们，这个是可以让你学习更加轻松的平台，里面的课程绝对会让你技术不断提升</strong></p><p><strong>欢迎加小D讲师的微信： jack794666918</strong></p><p>我们官方网站：<a href='https://xdclass.net' target='_blank' class='url'>https://xdclass.net</a></p><p><strong>千人IT技术交流QQ群： 718617859</strong></p><p><strong>重点来啦：免费赠送你干货文档大集合</strong>，包含前端，后端，测试，大数据，运维主流技术文档（持续更新）</p><p><a href='https://mp.weixin.qq.com/s/qYnjcDYGFDQorWmSfE7lpQ' target='_blank' class='url'>https://mp.weixin.qq.com/s/qYnjcDYGFDQorWmSfE7lpQ</a> </p><p>&nbsp;</p></div>
+</body>
+</html>

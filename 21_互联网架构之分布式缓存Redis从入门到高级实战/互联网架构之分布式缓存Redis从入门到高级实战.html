@@ -1,0 +1,670 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>Redis笔记</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) { 
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:first-child { margin-top: -20px; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.701961); color: rgb(85, 85, 85); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; background-position: 0px 0px; background-repeat: initial initial; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print { 
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid-page; break-before: avoid-page; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid-page; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) { 
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background-color: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; background-position: initial initial; background-repeat: initial initial; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; }
+a.md-print-anchor { white-space: pre !important; border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; text-shadow: initial !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; white-space: nowrap; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; border: none !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-width: 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; word-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; background-position: 0px 0px; background-repeat: initial initial; }
+.CodeMirror-wrap pre { word-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right-width: 30px; border-right-style: solid; border-right-color: transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right-style: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right-style: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background-color: rgba(255, 255, 0, 0.4); background-position: initial initial; background-repeat: initial initial; }
+@media print { 
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Open Sans Regular'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/400.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: normal;
+    src: local('Open Sans Italic'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/400i.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Open Sans Bold'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/700.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: bold;
+    src: local('Open Sans Bold Italic'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/700i.woff') format('woff');
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    /*background: url("file:///Users/xdclass/Library/Application%20Support/images/modules/styleguide/para.png") no-repeat 10px center;*/
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    padding-bottom: .3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+   padding-bottom: .3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #dfe2e5;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 0.2em 1em;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+}
+
+ .typora-export li, .typora-export p, .typora-export,  .footnote-line {white-space: normal;} 
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-mac'><p> </p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><h2><a name='header-n4' class='md-header-anchor '></a>第1章   Redis从入门到高级实现课程介绍</h2><p> </p><h3><a name='header-n6' class='md-header-anchor '></a>第1集        Redis从入门到高级实现课程介绍</h3><ul><li>课件介绍</li><li>适学人员</li><li>学后水平</li></ul><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><h2><a name='header-n17' class='md-header-anchor '></a>第2章   带你进入分布式缓存Redis的世界</h2><p>&nbsp;</p><h3><a name='header-n19' class='md-header-anchor '></a>第1集        Redis是什么，为什么大小公司都在用</h3><p><strong>简介：Redis    微信（微信红包）、微博、淘宝、天猫、京东、唯品会，温故而知新，从我们熟知的Mysql入手讲解Redis，为什么要用redis
+ </strong></p><ul><li><p>讲到redis不得不讲nosql </p><ul><li><p>NoSQL是不同于传统的关系数据库的数据库管理系统的统称。其两者最重要的区别是NoSQL不使用SQL作为查询语言。 NoSQL数据存储可以不需要固定的表格模式。NoSQL是基于键值对的，可以想象成表中的主键和值的对应关系。
+                </p></li><li><p>NoSQL：redis、memcached、mongodb、guava（loadingCache） </p><p>&nbsp;</p></li></ul></li><li><p>redis的定义：</p><p>&nbsp;</p><ul><li><p>Redis 是一个开源（BSD许可）的，内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件。 它支持多 种类型的数据结构，如 字符串（strings）、散列（hashes）、 列表（lists）、 集合（sets）、 有序集合（sorted sets）等。</p><p>&nbsp;</p></li></ul></li></ul><p>&nbsp;</p><ul><li><p>从大家熟知的mysql出发来认识redis</p><ul><li><p>概念</p><p>关系型数据库的一个常见用法是存储长期的报告数据，并将这些报告数据用作固定时间范围内的聚合数据。收集聚合数据的常见做法是：先将各个行插入一个报告表里面， 之后再通过扫描这些行来收集聚合数据， 并更新聚合表中巳有的那些行。</p></li><li><p>图解剖析mysql的执行过程</p><p>&nbsp;</p></li></ul></li></ul><p> 课程回顾：
+         nosql的定义==》redis的定义==》mysql的定义==》redis的出现</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n52' class='md-header-anchor '></a>第2集   剖析Redis和memcached和mysql之间的区别</h3><p> <strong>简介：分析三者的区别和为什么越来越多的人抛弃memcached选择redis</strong></p><p>&nbsp;</p><ul><li><p>从数据库类型、数据存储方式、特殊功能讲解Redis和memcached和mysql的区别</p></li><li><p>作为同款功能的内存缓存产品，redis和memcached各有什么优势</p><ul><li><p>内存管理机制</p><ul><li><p>Memcached默认使用Slab Allocation机制管理内存，其主要思想是按照预先规定的大小， 将分配的内存分割成特定长度的块  以存储相应长度的key-value数据记录，以完全解决内存碎 片问题。空闲列表进行判断存储状态,【类似于Java虚拟机对象的分配，空闲列表】</p></li><li><p>Redis使用现场申请内存的方式来存储数据，并且很少使用free-list等方式来优化内存分配，会在一定程度上存在内存碎片,【CPU内存是连续，类似于Java虚拟机对象的分配，直接内存分配（指针碰撞）】</p><p>                    </p></li></ul></li><li><p>数据持久化方案</p><ul><li><p>memcached不支持内存数据的持久化操作，所有的数据都以in-memory的形式存储。</p></li><li><p>redis支持持久化操作。redis提供了两种不同的持久化方法来讲数据存储到硬盘里面，
+第一种是rdb形式，一种是aof形式</p><ul><li>rdb：属于全量数据备份，备份的是数据</li><li>aof：append only if,增量持久化备份，备份的是指令                   </li></ul></li></ul></li><li><p>缓存数据过期机制 </p><ul><li>概念：key，设计一个小时之后过期，超过一个小时查数据就会查不到</li><li>Memcached 在删除失效主键时也是采用的消极方法，即 Memcached 内部也不会监视主键是否失效，而是在通过 Get     访问主键时才会检查其是否已经失效</li><li>Redis 定时、定期等多种缓存失效机制，减少内存泄漏</li></ul></li><li><p>支持的数据类型</p><ul><li>Memcached支持单一数据类型,[k,v]</li><li>redis支持五种数据类型  </li></ul></li></ul><p>&nbsp;</p><p>课程回顾：
+        宏观讲解三种数据库的对比==》剖析memcached和redis区别==》还是用redis靠谱</p></li></ul><p>&nbsp;</p><h3><a name='header-n100' class='md-header-anchor '></a>第3集       redis作为数据库和作为缓存的选择，线上怎么优雅的使用redis </h3><p><strong>简介：redis作为数据库和作为内存缓存的两种使用方法
+ </strong></p><ul><li><p>redis作为数据库的使用有什么优缺点</p><ul><li><p>优点</p><ul><li>没有Scheme约束，数据结构的变更相对容易，一开始确定数据类型，
+     抗压能力强，性能极高，10万/qps</li></ul></li><li><p>缺点</p><ul><li>没有索引，没有外键，缺少int/date等基本数据类型，多条件查询需要通过集合内联(sinter,zinterstore)   和连接间接实现开发效率低，可维护性不佳</li></ul><p>&nbsp;</p></li></ul></li><li><p>redis作为缓存的使用，搭配数据库使用的两种方案</p><ul><li>jedis整合使用方案        set key,value [&quot;11&quot;,&quot;22&quot;]  第一层在缓存进行查询，如果得到数据则直接返回，     第二层在数据库进行查询，并且刷新缓存，方便下次查询  [&quot;33,&quot;44&quot;]</li><li>作为mybatis/hibernate二级缓存使用方案，一级缓存：sqlSession，进程缓存，单次链接有效        </li></ul></li></ul><ul><li>图解分析加redis前后的架构区别</li></ul><p>&nbsp;</p><p>&nbsp;</p><p>课程回顾：
+         redis作为数据库？==》redis作为缓存==》使用redis前后架构上的区别</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><h2><a name='header-n136' class='md-header-anchor '></a>第3章   手把手Redis安装启动</h2><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n139' class='md-header-anchor '></a>第1集        手把手mac环境下centos7安装过程（windows同理） </h3><p><strong>简介：redis环境准备之搭建centos7虚拟机
+ </strong></p><ul><li>选择清华镜像：<a href='http://mirrors.tuna.tsinghua.edu.cn/centos/7.5.1804/isos/x86_64/CentOS-7-x86_64-DVD-1804.iso' target='_blank' class='url'>http://mirrors.tuna.tsinghua.edu.cn/centos/7.5.1804/isos/x86_64/CentOS-7-x86_64-DVD-1804.iso</a>
+        </li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n147' class='md-header-anchor '></a>第2集        手把手centos7环境下redis4.0安装</h3><p>&nbsp;</p><ul><li><p>解决pwd /could not retrieve mirrorlist</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><span><span>​</span>x</span></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">1.sudo vim /etc/sysconfig/network-scripts/ifcfg-ens33&nbsp;</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">2.将ONBOOT改为yes，wq!保存退出</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">3.重新启动网络  $ service network restart</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 110px;"></div><div class="CodeMirror-gutters" style="display: none; height: 110px;"></div></div></div></pre><p>&nbsp;</p></li><li><p>安装wget yum install wget</p></li><li><p>下载redis安装包   wget <a href='http://download.redis.io/releases/redis-4.0.6.tar.gz' target='_blank' class='url'>http://download.redis.io/releases/redis-4.0.6.tar.gz</a></p></li><li><p>解压压缩包   tar -zxvf redis-4.0.6.tar.gz</p></li><li><p>yum install gcc</p></li><li><p>跳转到redis解压目录下 cd redis-4.0.6</p></li><li><p>编译安装 make MALLOC=libc　</p></li><li><p>cd src  ./redis-server</p><p>&nbsp;</p></li></ul><p>&nbsp;</p><h3><a name='header-n170' class='md-header-anchor '></a>第3集        redis三种启动方式以及其中的使用区别</h3><p><strong>简介：Redis    微信（微信红包）、微博、淘宝、天猫、京东、唯品会，温故而知新，从我们熟知的Mysql入手讲解Redis，为什么要用redis
+ </strong></p><ul><li><p>直接启动</p></li><li><p>通过指定配置文件启动</p></li><li><p>使用redis启动脚本设置开机自启动，linux配置开启自启动  /etc/init.d</p></li><li><p>配置步骤</p><ul><li><p>启动脚本 redis_init_script 位于Redis的 /utils/ 目录下 </p></li><li><p>mkdir /etc/redis</p></li><li><p>cp redis.conf /etc/redis/6379.conf</p></li><li><p>将启动脚本复制到/etc/init.d目录下，本例将启动脚本命名为redisd（通常都以d结尾表示是后台自启动服务）。</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">cp redis_init_script /etc/init.d/redisd</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 22px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre></li><li><p>设置为开机自启动，直接配置开启自启动 chkconfig redisd on 发现错误： service redisd does not support chkconfig</p><p>解决办法，在启动脚本开头添加如下注释来修改运行级别：</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  #!/bin/sh</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  # chkconfig: &nbsp; 2345 90 10</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 44px;"></div><div class="CodeMirror-gutters" style="display: none; height: 44px;"></div></div></div></pre><p>           </p></li><li><p>设置为开机自启动服务器</p><p>chkconfig redisd on  </p><p>service redisd start   打开服务</p><p>service redisd stop    关闭服务                  </p></li></ul><p>&nbsp;</p></li></ul><p>&nbsp;</p><h3><a name='header-n203' class='md-header-anchor '></a>第4集        ssh的安装过程</h3><ul><li><p>首先，检查CentOS7是否安装了openssh-server，在终端中输入  yum list installed | grep openssh-server
+    此处显示已经安装了  openssh-server，如果又没任何输出显示表示没有安装，通过输入yum install openssh-server安装</p></li><li><p>找到了  /etc/ssh/  目录下的sshd服务配置文件 sshd_config，用Vim编辑器打开将文件中，关于监听端口、监听地址前的 # 号去除
+            </p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="powershell"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="powershell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-identifier">Port</span> <span class="cm-number">22</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-identifier">ListenAddress</span> <span class="cm-number">0.0.0.0</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-identifier">ListerAddress</span> <span class="cm-operator">::</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-identifier">PermiRootLogin</span> <span class="cm-identifier">yes</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-identifier">PasswordAuthentication</span> <span class="cm-identifier">yes</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 110px;"></div><div class="CodeMirror-gutters" style="display: none; height: 110px;"></div></div></div></pre><p>&nbsp;</p><p>&nbsp;</p></li><li><p>开启sshd服务，输入 sudo service sshd start      </p></li><li><p>检查  sshd  服务是否已经开启，输入ps -ef | grep sshd</p></li><li><p>使用ip addr查看地址</p></li><li><p>为了免去每次开启 CentOS 时，都要手动开启  sshd 服务，
+将 sshd 服务添加至自启动列表中，输入systemctl enable sshd.service</p></li><li><p>通过本机工具进行连接</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><h2><a name='header-n228' class='md-header-anchor '></a>第4章   你不得不懂的Redis五种数据类型和消息订阅</h2><p>&nbsp;</p><h3><a name='header-n230' class='md-header-anchor '></a>第1集       Redis Key/Value数据类型</h3><p><strong>简介： String是最常用的一种数据类型，普通的key/value存储都可以归为此类。
+ </strong></p><ul><li><p>set/get</p><ul><li><p>设置key对应的值为String类型的value</p></li><li><p>获取key对应的值            </p><p>&nbsp;</p></li></ul></li><li><p>mget</p><ul><li>批量获取多个key的值，如果可以不存在则返回nil</li></ul></li></ul><p>&nbsp;</p><ul><li><p>incr &amp;&amp; incrby</p><ul><li>incr对key对应的值进行加加操作，并返回新的值;incrby加指定值</li></ul></li><li><p>incr &amp;&amp; incrby</p><ul><li>incr对key对应的值进行加加操作，并返回新的值;incrby加指定值</li></ul></li><li><p>setnx</p><ul><li>设置key对应的值为String类型的value，如果key已经存在则返回0</li></ul></li><li><p>setex</p><ul><li>设置key对应的值为String类型的value，并设定有效期        </li></ul></li><li><p>其他命令</p><ul><li><p>getrange  获取key对应value的子字符串</p></li><li><p>mset  批量设置多个key的值，如果成功表示所有值都被设置，否则返回0表示没有任何值被设置</p></li><li><p>msetnx，同mset，不存在就设置，不会覆盖已有的key</p></li><li><p>getset  设置key的值，并返回key旧的值</p></li><li><p>append：给指定key的value追加字符串，并返回新字符串的长度          </p><p>&nbsp;</p><p>       </p></li></ul></li><li><p>课程回顾：
+    redis String命令的使用实战，记住1、3、5、6这几个重要命令</p></li></ul><p>&nbsp;</p><h3><a name='header-n286' class='md-header-anchor '></a>第2集        手把手进行Hash类型讲解</h3><ul><li><p>Hash是一个String类型的field和value之间的映射表</p></li><li><p>redis的Hash数据类型的key（hash表名称）对应的value实际的内部存储结构为一个HashMap       </p></li><li><p>Hash特别适合存储对象</p></li><li><p>相对于把一个对象的每个属性存储为String类型，将整个对象存储在Hash类型中会占用更少内存。</p></li><li><p>所存储的成员较少时数据存储为zipmap，当成员数量增大时会自动转成真正的HashMap,此时encoding为ht。</p></li><li><p>运用场景：
+    如用一个对象来存储用户信息，商品信息，订单信息等等。</p></li><li><p>&nbsp;</p></li><li><p>Hash命令讲解</p><ul><li><p>hset——设置key对应的HashMap中的field的value</p></li><li><p>hget——获取key对应的HashMap中的field的value</p></li><li><p>hgetall——获取key对应的HashMap中的所有field的value</p></li><li><p>hlen--返回key对应的HashMap中的field的数量</p><p>&nbsp;</p></li></ul></li></ul><h3><a name='header-n314' class='md-header-anchor '></a>第3集        手把手进行List类型讲解</h3><p><strong>简介：List的命令讲解以及使用场景剖析
+ </strong></p><ul><li>lpush——在key对应的list的头部添加一个元素</li><li>lrange——获取key对应的list的指定下标范围的元素，-1表示获取所有元素</li><li>lpop——从key对应的list的尾部删除一个元素，并返回该元素</li><li>rpush——在key对应的list的尾部添加一个元素</li><li>rpop——从key对应的list的尾部删除一个元素，并返回该元素</li></ul><p>&nbsp;</p><h3><a name='header-n328' class='md-header-anchor '></a>第4集        手把手进行Set类型讲解</h3><p><strong>简介：Set的命令讲解以及使用场景剖析
+ </strong></p><ul><li>sadd——在key对应的set中添加一个元素</li><li>smembers——获取key对应的set的所有元素</li><li>spop——随机返回并删除key对应的set中的一个元素</li><li>suion——求给定key对应的set并集</li><li>sinter——求给定key对应的set交集</li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n343' class='md-header-anchor '></a>第5集        手把手进行SortSet类型讲解  </h3><p><strong>简介：set的基础增加顺序score，再根据score进行排序 实战：通过sortset实现排行榜 
+ </strong></p><ul><li><p>zadd ——在key对应的zset中添加一个元素</p></li><li><p>zrange——获取key对应的zset中指定范围的元素，-1表示获取所有元素</p></li><li><p>zrem——删除key对应的zset中的一个元素</p></li><li><p>zrangebyscore——返回有序集key中，指定分数范围的元素列表,排行榜中运用</p></li><li><p>zrank——返回key对应的zset中指定member的排名。其中member按score值递增(从小到大）；
+    排名以0为底，也就是说，score值最小的成员排名为0,排行榜中运用</p></li><li><p>set是通过hashmap存储，key对应set的元素，value是空对象
+    sortset是怎么存储并实现排序的呢，hashmap存储，还加了一层跳跃表
+    跳跃表：相当于双向链表，在其基础上添加前往比当前元素大的跳转链接 </p></li><li><ul><li><p>Redis 是一个开源（BSD许可）的，内存中的数据结构存储系统，它可以用作数据库、缓存和消息中间件。 它支持多 种类型的数据结构，如 字符串（strings）、散列（hashes）、 列表（lists）、 集合（sets）、 有序集合（sorted sets）等。</p><p>&nbsp;</p></li></ul></li></ul><p>&nbsp;</p><h3><a name='header-n364' class='md-header-anchor '></a>第6集        redis消息订阅发布</h3><p><strong>简介：redis消息订阅发布讲解，基础使用
+ </strong></p><ul><li><p>作用：发布订阅类似于信息管道，用来进行系统之间消息解耦，类似于mq，rabbitmq、rocketmq、kafka、activemq主要有消息发布者和消息订阅者。比如运用于：订单支付成功，会员系统加积分、钱包进行扣钱操作、发货系统（下发商品）</p><p>&nbsp;</p></li><li><p>PUBLISH   将信息message发送到指定的频道channel。返回收到消息的客户端数量 </p></li><li><p>SUBSCRIBE   订阅给指定频道的信息</p></li><li><p>UNSUBSCRIBE  取消订阅指定的频道，如果不指定，则取消订阅所有的频道。</p></li><li><p>redis的消息订阅发布和mq对比？
+    答：redis发布订阅功能比较薄弱但比较轻量级，mq消息持久化，数据可靠性比较差，无后台功能可msgId、msgKey进行查询消息    </p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><h2><a name='header-n382' class='md-header-anchor '></a>第5章   传统关系型数据库事务与Redis事务</h2><p>&nbsp;</p><h3><a name='header-n384' class='md-header-anchor '></a>第1集        深入浅出剖析传统关系型数据库事务</h3><p><strong>简介：通过类比法进行学习可以增强我们的知识掌握程度，讲解事务概要和事务隔离级别
+ </strong></p><ul><li><p>一个数据库事务通常包含了一个序列的对数据库的读/写操作。它的存在包含有以下两个目的：</p><ul><li><p>为数据库操作序列提供了一个从失败中恢复到正常状态的方法，同时提供了数据库即使在异常状态下仍能保持一致性的方法。                           </p></li><li><p>当多个应用程序在并发访问数据库时，可以在这些应用程序之间提供一个隔离方法，以防止彼此的操作互相干扰。</p><p>&nbsp;</p></li></ul></li><li><p>事务的ACID四大特性</p><ul><li>原子性（Atomicity）：事务作为一个整体被执行，包含在其中的对数据库的操作要么全部被执行，要么都不执行</li><li>一致性（Consistency）：事务应确保数据库的状态从一个一致状态转变为另一个一致状态。一致状态的含义是数据库中的数据应满足完整性约束</li><li>隔离性（Isolation）：多个事务并发执行时，一个事务的执行不应影响其他事务的执行</li><li>持久性（Durability）：已被提交的事务对数据库的修改应该永久保存在数据库中</li></ul></li></ul><p>&nbsp;</p><ul><li><p>事务隔离机制</p><ul><li>语法：set global transaction isolation level read uncommitted;</li><li>种类：read uncommitted、read committed、repeatable read、serializable</li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n417' class='md-header-anchor '></a>第2集        浅谈mysql事务隔离机制和MVCC</h3><h3><a name='header-n418' class='md-header-anchor '></a> </h3><ul><li><p>redis事务隔离机制可重复读讲解（repeatable read）</p></li><li><p>InnoDB MVCC多版本并发控制功能讲解</p><ul><li>在每一行数据中额外保存两个隐藏的列：当前行创建时的版本号和删除时的版本号（可能为空，其实还有一列称为回滚指针，用于事务回滚，不在本文范畴）。这里的版本号并不是实际的时间值，而是系统版本号。每开始新的事务，系统版本号都会自动递增。事务开始时刻的系统版本号会作为事务的版本号，
+用来和查询每行记录的版本号进行比较</li></ul></li><li><p>图解InnoDB MVCC的组成和原理</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n431' class='md-header-anchor '></a>第3集        redis事务机制</h3><p><strong>简介：讲解redis事务基本命令，分析redis事务的基本原理
+ </strong></p><ul><li><p>MULTI 与 EXEC命令</p><ul><li>以 MULTI 开始一个事务，然后将多个命令入队到事务中， 最后由 EXEC 命令触发事务， 一并执行事务中的所有命令</li></ul></li></ul><p>&nbsp;</p><ul><li><p>DISCARD命令</p><ul><li>DISCARD 命令用于取消一个事务， 它清空客户端的整个事务队列， 然后将客户端从事务状态调整回非事务状态， 最后返回字符串 OK 给客户端， 说明事务已被取消</li><li></li></ul></li><li><p>WATCH命令</p><ul><li>WATCH 命令用于在事务开始之前监视任意数量的键： 当调用 EXEC 命令执行事务时， 如果任意一个被监视的键已经被其他客户端修改了， 那么整个事务不再执行， 直接返回失败。</li></ul></li><li><p>图解redis执行事务过程原理</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n458' class='md-header-anchor '></a>第4集        redis事务与传统关系型事务的比较</h3><p><strong>简介：讲解redis事务ACID
+ </strong></p><ul><li><p>原子性（Atomicity）</p><ul><li>单个 Redis 命令的执行是原子性的，但 Redis 没有在事务上增加任何维持原子性的机制，所以 Redis 事务的执行并不是原子性的。如果一个事务队列中的所有命令都被成功地执行，那么称这个事务执行成功</li></ul></li><li><p>一致性（Consistency）</p><ul><li><p>入队错误</p><ul><li>在命令入队的过程中，如果客户端向服务器发送了错误的命令，比如命令的参数数量不对，等等， 那么服务器将向客户端返回一个出错信息， 并且将客户端的事务状态设为 REDIS_DIRTY_EXEC 。</li></ul></li><li><p>执行错误</p><ul><li>如果命令在事务执行的过程中发生错误，比如说，对一个不同类型的 key 执行了错误的操作， 那么 Redis 只会将错误包含在事务的结果中， 这不会引起事务中断或整个失败，不会影响已执行事务命令的结果，也不会影响后面要执行的事务命令， 所以它对事务的一致性也没有影响</li></ul></li><li><p>隔离性（Isolation）</p><ul><li>WATCH 命令用于在事务开始之前监视任意数量的键： 当调用 EXEC 命令执行事务时， 如果任意一个被监视的键已经被其他客户端修改了， 那么整个事务不再执行， 直接返回失败</li></ul></li><li><p>持久性（Durability）</p><ul><li>因为事务不过是用队列包裹起了一组 Redis 命令，并没有提供任何额外的持久性功能，所以事务的持久性由 Redis 所使用的持久化模式决定</li></ul></li></ul></li></ul><p>&nbsp;</p><p> </p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><h2><a name='header-n493' class='md-header-anchor '></a>第6章   Redis从入门到高级实现课程介绍</h2><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n496' class='md-header-anchor '></a>第1集        springboot项目搭建并编写HelloWorld </h3><p><strong>简介：代码实战springboot项目搭建过程
+ </strong></p><ul><li><p>下载springboot项目</p></li><li><p>修改配置文件，springboot需要引入：spring-boot-starter-web</p></li><li><p>启动WEB项目</p></li><li><p>测试HelloWorld</p></li><li><p>springboot两种启动方式</p><ul><li>以web启动的项目（war）：比如：用tomcat容器启动项目，提供http接口 </li><li>以jar启动的项目：比如：用java -jar启动 main方法启动，只比如用dubbo提供对外     </li></ul></li></ul><p>&nbsp;</p><h3><a name='header-n515' class='md-header-anchor '></a>第2集       springboot结合redis实战</h3><p><strong>简介：讲解redis事务ACID
+ </strong></p><ul><li><p>引入bean redisTemplate的使用，类型于：monogoTemplate、jdbcTemplate数据库连接工具</p></li><li><p>配置步骤</p><ul><li><p>1)引入pom依赖</p><p><dependency>
+               <groupId>org.springframework.boot</groupId>
+                <artifactId>spring-boot-starter-data-redis</artifactId>
+ </dependency></p></li><li><p>2）编写redisTemplate类，设置redisConnectFactory</p></li><li><p>3）引入配置文件</p></li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n532' class='md-header-anchor '></a>第3集       redisTemplate api讲解     </h3><p><strong>简介：redisTemplate源码讲解
+ </strong></p><ul><li>opsForValue  操作String，Key，Value，包含过期key，setBit位操作等</li><li>opsForSet    操作set</li><li>opsForHash   操作hash     </li><li>opsForZset   操作SortSet</li><li>opsForList   操作list队列</li><li>         opsForHash   操作hash
+​         opsForZset   操作SortSet
+​         opsForList   操作list队列</li></ul><p>&nbsp;</p><h3><a name='header-n548' class='md-header-anchor '></a>第4集        springboot和mybatis步骤整合讲解</h3><p><strong>简介：redis比mysql性能好，那么到底好在哪里呢？
+ </strong></p><ul><li><ul><li><p>1、导入maven依赖pom.xml
+             </p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="powershell" style="page-break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="powershell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> <span class="cm-operator">&lt;</span><span class="cm-identifier">dependency</span><span class="cm-operator">&gt;</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; <span class="cm-operator">&lt;</span><span class="cm-identifier">groupId</span><span class="cm-operator">&gt;</span><span class="cm-identifier">mysql</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">groupId</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; <span class="cm-operator">&lt;</span><span class="cm-identifier">artifactId</span><span class="cm-operator">&gt;</span><span class="cm-identifier">mysql-connector-java</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">artifactId</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;/</span><span class="cm-identifier">dependency</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">dependency</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">groupId</span><span class="cm-operator">&gt;</span><span class="cm-identifier">org</span><span class="cm-punctuation">.</span><span class="cm-identifier">mybatis</span><span class="cm-punctuation">.</span><span class="cm-identifier">spring</span><span class="cm-punctuation">.</span><span class="cm-identifier">boot</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">groupId</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">artifactId</span><span class="cm-operator">&gt;</span><span class="cm-identifier">mybatis-spring-boot-starter</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">artifactId</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">version</span><span class="cm-operator">&gt;</span><span class="cm-number">1.3.0</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">version</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;/</span><span class="cm-identifier">dependency</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">dependency</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">groupId</span><span class="cm-operator">&gt;</span><span class="cm-identifier">org</span><span class="cm-punctuation">.</span><span class="cm-identifier">mybatis</span><span class="cm-punctuation">.</span><span class="cm-identifier">generator</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">groupId</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">artifactId</span><span class="cm-operator">&gt;</span><span class="cm-identifier">mybatis-generator-core</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">artifactId</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">scope</span><span class="cm-operator">&gt;</span><span class="cm-identifier">test</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">scope</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">version</span><span class="cm-operator">&gt;</span><span class="cm-number">1.3.2</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">version</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">optional</span><span class="cm-operator">&gt;</span><span class="cm-identifier">true</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">optional</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;/</span><span class="cm-identifier">dependency</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">dependency</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; <span class="cm-operator">&lt;</span><span class="cm-identifier">groupId</span><span class="cm-operator">&gt;</span><span class="cm-identifier">org</span><span class="cm-punctuation">.</span><span class="cm-identifier">springframework</span><span class="cm-punctuation">.</span><span class="cm-identifier">boot</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">groupId</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; <span class="cm-operator">&lt;</span><span class="cm-identifier">artifactId</span><span class="cm-operator">&gt;</span><span class="cm-identifier">spring-boot-starter-jdbc</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">artifactId</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;/</span><span class="cm-identifier">dependency</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">dependency</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">groupId</span><span class="cm-operator">&gt;</span><span class="cm-identifier">com</span><span class="cm-punctuation">.</span><span class="cm-identifier">alibaba</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">groupId</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">artifactId</span><span class="cm-operator">&gt;</span><span class="cm-identifier">druid</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">artifactId</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">version</span><span class="cm-operator">&gt;</span><span class="cm-number">1.1.10</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">version</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;/</span><span class="cm-identifier">dependency</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">dependency</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; <span class="cm-operator">&lt;</span><span class="cm-identifier">groupId</span><span class="cm-operator">&gt;</span><span class="cm-identifier">com</span><span class="cm-punctuation">.</span><span class="cm-identifier">alibaba</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">groupId</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; <span class="cm-operator">&lt;</span><span class="cm-identifier">artifactId</span><span class="cm-operator">&gt;</span><span class="cm-identifier">fastjson</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">artifactId</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; <span class="cm-operator">&lt;</span><span class="cm-identifier">version</span><span class="cm-operator">&gt;</span><span class="cm-number">1.2.7</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">version</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;/</span><span class="cm-identifier">dependency</span><span class="cm-operator">&gt;</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 660px;"></div><div class="CodeMirror-gutters" style="display: none; height: 660px;"></div></div></div></pre></li></ul></li><li><p>引入配置文件    </p><ul><li>Druid是阿里旗下的数据库连接池，同款产品有C3P0</li></ul></li><li><p>引入mybatis-config.xml</p></li><li><p>引入DataSourceConfig配置</p></li></ul><p>&nbsp;</p><h3><a name='header-n566' class='md-header-anchor '></a>第5集       redis作为mybatis缓存整合讲解（上）</h3><p><strong>简介：redisTemplate整合mybatis
+ </strong></p><ul><li>用户第一次访问的时候获取数据库的值，再次访问时直接从缓存中获取数据</li><li>设置缓存过期时间</li><li>项目8080端口是对外端口（向外部暴露的端口），区别于内部进程号,查内部端口用ps -ef|grep port，查外部端口用lsof -i:port</li></ul><p>&nbsp;</p><h3><a name='header-n576' class='md-header-anchor '></a>第6集        redis作为mybatis二级缓存整合讲解（中）</h3><p><strong>简介：整合讲解
+ </strong></p><ul><li><p>springboot cache的使用：可以结合redis、ehcache等缓存
+    一级缓存是：sqlSession，sql建立连接到关闭连接的数据缓存
+    二级缓存是：全局</p><ul><li>@CacheConfig(cacheNames=&quot;userInfoCache&quot;)  在同个redis里面必须唯一</li><li>@Cacheable(查) ： 
+    来划分可缓存的方法 - 即，结果存储在缓存中的方法，以便在后续调用（具有相同的参数）时，返回缓存中的值而不必实际执行该方法</li><li>@CachePut（修改、增加） ：
+    当需要更新缓存而不干扰方法执行时，可以使用@CachePut注释。也就是说，始终执行该方法并将其结果放入缓存中（根据@CachePut选项）</li><li>@CacheEvict（删除） ：
+    对于从缓存中删除陈旧或未使用的数据非常有用，指示缓存范围内的驱逐是否需要执行而不仅仅是一个条目驱逐  </li></ul><p>&nbsp;</p></li><li><p>springboot cache的整合步骤</p><ul><li><p>引入pom.xml依赖</p><p><dependency>
+         <groupId>org.springframework.boot</groupId>
+         <artifactId>spring-boot-starter-cache</artifactId>
+</dependency></p></li><li><p>开启缓存注解： @EnableCaching</p></li><li><p>在方法上面加入SpEL  </p></li></ul></li><li><p>springboot cache 存在什么问题</p><ul><li>第一，生成key过于简单，容易冲突userCache::3</li><li>第二，无法设置过期时间，默认过期时间为永久不过期</li><li>第三，配置序列化方式，默认的是序列化JDKSerialazable</li></ul></li><li><p>springboot cache自定义项</p><ul><li>自定义KeyGenerator</li><li>自定义cacheManager，设置缓存过期时间</li><li>自定义序列化方式，Jackson</li></ul></li></ul><p>&nbsp;</p><h3><a name='header-n620' class='md-header-anchor '></a>第7集        redis作为mybatis缓存整合讲解 （下）</h3><p><strong>简介：通过类比法进行学习可以增强我们的知识掌握程度，讲解事务概要和事务隔离级别
+ </strong></p><ul><li><p>一个数据库事务通常包含了一个序列的对数据库的读/写操作。它的存在包含有以下两个目的：</p><ul><li><p>为数据库操作序列提供了一个从失败中恢复到正常状态的方法，同时提供了数据库即使在异常状态下仍能保持一致性的方法。                           </p></li><li><p>当多个应用程序在并发访问数据库时，可以在这些应用程序之间提供一个隔离方法，以防止彼此的操作互相干扰。</p><p>&nbsp;</p></li></ul></li><li><p>事务的ACID四大特性</p><ul><li>原子性（Atomicity）：事务作为一个整体被执行，包含在其中的对数据库的操作要么全部被执行，要么都不执行</li><li>一致性（Consistency）：事务应确保数据库的状态从一个一致状态转变为另一个一致状态。一致状态的含义是数据库中的数据应满足完整性约束</li><li>隔离性（Isolation）：多个事务并发执行时，一个事务的执行不应影响其他事务的执行</li><li>持久性（Durability）：已被提交的事务对数据库的修改应该永久保存在数据库中</li><li></li></ul></li></ul><p>&nbsp;</p><ul><li><p>事务隔离机制</p><ul><li>语法：set global transaction isolation level read uncommitted;</li><li>种类：read uncommitted、read committed、repeatable read、serializable</li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n655' class='md-header-anchor '></a>第8集       redis作为mybatis缓存整合讲解 （下）</h3><p><strong>简介：压力测试redis缓存和数据库的对比级别
+ </strong></p><ul><li><p>apache abtest</p><ul><li><p>ab是Apache HTTP server benchmarking tool，可以用以测试HTTP请求的服务器性能</p><p>&nbsp;</p></li></ul></li><li><p>使用：  ab -n1000 -c10 <a href='http://localhost:8080/getByCache?id=2' target='_blank' class='url'>http://localhost:8080/getByCache?id=2</a>
+    ab -n1000 -c10 <a href='http://localhost:8080/getUser?id=2' target='_blank' class='url'>http://localhost:8080/getUser?id=2</a></p><ul><li><p>-n:进行http请求的总个数</p></li><li><p>-c:请求的client个数，也就是请求并发数</p></li><li><p>统计qps：qps即每秒并发数，request per second</p><ul><li><p>统计
+                 </p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="shell"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="shell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="cm-number">10</span>个并发的情况下</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; redis qps：963.85[<span class="cm-comment">#/sec] (mean)</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DB qps： <span class="cm-number">766</span>.75 [<span class="cm-comment">#/sec] (mean)</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="cm-number">100</span>个并发的情况下 <span class="cm-number">1000</span>个</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; redis qps：1130.60 [<span class="cm-comment">#/sec] (mean)</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DB qps：956.15 [<span class="cm-comment">#/sec] (mean) </span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="cm-number">100</span>个并发的情况下，进行10000个请求</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; redsi qps: <span class="cm-number">2102</span>.39 [<span class="cm-comment">#/sec] (mean)</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DB qps: <span class="cm-number">679</span>.07 [<span class="cm-comment">#/sec] (mean)</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; <span class="cm-number">500</span>个并发的情况下，进行10000个请求</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; redis qps：374.91 [<span class="cm-comment">#/sec] (mean)</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; DB qps：扛不住 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; </span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 286px;"></div><div class="CodeMirror-gutters" style="display: none; height: 286px;"></div></div></div></pre><p>&nbsp;</p></li></ul></li></ul><p>&nbsp;</p></li></ul><h3><a name='header-n679' class='md-header-anchor '></a>第9集        redis实现分布式集群环境session共享</h3><p>**  <strong>简介：多机器部署同一套服务（代码），性能更好，更承受更高的用户并发</strong></p><ul><li><ul><li><p>cookie与session</p><ul><li>Cookie是什么？ Cookie 是一小段文本信息，伴随着用户请求和页面在 Web 服务器和浏览器之间传递。Cookie 包含每次用户访问站点时 Web 应用程序都可以读取的信息，我们可以看到在服务器写的cookie，会通过响应头Set-Cookie的方式写入到浏览器</li></ul></li><li><p>HTTP协议是无状态的，并非TCP一样进行三次握手，对于一个浏览器发出的多次请求，WEB服务器无法区分是不是来源于同一个浏览器。所以服务器为了区分这个过程会通过一个 sessionid来区分请求，而这个sessionid是怎么发送给服务端的呢。cookie相对用户是不可见的，用来保存这个sessionid是最好不过了</p></li><li><ul><li><p>Cookie是什么？ Cookie 是一小段文本信息，伴随着用户请求和页面在 Web 服务器和浏览器之间传递。Cookie 包含每次用户访问站点时 </p></li><li><p>Web 应用程序都可以读取的信息，我们可以看到在服务器写的cookie，会通过响应头Set-Cookie的方式写入到浏览器</p><p>&nbsp;</p></li></ul><p>&nbsp;</p></li></ul></li><li><p>redis实现分布式集群配置过程</p><ul><li><dependency>
+    <groupId>org.springframework.session</groupId>
+     <artifactId>spring-session-data-redis</artifactId>
+ </dependency></li><li>@EnableRedisHttpSession 开启redis session缓存</li><li>maxInactiveIntervalInSeconds指定缓存的时间
+    spring:session:sessions:expires:+‘sessionId’的过期时间  </li></ul></li><li><p>验证过程</p><ul><li>打开隐身模式清空cookie来验证缓存的时间    </li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><h2><a name='header-n718' class='md-header-anchor '></a>第7章   redis项目实战之排行榜实现</h2><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n721' class='md-header-anchor '></a>第1集        ZSetOperations重要api讲解（sortedSet）</h3><p><strong>简介：通过类比法进行学习可以增强我们的知识掌握程度，讲解事务概要和事务隔离级别
+ </strong></p><ul><li><p>排行榜：</p><ul><li>排行榜功能是一个很普遍的需求。使用 Redis 中有序集合的特性来实现排行榜是又好又快的选择。
+一般排行榜都是有实效性的，比如“用户积分榜”，游戏中活跃度排行榜，游戏装备排行榜等。</li><li>面临问题：数据库设计复杂，并发数较高，数据要求实时性高   </li></ul></li><li><p>redis实现排行榜api讲解</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n735' class='md-header-anchor '></a>第2集       浅谈mysql数据库表设计过程中几个关键要点</h3><p><strong>* 简介：数据库表score_flow（积分流水表）、user_score（用户积分表总表）设计，用于：1）查top100  2）查用户的排名</strong></p><ul><li><p>表设计过程中应该注意的点即数据类型 </p><ul><li>1）更小的通常更好   控制字节长度</li><li>2）使用合适的数据类型：
+    如tinyint只占8个位，char(1024)与varchar(1024)的对比,char用于类似定长数据存储比varchar节省空间，如：uuid（32），可以用char(32).</li><li>3）尽量避免NULL建议使用NOT NULL DEFAULT &#39;&#39;</li><li>4）NULL的列会让索引统计和值比较都更复杂。可为NULL的列会占据更多的磁盘空间，在Mysql中也需要更多复杂的处理程序</li></ul></li></ul><ul><li><p>索引设计过程中应该注意的点</p><ul><li>选择唯一性索引
+    唯一性索引的值是唯一的，可以更快速的通过该索引来确定某条记录,保证物理上面唯一</li><li>为经常需要排序、分组和联合操作的字段建立索引 ，经常需要ORDER BY、GROUP BY、DISTINCT和UNION等操作的字段，排序操作会浪费很多时间</li><li>常作为查询条件的字段建立索引
+    如果某个字段经常用来做查询条件，那么该字段的查询速度会影响整个表的查询速度        </li></ul><ul><li><p>数据少的地方不必建立索引</p><p>org.mybatis.generator配置讲解    引入：</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="powershell" style="page-break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="powershell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">dependency</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">groupId</span><span class="cm-operator">&gt;</span><span class="cm-identifier">org</span><span class="cm-punctuation">.</span><span class="cm-identifier">mybatis</span><span class="cm-punctuation">.</span><span class="cm-identifier">generator</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">groupId</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">artifactId</span><span class="cm-operator">&gt;</span><span class="cm-identifier">mybatis-generator-core</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">artifactId</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">scope</span><span class="cm-operator">&gt;</span><span class="cm-identifier">test</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">scope</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">version</span><span class="cm-operator">&gt;</span><span class="cm-number">1.3.2</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">version</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">optional</span><span class="cm-operator">&gt;</span><span class="cm-identifier">true</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">optional</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;/</span><span class="cm-identifier">dependency</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;</span><span class="cm-identifier">dependency</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">groupId</span><span class="cm-operator">&gt;</span><span class="cm-identifier">commons-io</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">groupId</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">artifactId</span><span class="cm-operator">&gt;</span><span class="cm-identifier">commons-io</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">artifactId</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-operator">&lt;</span><span class="cm-identifier">version</span><span class="cm-operator">&gt;</span><span class="cm-number">2.5</span><span class="cm-operator">&lt;/</span><span class="cm-identifier">version</span><span class="cm-operator">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-operator">&lt;/</span><span class="cm-identifier">dependency</span><span class="cm-operator">&gt;</span> &nbsp; </span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 308px;"></div><div class="CodeMirror-gutters" style="display: none; height: 308px;"></div></div></div></pre></li></ul></li></ul><p>&nbsp;</p><h3><a name='header-n766' class='md-header-anchor '></a>第3集        排行榜三大接口讲解</h3><p>**  <strong>简介：多机器部署同一套服务（代码），性能更好，更承受更高的用户并发</strong></p><ul><li><p>添加用户积分</p></li><li><p>获取top N 排行  </p><ul><li><p>redisService新增方法reverseRangeWithScores()</p><p>&nbsp;</p></li></ul></li><li><p>根据用户ID获取排行</p><ul><li>zset.rank(key,value)，key为set的名称，value为用户id</li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n784' class='md-header-anchor '></a>第4集        springboot项目初始化加载讲解</h3><p><strong>*  场景：将一千万用户白名单load缓存，用户请求的时候判断该用户是否是缓存里面的用户</strong></p><ul><li><p>springboot实现初始化加载配置（实现缓存预热）</p><ul><li><p>采用实现springboot ApplicationRunner
+该方法仅在SpringApplication.run(…)完成之前调用</p></li><li><p>采用实现InitializingBean</p><p>    InitializingBean接口为bean提供了初始化方法的方式，它只包括afterPropertiesSet()方法。
+​     在spring初始化bean的时候，如果bean实现了InitializingBean接口，
+​     在对象的所有属性被初始化后之后才会调用afterPropertiesSet()方法</p></li></ul></li><li><p>初始化同步redis数据</p></li><li><p>初始化完成再放入请求</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><h2><a name='header-n804' class='md-header-anchor '></a>第8章   2018支付宝蚂蚁金服Redis面试题分析</h2><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n807' class='md-header-anchor '></a>第1集        缓存的收益和成本</h3><p><strong>支付宝面试题讲解</strong></p><ul><li><p>缓存带来的回报</p><ul><li><p>高速读写</p><ul><li>缓存加速读写速度：CPU L1/L2/L3 Cache、Linux page Cache加速硬盘读写、浏览器缓存、Ehcache缓存数据库结果</li></ul></li><li><p>降低后端负载</p><ul><li>后端服务器通过前端缓存降低负载： 业务端使用Redis降低后端MySQL负载等  </li></ul></li></ul></li><li><p>缓存带来的代价</p><ul><li><p>数据不一致</p><ul><li>缓存层和数据层有时间窗口不一致，和更新策略有关      </li></ul></li><li><p>代码维护成本</p><ul><li>原本只需要读写MySQL就能实现功能，但加入了缓存之后就要去维护缓存的数据，增加了代码复杂度。</li></ul></li><li><p>堆内缓存可能带来内存溢出的风险影响用户进程，如ehCache、loadingCache </p></li><li><p>堆内缓存和远程服务器缓存redis的选择</p><ul><li>堆内缓存一般性能更好，远程缓存需要套接字传输</li><li>用户级别缓存尽量采用远程缓存</li><li>大数据量尽量采用远程缓存，服务节点化原则</li></ul></li></ul></li></ul><p>&nbsp;</p><h3><a name='header-n848' class='md-header-anchor '></a>第2集        2018支付宝面试题之缓存雪崩</h3><p>**  <strong>简介：支付宝面试题讲解</strong></p><ul><li><p>什么是缓存雪崩？你有什么解决方案来防止缓存雪崩？</p><ul><li><p>如果缓存集中在一段时间内失效，发生大量的缓存穿透，所有的查询都落在数据库上，造成了缓存雪崩。
+由于原有缓存失效，新缓存未到期间所有原本应该访问缓存的请求都去查询数据库了，而对数据库CPU 和内存造成巨大压力，严重的会造成数据库宕机</p></li><li><p>你有什么解决方案来防止缓存雪崩？</p><ul><li><p>加锁排队</p><ul><li>key： whiltList  value：1000w个uid 指定setNx whiltList value nullValue
+mutex互斥锁解决，Redis的SETNX去set一个mutex key，
+当操作返回成功时，再进行load db的操作并回设缓存；
+否则，就重试整个get缓存的方法</li></ul></li><li><p>数据预热</p><ul><li>缓存预热就是系统上线后，将相关的缓存数据直接加载到缓存系统。这样就可以避免在用户请求的时候，先查询数据库，然后再将数据缓存的问题!用户直接查询事先被预热的缓存数据!可以通过缓存reload机制，预先去更新缓存，再即将发生大并发访问前手动触发加载缓存不同的key </li></ul></li><li><p>双层缓存策略</p><ul><li>C1为原始缓存，C2为拷贝缓存，C1失效时，可以访问C2，C1缓存失效时间设置为短期，C2设置为长期。</li></ul></li><li><p>定时更新缓存策略</p><ul><li>失效性要求不高的缓存，容器启动初始化加载，采用定时任务更新或移除缓存</li></ul></li><li><p>设置不同的过期时间，让缓存失效的时间点尽量均匀</p></li></ul></li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n883' class='md-header-anchor '></a>第3集      2018支付宝面试题之缓存穿透</h3><p> <strong>简介：支付宝面试题讲解</strong></p><ul><li><p>什么是缓存穿透？你有什么解决方案来防止缓存穿透？</p><ul><li>缓存穿透是指用户查询数据，在数据库没有，自然在缓存中也不会有。这样就导致用户查询的时候，
+在缓存中找不到对应key的value，每次都要去数据库再查询一遍，然后返回空(相当于进行了两次
+无用的查询)。这样请求就绕过缓存直接查数据库</li></ul></li><li><p>你有什么解决方案来防止缓存穿透？</p><ul><li><p>采用布隆过滤器BloomFilter</p><ul><li>将所有可能存在的数据哈 希到一个足够大的 bitmap 中，一个一定不存在的数据会被这个                 bitmap 拦截掉，从而避免了对底层存储系统的查询压力</li></ul></li><li><p>缓存空值</p><ul><li>如果一个查询返回的数据为空(不管是数据不 存在，还是系统故障)我们仍然把这个空结果进行缓存，但它的过期时间会很短，最长不超过五分钟。 通过这个直接设置的默认值存放到缓存，这样第二次到缓冲中获取就有值了，而不会继续访问数据库   </li></ul></li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong>小D课堂，愿景：让编程不在难学，让技术与生活更加有趣</strong></p><p><strong>相信我们，这个是可以让你学习更加轻松的平台，里面的课程绝对会让你技术不断提升</strong></p><p><strong>欢迎加小D讲师的微信： jack794666918</strong></p><p>我们官方网站：<a href='https://xdclass.net' target='_blank' class='url'>https://xdclass.net</a></p><p><strong>千人IT技术交流QQ群： 718617859</strong></p><p><strong>重点来啦：免费赠送你干货文档大集合</strong>，包含前端，后端，测试，大数据，运维主流技术文档（持续更新）</p><p><a href='https://mp.weixin.qq.com/s/qYnjcDYGFDQorWmSfE7lpQ' target='_blank' class='url'>https://mp.weixin.qq.com/s/qYnjcDYGFDQorWmSfE7lpQ</a> </p><p>&nbsp;</p></div>
+</body>
+</html>

@@ -1,0 +1,604 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>webpack4</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) { 
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:first-child { margin-top: -20px; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.701961); color: rgb(85, 85, 85); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; background-position: 0px 0px; background-repeat: initial initial; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print { 
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid-page; break-before: avoid-page; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid-page; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) { 
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background-color: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; background-position: initial initial; background-repeat: initial initial; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; }
+a.md-print-anchor { white-space: pre !important; border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; text-shadow: initial !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; white-space: nowrap; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; border: none !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-width: 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; word-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; background-position: 0px 0px; background-repeat: initial initial; }
+.CodeMirror-wrap pre { word-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right-width: 30px; border-right-style: solid; border-right-color: transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right-style: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right-style: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background-color: rgba(255, 255, 0, 0.4); background-position: initial initial; background-repeat: initial initial; }
+@media print { 
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Open Sans Regular'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/400.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: normal;
+    src: local('Open Sans Italic'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/400i.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Open Sans Bold'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/700.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: bold;
+    src: local('Open Sans Bold Italic'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/700i.woff') format('woff');
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    /*background: url("file:///Users/xdclass/Library/Application%20Support/images/modules/styleguide/para.png") no-repeat 10px center;*/
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    padding-bottom: .3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+   padding-bottom: .3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #dfe2e5;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 0.2em 1em;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+}
+
+ .typora-export li, .typora-export p, .typora-export,  .footnote-line {white-space: normal;} 
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-mac'><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n4' class='md-header-anchor '></a>第一章 webpack4前言</h2><p>&nbsp;</p><h3><a name='header-n6' class='md-header-anchor '></a>第一集 webpack4入门到进阶案例实战课程介绍</h3><p><span>	</span><strong>简介：讲述webpack4课程大纲</strong></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n11' class='md-header-anchor '></a>第二集 webpack模块化打包概念介绍</h3><p><span>	</span><strong>简介：详细介绍webpack，什么是模块化打包</strong></p><ul><li><p>webpack是什么</p><p>&nbsp;</p><p><span>	</span>webpack其实就是一个JavaScript应用程序的静态模块打包器。</p><p>&nbsp;</p></li><li><p>webpack有什么作用</p><p>&nbsp;</p><p><span>	</span>模块化打包：</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  webpack会将项目的资源文件当成一个一个模块，模块之间会有依赖关系，</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  webpack将会对这些有依赖关系的文件进行处理，让浏览器能够识别，</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  最后将应用程序需要的每个模块打包成一个或者多个bundle</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 66px;"></div><div class="CodeMirror-gutters" style="display: none; height: 66px;"></div></div></div></pre></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n31' class='md-header-anchor '></a>第三集 webpack开发环境准备及常用打包模式介绍</h3><p><span>	</span><strong>简介：讲解webpack开发环境的搭建，打包模式和效果</strong></p><ol start='' ><li><p>安装node</p><p>&nbsp;</p><ul><li><p>node官网地址：&lt;<a href='https://nodejs.org/zh-cn/' target='_blank' class='url'>https://nodejs.org/zh-cn/</a></p><p>&nbsp;</p></li></ul></li><li><p>创建package.json文件</p><p>&nbsp;</p><ul><li><p>命令：npm init</p><p>&nbsp;</p></li></ul></li><li><p>安装webpack</p><p>&nbsp;</p><ul><li><p>本地安装：（推荐）</p><p>      npm install --save-dev webpack</p><p>      npm install --save-dev webpack-cli</p><p>&nbsp;</p></li><li><p>全局安装：</p><p>npm install --global webpack webpack-cli   </p></li></ul><p>  </p></li><li><p>打包</p><p>&nbsp;</p><p><span>	</span>默认entry入口 src/index.js</p><p>        默认output出口 dist/main.js</p><p>&nbsp;</p><ul><li><p>打包模式：</p><p><span>	</span>webpack --mode development</p><p>        webpack --mode production</p></li></ul><p><span>	</span></p><ul><li>Package.json文件下添加scripts
+<img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317161243.png' alt='微信图片_20190317161243' referrerPolicy='no-referrer' /></li></ul></li></ol><p>    </p><ul><li>设置好后在命令行程序中运行npm run dev或者npm run build来进行打包。</li></ul><p>&nbsp;</p><p><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317161305.png' alt='微信图片_20190317161305' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n90' class='md-header-anchor '></a>第二章：webpack4配置</h2><p>&nbsp;</p><h3><a name='header-n92' class='md-header-anchor '></a>第一集 webpack核心配置config文件的初使用</h3><p><span>	</span><strong>简介：讲解webpack开发环境的搭建，打包模式和效果</strong></p><ol start='' ><li>新建一个webpack.config.js</li><li>配置入口entry(所需打包的文件路径)
+<img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317161925.png' alt='微信图片_20190317161925' referrerPolicy='no-referrer' /></li></ol><p>&nbsp;</p><ol start='3' ><li>配置出口output
+<img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317161930.png' alt='微信图片_20190317161930' referrerPolicy='no-referrer' /></li></ol><p>           （1）path指文件打包后的存放路径</p><p>           （2）path.resolve()方法将路径或路径片段的序列处理成绝对路径</p><p>           （3）__dirname 表示当前文件所在的目录的绝对路径</p><p>           （4）filename是打包后文件的名称</p><p>&nbsp;</p><ol start='4' ><li>命令行程序运行npm run dev或者npm run build</li></ol><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n118' class='md-header-anchor '></a>第二集 webpack常用配置之入口entry和出口output的进阶用法</h3><p><strong>简介：讲解入口和出口的多文件用法</strong></p><ul><li><p>入口entry</p><ul><li><p>单入口</p><ul><li><p>单文件</p><p>&nbsp;</p><p><span>	</span>例如：  entry：‘./src/index.js’</p><p>&nbsp;</p></li><li><p>多文件</p><p><span>	</span>在你想要多个依赖文件一起注入，并且将它们的依赖导向到一个“chunk”时，传入数组的方式就很有用。</p><p><span>	</span></p><p><span>	</span>例如：</p><p><span>	</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317162436.png' alt='微信图片_20190317162436' referrerPolicy='no-referrer' /></p></li></ul></li><li><p>多入口</p><p>&nbsp;</p><p>                  例如：</p><p> <span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317162441.png' alt='微信图片_20190317162441' referrerPolicy='no-referrer' /></p><p>&nbsp;</p></li></ul></li><li><p>出口output</p><ul><li><p>单出口</p><p>&nbsp;</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317162712.png' alt='微信图片_20190317162712' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><ul><li>多出口</li></ul><p>&nbsp;</p><p><span>			</span> <span>	</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317162717.png' alt='微信图片_20190317162717' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n159' class='md-header-anchor '></a>第三集  开发调试必备配置之本地服务器webpack-dev-server的搭建</h3><p><strong>简介：讲解webpack如何配置本地服务器</strong></p><ol start='' ><li><p>了解webpack-dev-server</p><p>webpack-dev-server是webpack官方提供的一个小型Express服务器。使用它可以为webpack打包生成的资源文件提供web服务。</p><p> </p><p>webpack-dev-server 主要提供两个功能：</p><p>（1）为静态文件提供服务</p><p>（2）自动刷新和热替换(HMR)</p><p>&nbsp;</p></li><li><p>安装webpack-dev-server</p><p>&nbsp;</p><p><span>	</span>npm install --save-dev webpack-dev-server</p><p>&nbsp;</p></li><li><p>配置webpack.config.js文件</p><p>&nbsp;</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317163107.png' alt='微信图片_20190317163107' referrerPolicy='no-referrer' /></p><p>&nbsp;</p></li><li><p>配置package.json</p><p>                      &quot;scripts&quot;: {</p><p>                               &quot;start&quot;: &quot;webpack-dev-server --mode development&quot;</p><p>                       }</p><p>&nbsp;</p></li><li><p>在build文件夹下新建index.html文件，在html中引入bundle.js</p><p>&nbsp;</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317163408.png' alt='微信图片_20190317163408' referrerPolicy='no-referrer' /><span>	</span></p><p>&nbsp;</p></li><li><p>在命令行程序运行npm run start</p><p> </p></li></ol><p>                                自动弹出页面，控制台有输出信息</p><p><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317163411.png' alt='微信图片_20190317163411' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n204' class='md-header-anchor '></a>第三章  webpack4 loader</h2><p>&nbsp;</p><h3><a name='header-n206' class='md-header-anchor '></a>第一集  webpack加载css所需loader及其使用方式</h3><p><strong>简介：讲解css加载器的使用方式</strong></p><ul><li><p>了解loader</p><ul><li><p>loader让 webpack 能够去处理那些非 JavaScript 文件（webpack 自身只理解 JavaScript）。loader 可以将所有类型的文件转换为 webpack 能够处理的有效模块，然后你就可以利用 webpack 的打包能力，对它们进行处理。</p><p>&nbsp;</p></li></ul></li><li><p>安装loader</p><ul><li><p>安装style-loader和css-loader</p><p> </p><p>下载：</p><p>npm install style-loader css-loader --save-dev</p><p>&nbsp;</p></li></ul></li><li><p>配置loader</p><ul><li><p>在webpack.config.js文件里配置module中的rules</p><p>  </p><p>在 webpack 的配置中 loader 有两个目标：</p><ol start='' ><li>test 属性，用于标识出应该被对应的 loader 进行转换的某个或某些文件。</li><li>use 属性，表示进行转换时，应该使用哪个 loader。</li></ol><p>&nbsp;</p><p>代码：</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317164007.png' alt='微信图片_20190317164007' referrerPolicy='no-referrer' /></p></li></ul></li></ul><p>&nbsp;</p><ul><li><p>创建css文件并运行命令</p><p>&nbsp;</p><ul><li>创建index.css文件并import进index.js文件中</li></ul></li></ul><p>                <img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317164010.png' alt='微信图片_20190317164010' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n252' class='md-header-anchor '></a>第二集  webpack如何编译less和sass文件</h3><p><strong>简介：讲解webpack编译less和sass的方式</strong></p><ul><li><p>Less</p><ul><li><p>处理效果</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317165121.png' alt='微信图片_20190317165121' referrerPolicy='no-referrer' /></p><p>    编译为</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317165126.png' alt='微信图片_20190317165126' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p>&nbsp;</p></li><li><p>安装loader</p><p>      </p><ul><li><p>安装less-loader和less</p><p>    </p><p>   下载：</p><p>   npm install less-loader less --save-dev</p><p>   </p></li></ul></li><li><p>配置loader</p><ul><li><p>代码：</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317165129.png' alt='微信图片_20190317165129' referrerPolicy='no-referrer' /></p></li></ul></li></ul></li><li><p>Sass</p><ul><li><p>处理效果</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317165133.png' alt='微信图片_20190317165133' referrerPolicy='no-referrer' /></p><p>     编译为</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317165136.png' alt='微信图片_20190317165136' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p>&nbsp;</p></li><li><p>安装loader</p><ul><li><p>安装sass-loader和node-sass</p><p>    </p><p>   下载：</p><p>   npm install sass-loader node-sass --save-dev</p><p>   </p></li></ul></li><li><p>配置loader</p><p><span>	</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317165139.png' alt='微信图片_20190317165139' referrerPolicy='no-referrer' /><span>	</span></p></li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n306' class='md-header-anchor '></a>第三集  使用PostCSS自动添加css3浏览器前缀</h3><p><strong>简介：讲解PostCSS如何为css3自动添加浏览器前缀</strong></p><ol start='' ><li><p>处理效果</p><p><span>	</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317185100.png' alt='微信图片_20190317185100' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p>编译为</p><p><span>	</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317185103.png' alt='微信图片_20190317185103' referrerPolicy='no-referrer' /></p></li><li><p>安装loader</p><p>&nbsp;</p><p><span>	</span>安装postcss-loader和autoprefixer</p><p> </p><p>        下载：</p><p>         npm install --save-dev  postcss-loader autoprefixer</p><p>&nbsp;</p></li><li><p>配置loader</p><p>&nbsp;</p><ul><li><p>需要和autoprefixer一起用</p><p><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317185105.png' alt='微信图片_20190317185105' referrerPolicy='no-referrer' /></p><p>&nbsp;</p></li><li><p>浏览器设置：</p><ul><li><p>Loader中设置：</p><p><code>{</code></p><p>                          <code>browsers: [</code></p><p>                                  <code>&#39;ie &gt;= 8&#39;,//ie版本大于等于ie8</code></p><p>                                  <code>&#39;Firefox &gt;= 20&#39;,//火狐浏览器大于20版本</code></p><p>                                  <code>&#39;Safari &gt;= 5&#39;,//safari大于5版本</code></p><p>                                  <code>&#39;Android &gt;= 4&#39;,//版本大于Android4</code></p><p>                                  <code>&#39;Ios &gt;= 6&#39;,//版本大于ios6</code></p><p>                                  <code>&#39;last 4 version&#39;//浏览器最新的四个版本</code></p><p>                         <code>]</code></p><p><code>}</code></p></li><li><p>或者在package.json里加上下图设置：</p></li></ul></li></ul><p><span>	</span></p></li></ol><p>                            <img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317185108.png' alt='微信图片_20190317185108' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n354' class='md-header-anchor '></a>第四集  webpack文件处理（file-loader）- 图片处理</h3><p><strong>简介：讲解使用file-loader处理图片加载</strong></p><ul><li><p>安装loader</p><p><span>	</span>下载安装file-loader</p><p>              npm install --save-dev file-loader</p><p>&nbsp;</p></li><li><p>配置config文件</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317220130.png' alt='微信图片_20190317220130' referrerPolicy='no-referrer' /></p><p>&nbsp;</p></li><li><p>选项配置</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317220133.png' alt='微信图片_20190317220133' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><p>                      配置options：</p><p>                                    name：为你的文件配置自定义文件名模板（默认值[hash].[ext]）</p><p>                                    context：配置自定义文件的上下文，默认为 webpack.config.js</p><p><span>				</span>    publicPath：为你的文件配置自定义 public 发布目录</p><p>                                    outputPath：为你的文件配置自定义 output 输出目录</p><p> </p><p>                   <span>		</span>[ext]：资源扩展名</p><p>                  <span>		</span> [name]：资源的基本名称</p><p>                   <span>		</span>[path]：资源相对于 context的路径</p><p>                  <span>		</span> [hash]：内容的哈希值</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n388' class='md-header-anchor '></a>第五集  webpack文件处理（file-loader）- 字体文件处理</h3><p><strong>简介：讲解file-loader处理字体文件的方式</strong></p><ul><li><p>下载字体文件</p><ul><li><p>以bootstrap字体文件为例子</p><p>Boostrap字体文件下载地址：<a href='https://v3.bootcss.com/getting-started/' target='_blank' class='url'>https://v3.bootcss.com/getting-started/</a></p><p>&nbsp;</p></li></ul></li><li><p>在index.js中引入bootstrap.css，在html中使用bootstrap字体图标</p><p>&nbsp;</p></li><li><p>配置config文件</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317220458.png' alt='微信图片_20190317220458' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n409' class='md-header-anchor '></a>第六集  webpack文件处理（file-loader）- 第三方js库处理</h3><p><strong>简介：讲解第三方js库的引入方式及使用方法</strong></p><p>&nbsp;</p><p>      <em>以jquery库为例子</em></p><ul><li><p>本地导入</p><p><span>	</span>编写配置文件：</p><p> </p><p>              webpack.ProvidePlugin参数是键值对形式，键就是我们项目中使用的变量名，值就是键所指向的库。webpack.ProvidePlugin会先从npm安装的包中查找是否有符合的库。</p><p>             如果webpack配置了resolve.alias选项（理解成“别名”），那么webpack.ProvidePlugin就会顺着设置的路径一直找下去</p><p> </p><p>         使用webpack.ProvidePlugin前需要引入webpack</p><p><span>	</span>                     <img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317220919.png' alt='微信图片_20190317220919' referrerPolicy='no-referrer' /></p><p>     <span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317220922.png' alt='微信图片_20190317220922' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><p>&nbsp;</p><ul><li><p>npm安装模块</p><ul><li><p>安装jquery库：</p><p>&nbsp;</p><p>npm install jquery --save-dev</p></li></ul><p>  </p><ul><li>直接在js里import引入</li></ul><p><span>	</span></p><p>         Import $ from‘jquery’</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n444' class='md-header-anchor '></a>第七集  使用babel-loader编译ES6语法</h3><p><strong>简介：讲解webpack将ES6语法编译成ES5语法的方式</strong></p><ul><li><p>了解babel</p><ul><li>目前，ES6（ES2015）这样的语法已经得到很大规模的应用，它具有更加简洁、功能更加强大的特点，实际项目中很可能会使用采用了ES6语法的模块，但浏览器对于ES6语法的支持并不完善。为了实现兼容，就需要使用转换工具对ES6语法转换为ES5语法，babel就是最常用的一个工具</li></ul><p>&nbsp;</p><p>&nbsp;</p><p><span>	</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317221430.png' alt='微信图片_20190317221430' referrerPolicy='no-referrer' /></p><p><span>	</span>转换为</p><p><span>	</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317221433.png' alt='微信图片_20190317221433' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p>&nbsp;</p><ul><li><p>babel转化语法所需依赖项：</p><p>babel-loader： 负责 es6 语法转化</p><p>babel-core： babel核心包</p><p>babel-preset-env：告诉babel使用哪种转码规则进行文件处理</p></li></ul><p>&nbsp;</p></li><li><p>安装依赖</p><ul><li>npm install babel-loader @babel/core @babel/preset-env --save-dev</li></ul><p>&nbsp;</p></li><li><p>配置config文件</p><ul><li><p>exclude表示不在指定目录查找相关文件</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317221653.png' alt='微信图片_20190317221653' referrerPolicy='no-referrer' /></p></li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><ul><li><p>根目录新建 .babelrc 文件配置转换规则</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317221656.png' alt='微信图片_20190317221656' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><ul><li><p>另一种规则配置</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317221658.png' alt='微信图片_20190317221658' referrerPolicy='no-referrer' /></p><p>&nbsp;</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n500' class='md-header-anchor '></a>第四章 webpack4 插件</h2><h3><a name='header-n501' class='md-header-anchor '></a>第一集  根据HTML模板自动生成HTML</h3><p><strong>简介：讲解如何使用插件根据模板自动生成html文件并关联相关文件</strong></p><ul><li><p>了解html-webpack-plugin</p><ul><li><p>HtmlWebpackPlugin会自动为你生成一个HTML文件，根据指定的index.html模板生成对应的 html 文件。</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317222034.png' alt='微信图片_20190317222034' referrerPolicy='no-referrer' /></p></li></ul></li></ul><p><span>		</span></p><p><span>		</span>根据src下的index.html自动在打包后的目录下生成html文件，相关引用关系和文件路径都会按照正确的配置被添加进生成的html里</p><p>&nbsp;</p><ul><li><p>安装依赖</p><ul><li>npm install html-webpack-plugin --save-dev</li></ul><p>&nbsp;</p></li><li><p>配置config文件</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317222131.png' alt='微信图片_20190317222131' referrerPolicy='no-referrer' /></p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317222133.png' alt='微信图片_20190317222133' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n527' class='md-header-anchor '></a>第二集  webpack提取分离css单独打包</h3><p><strong>简介：讲解如何从打包后的chunk文件中提取分离出css</strong></p><ul><li><p>处理效果</p><ul><li><p>将所有的入口 chunk(entry chunks)中引用的css，移动到独立分离的 CSS 文件</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317222340.png' alt='微信图片_20190317222340' referrerPolicy='no-referrer' /></p></li></ul></li></ul><p><span>		</span></p><ul><li><p>ExtractTextPlugin插件</p><ul><li><p>安装（下载）</p><p>                npm install --save-devextract-text-webpack-plugin@next</p><p>&nbsp;</p></li><li><p>配置config文件</p><ul><li><p>引入插件：</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317222554.png' alt='微信图片_20190317222554' referrerPolicy='no-referrer' /></p></li><li><p>Rules设置：</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317222557.png' alt='微信图片_20190317222557' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><ul><li><p>Plugins设置</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317222559.png' alt='微信图片_20190317222559' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p></li></ul></li><li><p>mini-css-extract-plugin插件</p><ul><li><p>安装（下载）</p><p>        npm install --save-dev mini-css-extract-plugin</p><p>&nbsp;</p></li><li><p>配置config文件</p><ul><li><p>引入插件</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317222744.png' alt='微信图片_20190317222744' referrerPolicy='no-referrer' /></p><p>&nbsp;</p></li><li><p>Rules设置：</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317222746.png' alt='微信图片_20190317222746' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><ul><li><p>Plugins设置</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317222749.png' alt='微信图片_20190317222749' referrerPolicy='no-referrer' /></p></li></ul></li></ul><p>&nbsp;</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n588' class='md-header-anchor '></a>第三集  压缩css及优化css结构</h3><p><strong>简介：讲解使用插件压缩css及优化css结构</strong></p><ul><li><p>处理效果</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317223000.png' alt='微信图片_20190317223000' referrerPolicy='no-referrer' /></p></li></ul><p><span>		</span>处理后</p><p><span>				</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317223004.png' alt='微信图片_20190317223004' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><ul><li><p>optimize-css-assets-webpack-plugin插件</p><ul><li><p>安装（下载）</p><p>&nbsp;</p><p><span>		</span>npm install --save-dev optimize-css-assets-webpack-plugin</p><p>&nbsp;</p></li><li><p>配置config文件</p><ul><li><p>引入插件：</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317223006.png' alt='微信图片_20190317223006' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><ul><li><p>Plugins设置</p><p>&nbsp;</p><p>assetNameRegExp: 正则表达式，用于匹配需要优化或者压缩的资源名。默认值是 /.css$/g</p><p>cssProcessor: 用于压缩和优化CSS 的处理器，默认是 cssnano.</p><p>cssProcessorPluginOptions:传递给cssProcessor的插件选项，默认为{}</p><p>canPrint:表示插件能够在console中打印信息，默认值是true</p><p>discardComments:去除注释</p><p><span>	</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317223008.png' alt='微信图片_20190317223008' referrerPolicy='no-referrer' /></p></li></ul></li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n627' class='md-header-anchor '></a>第四集  运用webpack插件拷贝静态文件</h3><p><strong>简介：讲解如何拷贝静态资源文件到打包后的目录</strong></p><ul><li><p>处理效果</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317223504.png' alt='微信图片_20190317223504' referrerPolicy='no-referrer' /></p></li></ul><p><span>		</span>处理后</p><p><span>				</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317223507.png' alt='微信图片_20190317223507' referrerPolicy='no-referrer' /></p><ul><li><p>安装(下载)</p><p>&nbsp;</p><p><span>		</span>npm install --save-dev copy-webpack-plugin</p><p>&nbsp;</p></li><li><p>配置config文件</p><ul><li><p>引入插件</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317223509.png' alt='微信图片_20190317223509' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><ul><li>Plugins设置<span>	</span></li></ul></li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="java"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="java"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><span><span>​</span>x</span></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 22px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><p>              <span>	</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317223511.png' alt='微信图片_20190317223511' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n660' class='md-header-anchor '></a>第五集    webpack插件之clean-webpack-plugin清除文件</h3><p><strong>简介：讲解如何清除之前打包的旧文件</strong></p><ul><li><p>处理效果</p><p>  </p><p><span>	</span>当我们修改带hash的文件并进行打包时，每打包一次就会生成一个新的文件，而旧的文件并没有删除。</p><p><span>	</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317223859.png' alt='微信图片_20190317223859' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><p><span>		</span>  为了解决这种情况，我们可以使用clean-webpack-plugin在打包之前将文件先清除，之后再打包出最新的文件</p><p><span>		</span>  <img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317223901.png' alt='微信图片_20190317223901' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><ul><li>安装</li></ul><p><span>			</span>npm install --save-dev clean-webpack-plugin</p><p>&nbsp;</p><ul><li><p>配置config文件</p><ul><li><p>引入插件</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317223903.png' alt='微信图片_20190317223903' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><ul><li><p>Plugin配置</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317223906.png' alt='微信图片_20190317223906' referrerPolicy='no-referrer' /></p></li></ul><p><span>		</span></p><p><span>		</span><strong>注意：clean-webpack-plugin 2.0版本需改成以下配置</strong></p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317224103.png' alt='微信图片_20190317224103' referrerPolicy='no-referrer' /></p></li></ul><p><span>		</span></p><p><span>			</span>  dry是否模拟删除文件，true是模拟删除，不会移除文件，false会移除文件再重新创建</p><p><span>			</span>  插件地址：<a href='https://www.npmjs.com/package/clean-webpack-plugin' target='_blank' class='url'>https://www.npmjs.com/package/clean-webpack-plugin</a></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n703' class='md-header-anchor '></a>第五章  webpack4 其他配置</h2><p>&nbsp;</p><h3><a name='header-n705' class='md-header-anchor '></a>第一集  webpack处理HTML内嵌图片</h3><p><strong>简介：讲解webpack如何处理html中引入的图片</strong><span>	</span></p><ul><li><p>处理效果
+  <span>		</span>未使用loader时，会出现路径错误，图片不显示的情况</p><p>  ​<span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317224551.png' alt='微信图片_20190317224551' referrerPolicy='no-referrer' /></p></li></ul><p><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317224555.png' alt='微信图片_20190317224555' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p><span>		</span>经过loader处理后，图片能正常显示</p><p><span>								</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317224557.png' alt='微信图片_20190317224557' referrerPolicy='no-referrer' /></p><p>                                                   <span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317224559.png' alt='微信图片_20190317224559' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><ul><li><p>安装</p><p><span>		</span>cnpm install --save-dev html-loader</p></li></ul><p>&nbsp;</p><ul><li><p>配置config文件</p><p> </p><ul><li><p>Rules中配置</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317224602.png' alt='微信图片_20190317224602' referrerPolicy='no-referrer' /></p></li></ul><p><span>	</span></p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n735' class='md-header-anchor '></a>第二集  webpack调试必备配置之SourceMap的类型介绍及其使用方式</h3><p><strong>简介：讲解sourcemap的作用和调试方式</strong></p><ul><li><p>了解sourcemap</p><p>&nbsp;</p><p>     Sourcemap是为了解决实际运行代码（打包后的）出现问题时无法定位到开发环境中的源代码的问题。</p></li></ul><p><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317224951.png' alt='微信图片_20190317224951' referrerPolicy='no-referrer' /></p><p><span>	</span></p><p><span>		</span>devtool选项</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317224953.png' alt='微信图片_20190317224953' referrerPolicy='no-referrer' /></p><p><span>		</span>5个基本类型：</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>(1)eval</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" class="cm-tab-wrap-hack" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>每个模块都使用 eval() 执行，每一个模块后会增加sourceURL来关联模块处理前后的对应关系。如下图</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 88px;"></div><div class="CodeMirror-gutters" style="display: none; height: 88px;"></div></div></div></pre><p><span>				</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317225405.png' alt='微信图片_20190317225405' referrerPolicy='no-referrer' /></p><p><span>				</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317225407.png' alt='微信图片_20190317225407' referrerPolicy='no-referrer' /></p><p><span>				</span></p><p><span>				</span>由于会映射到转换后的代码，而不是映射到原始代码（没有从 loader 中获取 source map），所以不能正确的显示行数。因为不需要生成模块的sourcemap，因此打包的速度很快。</p><p><span>	</span></p><p><span>			</span>（2）source-map</p><p>&nbsp;</p><p><span>				</span>source-map会为模块生成独立的soucemap文件。</p><p><span>				</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317225701.png' alt='微信图片_20190317225701' referrerPolicy='no-referrer' /></p><p><span>				</span></p><p><span>				</span>打包后的模块在模块后面会对应引用一个.map文件，同时在打包好的目录下会生成相应的.map文件。如下图</p><p><span>				</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317225703.png' alt='微信图片_20190317225703' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>（3）lnline</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" class="cm-tab-wrap-hack" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>与source-map不同，增加inline属性后，不会生成独立的.map文件，source map 转换为 DataUrl 后添加到 bundle 中。如下所示：</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 88px;"></div><div class="CodeMirror-gutters" style="display: none; height: 88px;"></div></div></div></pre><p><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317225929.png' alt='微信图片_20190317225929' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p><span>		</span>        （4） cheap</p><p><span>					</span>cheap属性在打包后同样会为每一个模块生成.map文件，但是与source-map的区别在于cheap生成的.map文件会忽略原始代码中的列信息,也不包含loader的sourcemap。</p><p>&nbsp;</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>（5）module</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" class="cm-tab-wrap-hack" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>包含了loader模块之间的sourcemap，将 loader source map 简化为每行一个映射。</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 66px;"></div><div class="CodeMirror-gutters" style="display: none; height: 66px;"></div></div></div></pre><p>&nbsp;</p><ul><li><p>使用sourcemap调试</p><ul><li><p>js调试</p><p><span>	</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317230250.png' alt='微信图片_20190317230250' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><ul><li><p>css调试</p><p><span>	</span>调试css时需要将压缩css的插件注释掉</p><p><span>	</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317230253.png' alt='微信图片_20190317230253' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><p><span>		</span>Css sourcemap设置</p><p>&nbsp;</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317230255.png' alt='微信图片_20190317230255' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n789' class='md-header-anchor '></a>第三集  webpack开发调试必备功能之模块热替换HMR</h3><p><strong>简介：讲解webpack核心知识点模块热替换的作用</strong></p><ul><li><p>了解模块热替换</p><p>&nbsp;</p><p><span>	</span>模块热替换(HMR - Hot Module Replacement)功能会在应用程序运行过程中替换、添加或删除模块，而无需重新加载整个页面。主要是通过以下几种方式，来显著加快开发速度：</p><p> </p><p><span>		</span>l       保留在完全重新加载页面时丢失的应用程序状态。</p><p><span>		</span>l       只更新变更内容，以节省宝贵的开发时间。</p><p><span>		</span>l       调整样式更加快速 - 几乎相当于在浏览器调试器中更改样式。</p></li></ul><p>&nbsp;</p><ul><li><p>配置config文件</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317230625.png' alt='微信图片_20190317230625' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><p><span>			</span>Plugin设置</p><p><span>				</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317230627.png' alt='微信图片_20190317230627' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p><span>			</span>NamedModulesPlugin：当开启 <a href='https://github.com/docschina/webpack.js.org/blob/cn/guides/hot-module-replacement'>HMR</a> 的时候使用该插件会显示模块的相对路径</p><p>&nbsp;</p><ul><li>其他配置</li></ul><p>&nbsp;</p><p><span>		</span>devServer中加入hotOnly表示只有热更新，不会自动刷新页面</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317230747.png' alt='微信图片_20190317230747' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p><span>		</span></p><p><span>		</span>修改js文件时代码不会自动热更新，需加入以下代码可以告诉 webpack 接受更新的模块</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317230750.png' alt='微信图片_20190317230750' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n824' class='md-header-anchor '></a>第四集  区分生产环境和开发环境的配置</h3><p><strong>简介：讲解如何区分生产环境和开发环境的配置</strong></p><ul><li><p>简单了解</p><p>开发环境和生产环境的构建目标差异很大。在开发环境中，我们需要具有强大的、具有实时重新加载或热模块替换能力和localhost server。
+<span>		</span>而在生产环境中，我们的目标则转向于关注更小的 bundle，以及资源的优化，以改善加载时间。所以我们通常建议为每个环境编写彼此独立的webpack 配置。</p></li><li><p>安装</p><p><span>	</span>npm install --save-dev webpack-merge</p></li></ul><p>&nbsp;</p><ul><li><p>配置</p><ul><li><p>拆分文件</p><ul><li>在这里我们可以将webpack.config.js拆分为三个文件，分别是webpack.common.conf.js、webpack.dev.conf.js和webpack.prod.conf.js。</li></ul><p>&nbsp;</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317231238.png' alt='微信图片_20190317231238' referrerPolicy='no-referrer' /></p><p><span>		</span></p><p><span>		</span>webpack.common.conf.js是放一些我们公用的配置，比如入口entry、出口output、常用loader以及插件等。</p><p>                webpack.dev.conf.js是在开发环境上的配置，比如devServer配置、模块热替换等方便开发的配置</p><p>                webpack.prod.conf.js是在生产环境上的配置，比如提取分离css、压缩css和js等</p><p>&nbsp;</p><ul><li><p>webpack.common.conf.js</p><p>&nbsp;</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317231241.png' alt='微信图片_20190317231241' referrerPolicy='no-referrer' /></p><p>&nbsp;</p></li><li><p>Webpack.dev.conf.js</p><p>&nbsp;</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317231243.png' alt='微信图片_20190317231243' referrerPolicy='no-referrer' /></p><p>&nbsp;</p></li><li><p>Webpack.prod.conf.js</p><p>&nbsp;</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317231246.png' alt='微信图片_20190317231246' referrerPolicy='no-referrer' /></p></li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><ul><li><p>修改script</p><p><span>	</span>修改package.json文件中的script</p><p><span>	</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317231427.png' alt='微信图片_20190317231427' referrerPolicy='no-referrer' /></p></li></ul></li></ul><p><span>			</span>    --config可以指定使用的配置文件</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n878' class='md-header-anchor '></a>第五集  webpack打包优化技巧(1)</h3><p><strong>简介：介绍如何优化webpack打包速度的常用方法</strong></p><h3><a name='header-n880' class='md-header-anchor '></a>第六集  webpack打包优化技巧(2)</h3><p><strong>简介：案例实战之使用resolve、happypack等方法优化打包速度</strong></p><ul><li><p>减少文件搜索范围</p><ul><li>优化resolve.extensions配置</li></ul><p>&nbsp;</p><p><span>			</span>在导入语句没带文件后缀时，Webpack 会自动带上后缀后去尝试询问文件是否存在。</p><p> </p><p><span>			</span>在配置 resolve.extensions 时你需要遵守以下几点，以做到尽可能的优化构建性能：</p><p><span>				</span>l        后缀尝试列表要尽可能的小，不要把项目中不可能存在的情况写到后缀尝试列表中。</p><p><span>				</span>l        频率出现最高的文件后缀要优先放在最前面，以做到尽快的退出寻找过程。</p><p><span>				</span>l        在源码中写导入语句时，要尽可能的带上后缀，从而可以避免寻找过程。例如在你确定的情况下把 require(&#39;./data&#39;) 写成 require(&#39;./data.json&#39;) 。</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317231847.png' alt='微信图片_20190317231847' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><ul><li>优化 resolve.modules配置</li></ul><p>&nbsp;</p><p><span>		</span>resolve.modules 用于配置 Webpack 去哪些目录下寻找第三方模块。</p><p><span>		</span>resolve.modules 的默认值是 [&#39;node_modules&#39;]，会采用向上递归搜索的方式查找</p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317231930.png' alt='微信图片_20190317231930' referrerPolicy='no-referrer' /></p><p><span>		</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317231933.png' alt='微信图片_20190317231933' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p>&nbsp;</p><ul><li>优化resolve.alias配置</li></ul><p>&nbsp;</p><p><span>			</span>resolve.alias配置项通过别名来把原导入路径映射成一个新的导入路径。</p><p><span>			</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317232021.png' alt='微信图片_20190317232021' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p>&nbsp;</p><ul><li>缩小文件匹配范围</li></ul></li></ul><p>&nbsp;</p><p><span>					</span>Include：需要处理的文件的位置</p><p><span>					</span>Exclude：排除掉不需要处理的文件的位置</p><p><span>					</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317232102.png' alt='微信图片_20190317232102' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><ul><li>设置noParse</li></ul><p>&nbsp;</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>防止 webpack 解析那些任何与给定正则表达式相匹配的文件。忽略的文件中不应该含有import, require, define 的调用，或任何其他导入机制。忽略大型的 library 可以提高构建性能。比如jquery、elementUI等库</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 66px;"></div><div class="CodeMirror-gutters" style="display: none; height: 66px;"></div></div></div></pre><p><span>		</span>       <img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317232146.png' alt='微信图片_20190317232146' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><ul><li><p>给babel-loader设置缓存</p><p><span>	</span></p><p><span>	</span>babel-loader提供了 cacheDirectory特定选项（默认 false）：设置时，给定的目录将用于缓存加载器的结果。</p><p><span>	</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317232223.png' alt='微信图片_20190317232223' referrerPolicy='no-referrer' /></p></li></ul><p>&nbsp;</p><ul><li>使用happyPack</li></ul><p>&nbsp;</p><p><span>		</span>HappyPack的基本原理：在webpack构建过程中，我们需要使用Loader对js，css，图片，字体等文件做转换操作，</p><p><span>		</span>并且转换的文件数据量也是非常大的，且这些转换操作不能并发处理文件，而是需要一个个文件进行处理，HappyPack的基本原理是将</p><p><span>		</span>这部分任务分解到多个子进程中去并行处理，子进程处理完成后把结果发送到主进程中，从而减少总的构建时间。</p><p>&nbsp;</p><p><span>		</span>（1）安装</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>cnpm install happypack --save-dev</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 22px;"></div><div class="CodeMirror-gutters" style="display: none; height: 22px;"></div></div></div></pre><p><span>		</span>（2）配置webpack.common.conf.js文件</p><p>&nbsp;</p><p><span>				</span>引入happypack</p><p><span>				</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317232654.png' alt='微信图片_20190317232654' referrerPolicy='no-referrer' /></p><p><span>				</span></p><p><span>				</span>Rules设置</p><p><span>				</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317232603.png' alt='微信图片_20190317232603' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p><span>				</span>Plugins设置</p><p><span>				</span><img src='C:\Users\Administrator\Desktop\笔记图片\微信图片_20190317232605.png' alt='微信图片_20190317232605' referrerPolicy='no-referrer' /></p><p>&nbsp;</p><p><span>		</span>（3）npm run build打包</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n965' class='md-header-anchor '></a>第六章  webpack4 课程总结</h2><p>&nbsp;</p><h3><a name='header-n967' class='md-header-anchor '></a>第一集  课程核心知识回顾和总结</h3><p><strong>简介：回顾总结课程核心知识点</strong></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong>小D课堂，愿景：让编程不在难学，让技术与生活更加有趣</strong></p><p><strong>相信我们，这个是可以让你学习更加轻松的平台，里面的课程绝对会让你技术不断提升</strong></p><p><strong>欢迎加小D讲师的微信： jack794666918</strong></p><p>我们官方网站：<a href='https://xdclass.net' target='_blank' class='url'>https://xdclass.net</a></p><p><strong>千人IT技术交流QQ群： 718617859</strong></p><p><strong>重点来啦：免费赠送你干货文档大集合</strong>，包含前端，后端，测试，大数据，运维主流技术文档（持续更新）</p><p><a href='https://mp.weixin.qq.com/s/qYnjcDYGFDQorWmSfE7lpQ' target='_blank' class='url'>https://mp.weixin.qq.com/s/qYnjcDYGFDQorWmSfE7lpQ</a> </p><p>&nbsp;</p></div>
+</body>
+</html>

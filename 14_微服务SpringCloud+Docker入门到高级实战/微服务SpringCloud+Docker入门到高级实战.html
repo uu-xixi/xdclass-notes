@@ -1,0 +1,1456 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>springcloud笔记</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) { 
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:first-child { margin-top: -20px; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.701961); color: rgb(85, 85, 85); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; background-position: 0px 0px; background-repeat: initial initial; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print { 
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid-page; break-before: avoid-page; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid-page; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) { 
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background-color: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; background-position: initial initial; background-repeat: initial initial; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; }
+a.md-print-anchor { white-space: pre !important; border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; text-shadow: initial !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; white-space: nowrap; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; border: none !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-width: 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; word-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; background-position: 0px 0px; background-repeat: initial initial; }
+.CodeMirror-wrap pre { word-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right-width: 30px; border-right-style: solid; border-right-color: transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right-style: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right-style: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background-color: rgba(255, 255, 0, 0.4); background-position: initial initial; background-repeat: initial initial; }
+@media print { 
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Open Sans Regular'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/400.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: normal;
+    src: local('Open Sans Italic'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/400i.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Open Sans Bold'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/700.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: bold;
+    src: local('Open Sans Bold Italic'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/700i.woff') format('woff');
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    /*background: url("file:///Users/xdclass/Library/Application%20Support/images/modules/styleguide/para.png") no-repeat 10px center;*/
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    padding-bottom: .3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+   padding-bottom: .3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #dfe2e5;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 0.2em 1em;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+}
+
+ .typora-export li, .typora-export p, .typora-export,  .footnote-line {white-space: normal;} 
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-mac'><h3><a name='header-n0' class='md-header-anchor '></a> </h3><h2><a name='header-n2' class='md-header-anchor '></a>第一章 课程介绍和学习路线 </h2><p>&nbsp;</p><h3><a name='header-n4' class='md-header-anchor '></a>1、微服务架构SpringCloud课程介绍</h3><p><span>	</span><strong>简介：课程介绍和课程大纲讲解，讲课风格和重点内容理解技巧</strong></p><p>&nbsp;</p><h3><a name='header-n7' class='md-header-anchor '></a>2、技术选型和学后水平</h3><p><span>	</span><strong>简介：课程所需基础和技术选型讲解，学完课程可以到达怎样的程度</strong>
+​<span>	</span></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">1、IDEA JDK8 Maven SpringBoot基础 Linux</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">2、理解掌握并开发SpringCloud里面主流架构和组件的基础使用，还有部分源码原理的理解</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">3、掌握学习的技巧和解决问题的思路</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 66px;"></div><div class="CodeMirror-gutters" style="display: none; height: 66px;"></div></div></div></pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h2><a name='header-n13' class='md-header-anchor '></a>第二章 架构演进和分布式系统基础知识</h2><h3><a name='header-n14' class='md-header-anchor '></a>1、传统架构演进到分布式架构</h3><p><span>	</span><strong>简介：讲解单机应用和分布式应用架构演进基础知识 (画图)</strong></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">高可用 LVS+keepalive </span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">1、单体应用：</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>开发速度慢</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>启动时间长</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>依赖庞大</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>等等</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">2、微服务</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>易开发、理解和维护</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>独立的部署和启动</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>等</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>不足：</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>分布式系统-》分布式事务问题</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>需要管理多个服务-》服务治理</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 286px;"></div><div class="CodeMirror-gutters" style="display: none; height: 286px;"></div></div></div></pre><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n19' class='md-header-anchor '></a>2、微服务核心基础讲解</h3><p><span>	</span><strong>简介：讲解微服务核心知识 ：网关、服务发现注册、配置中心、链路追踪、负载均衡器、熔断</strong>
+​
+<span>		</span>1、网关：路由转发 + 过滤器
+​<span>				</span>/api/v1/pruduct/      商品服务
+​<span>				</span>/api/v1/order/        订单服务
+​<span>				</span>/api/v1/user/   <span>	</span>  用户服务
+<span>		</span>2、服务注册发现：调用和被调用方的信息维护
+<span>		</span>3、配置中心：管理配置，动态更新 application.properties
+<span>		</span>4、链路追踪：分析调用链路耗时
+<span>			</span>例子：下单-》查询商品服务获取商品价格-》查询用户信息-》保存数据库
+<span>		</span>5、负载均衡器：分发负载
+<span>		</span>6、熔断：保护自己和被调用方</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n24' class='md-header-anchor '></a>3、常见的微服务框架</h3><p><span>	</span><strong>简介:讲解常用的微服务框架</strong></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="" style="page-break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>consumer: 调用方</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>provider: 被调用方</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>一个接口一般都会充当两个角色（不是同时充当）</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" class="cm-tab-wrap-hack" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>1、dubbo: zookeeper + dubbo + springmvc/springboot</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>官方地址：http://dubbo.apache.org/#!/?lang=zh-cn</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>配套</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>通信方式：rpc</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>注册中心：zookeper/redis</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>配置中心：diamond</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>2、springcloud: 全家桶+轻松嵌入第三方组件(Netflix 奈飞)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>官网：http://projects.spring.io/spring-cloud/</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>配套</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>通信方式：http restful</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>注册中心：eruka/consul</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>配置中心：config</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>断路器：hystrix</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>网关：zuul</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>分布式追踪系统：sleuth+zipkin</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>学习资料：https://blog.csdn.net/zhangweiwei2020/article/details/78646252</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 440px;"></div><div class="CodeMirror-gutters" style="display: none; height: 440px;"></div></div></div></pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n30' class='md-header-anchor '></a>4、微服务下电商项目基础模块设计</h3><p><span>	</span><strong>简介：微服务下电商项目基础模块设计 分离几个模块，课程围绕这个基础项目进行学习</strong><span>	</span>
+​<span>		</span>小而精的方式学习微服务</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>1、用户服务</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>1）用户信息接口</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>2）登录接口</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>2、商品服务</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>1）商品列表</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>2）商品详情</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>3、订单服务 </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>1）我的订单</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>2）下单接口</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 198px;"></div><div class="CodeMirror-gutters" style="display: none; height: 198px;"></div></div></div></pre><h2><a name='header-n33' class='md-header-anchor '></a>第三章 SpringCloud核心组件注册中心</h2><p>&nbsp;</p><h3><a name='header-n35' class='md-header-anchor '></a>1、什么是微服务的注册中心</h3><p><span>	</span><strong>简介：讲解什么是注册中心，常用的注册中心有哪些 (画图)</strong></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>理解注册中心：服务管理,核心是有个服务注册表，心跳机制动态维护</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>服务提供者provider: 启动的时候向注册中心上报自己的网络信息</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>服务消费者consumer: 启动的时候向注册中心上报自己的网络信息，拉取provider的相关网络信息</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>为什么要用：</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>微服务应用和机器越来越多，调用方需要知道接口的网络地址，如果靠配置文件的方式去控制网络地址，对于动态新增机器，维护带来很大问题</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>主流的注册中心：</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>zookeeper、Eureka、consul、etcd 等</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 176px;"></div><div class="CodeMirror-gutters" style="display: none; height: 176px;"></div></div></div></pre><p><span>		</span></p><p>&nbsp;</p><h3><a name='header-n40' class='md-header-anchor '></a>2、分布式应用知识CAP理论知识</h3><p><span>	</span><strong>简介：讲解分布式核心知识CAP理论</strong></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>CAP定理：</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>指的是在一个分布式系统中，Consistency（一致性）、 Availability（可用性）、Partition tolerance（分区容错性），三者不可同时获得。</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>一致性（C）：在分布式系统中的所有数据备份，在同一时刻是否同样的值。（所有节点在同一时间的数据完全一致，越多节点，数据同步越耗时）</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>可用性（A）：负载过大后，集群整体是否还能响应客户端的读写请求。（服务一直可用，而且是正常响应时间）</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>分区容错性（P）：分区容忍性，就是高可用性，一个节点崩了，并不影响其它的节点（100个节点，挂了几个，不影响服务，越多机器越好）</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>CAP理论就是说在分布式存储系统中，最多只能实现上面的两点。而由于当前的网络硬件肯定会出现延迟丢包等问题，所以分区容忍性是我们必须需要实现的。所以我们只能在一致性和可用性之间进行权衡</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 220px;"></div><div class="CodeMirror-gutters" style="display: none; height: 220px;"></div></div></div></pre><p><span>		</span></p><p>&nbsp;</p><h3><a name='header-n45' class='md-header-anchor '></a>3、分布式系统CAP原理常见面试题和注册中心选择</h3><p><span>		</span><strong>简介:讲解CAP原则在面试中回答和注册中心选择</strong></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>C A 满足的情况下，P不能满足的原因：</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>数据同步(C)需要时间，也要正常的时间内响应(A)，那么机器数量就要少，所以P就不满足</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>CP 满足的情况下，A不能满足的原因：</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>数据同步(C)需要时间, 机器数量也多(P)，但是同步数据需要时间，所以不能再正常时间内响应，所以A就不满足</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>AP 满足的情况下，C不能满足的原因：</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>机器数量也多(P)，正常的时间内响应(A)，那么数据就不能及时同步到其他节点，所以C不满足</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>注册中心选择：</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>Zookeeper：CP设计，保证了一致性，集群搭建的时候，某个节点失效，则会进行选举行的leader，或者半数以上节点不可用，则无法提供服务，因此可用性没法满足</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>Eureka：AP原则，无主从节点，一个节点挂了，自动切换其他节点可以使用，去中心化</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 242px;"></div><div class="CodeMirror-gutters" style="display: none; height: 242px;"></div></div></div></pre><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>结论：分布式系统中P,肯定要满足，所以只能在CA中二选一</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>没有最好的选择，最好的选择是根据业务场景来进行架构设计</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>如果要求一致性，则选择zookeeper，如金融行业</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" class="cm-tab-wrap-hack" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>如果要去可用性，则Eureka，如电商系统</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 110px;"></div><div class="CodeMirror-gutters" style="display: none; height: 110px;"></div></div></div></pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n56' class='md-header-anchor '></a>4、SpringCloud微服务核心组件Eureka介绍和闭源后影响</h3><p>​<strong>简介：SpringCloud体系介绍</strong></p><p><span>		</span>官方地址：<a href='http://projects.spring.io/spring-cloud/' target='_blank' class='url'>http://projects.spring.io/spring-cloud/</a>
+<span>		</span>Eureka的基础知识--&gt;画图讲解交互流程，服务提供者&lt;--&gt;服务消费者 ;
+<span>		</span>Eureka 2.x闭源后选择
+<span>	</span>参考：<a href='https://www.jianshu.com/p/d32ae141f680' target='_blank' class='url'>https://www.jianshu.com/p/d32ae141f680</a>
+<span>		</span> <a href='https://blog.csdn.net/zjcjava/article/details/78608892' target='_blank' class='url'>https://blog.csdn.net/zjcjava/article/details/78608892</a></p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n64' class='md-header-anchor '></a>5、服务注册和发现Eureka Server搭建实战</h3><p><span>	</span><strong>简介：使用IDEA搭建Eureka服务中心Server端并启动，项目基本骨架介绍</strong>
+​<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n66" mdtype="fences" style="page-break-inside: unset;">官方文档：http://cloud.spring.io/spring-cloud-netflix/single/spring-cloud-netflix.html#spring-cloud-eureka-server
+第一步：创建项目
+第二步: 添加注解 @EnableEurekaServer
+第三步：增加配置application.yml
+		server:
+		  port: 8761
+		eureka:
+		  instance:
+		    hostname: localhost
+		  client:
+		  #声明自己是个服务端
+		    registerWithEureka: false
+		    fetchRegistry: false
+		    serviceUrl:
+		      defaultZone: http://${eureka.instance.hostname}:${server.port}/eureka/
+第四步：访问注册中心页面
+maven地址: https://www.cnblogs.com/sword-successful/p/6408281.html
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n75' class='md-header-anchor '></a>6、服务注册和发现之Eureka Client搭建商品服务实战</h3><p><span>	</span><strong>简介：搭建用商品服务，并将服务注册到注册中心</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n77" mdtype="fences">1、创建一个SpirngBoot应用，增加服务注册和发现依赖
+2、模拟商品信息，存储在内存中
+3、开发商品列表接口，商品详情接口
+4、配置文件加入注册中心地址
+	使用eureka客户端 官方文档：http://cloud.spring.io/spring-cloud-netflix/single/spring-cloud-netflix.html#netflix-eureka-client-starter
+</pre><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n80' class='md-header-anchor '></a>7、Eureka服务注册中心配置控制台问题处理</h3><p><strong>简介：讲解服务注册中心管理后台，（后续还会细讲）</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n82" mdtype="fences">问题：eureka管理后台出现一串红色字体：是警告，说明有服务上线率低
+EMERGENCY! EUREKA MAY BE INCORRECTLY CLAIMING INSTANCES ARE UP WHEN THEY'RE NOT. RENEWALS ARE LESSER THAN THRESHOLD AND HENCE THE INSTANCES ARE NOT BEING EXPIRED JUST TO BE SAFE.
+关闭检查方法：eureka服务端配置文件加入
+server:
+	enable-self-preservation: false
+注意：自我保护模式禁止关闭，默认是开启状态true
+问题二：为什么只加一个注册中心地址，就可以注册
+By having spring-cloud-starter-netflix-eureka-client on the classpath, your application automatically registers with the Eureka Server. Configuration is required to locate the Eureka server, as shown in the following example:
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h2><a name='header-n88' class='md-header-anchor '></a>第四章 服务消费者ribbon和feign实战和注册中心高可用</h2><h3><a name='header-n90' class='md-header-anchor '></a>1、常用的服务间调用方式讲解</h3><p><strong>简介：讲解常用的服务间的调用方式</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n93" mdtype="fences">	RPC:
+		远程过程调用，像调用本地服务(方法)一样调用服务器的服务
+		支持同步、异步调用
+		客户端和服务器之间建立TCP连接，可以一次建立一个，也可以多个调用复用一次链接
+		PRC数据包小
+			protobuf
+			thrift
+		rpc：编解码，序列化，链接，丢包，协议
+	Rest(Http):
+		http请求，支持多种协议和功能
+		开发方便成本低
+		http数据包大
+		java开发：HttpClient，URLConnection
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n97' class='md-header-anchor '></a>2、微服务调用方式之ribbon实战 订单调用商品服务</h3><p><strong>简介：实战电商项目 订单服务 调用商品服务获取商品信息</strong>
+<span>		</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n99" mdtype="fences">	1、创建order_service项目
+	2、开发伪下单接口
+	3、使用ribbon. (类似httpClient,URLConnection) 
+		启动类增加注解
+		  @Bean
+		  @LoadBalanced
+		  public RestTemplate restTemplate() {
+		       return new RestTemplate();
+		  }
+	4、根据名称进行调用商品，获取商品详情
+</pre><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n102' class='md-header-anchor '></a>3、高级篇幅之Ribbon负载均衡源码分析实战</h3><p><strong>简介: 讲解ribbon服务间调用负载均衡源码分析</strong>
+<span>		</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n104" mdtype="fences">	1、完善下单接口
+	2、分析@LoadBalanced
+		1）首先从注册中心获取provider的列表
+		2）通过一定的策略选择其中一个节点
+		3）再返回给restTemplate调用
+</pre><p>&nbsp;</p><h3><a name='header-n106' class='md-header-anchor '></a>4、高级篇幅之服务间调用之负载均衡策略调整实战</h3><p><strong>简介：实战调整默认负载均衡策略实战</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n108" mdtype="fences">自定义负载均衡策略：http://cloud.spring.io/spring-cloud-static/Finchley.RELEASE/single/spring-cloud.html#_customizing_the_ribbon_client_by_setting_properties
+在配置文件yml里面，自定义负载均衡策略
+	#自定义负载均衡策略
+	product-service:
+	  ribbon:
+	    NFLoadBalancerRuleClassName: com.netflix.loadbalancer.RandomRule
+策略选择：
+	1、如果每个机器配置一样，则建议不修改策略 (推荐)
+	2、如果部分机器配置强，则可以改为 WeightedResponseTimeRule
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n119' class='md-header-anchor '></a>5、微服务调用方式之feign 实战 订单调用商品服务</h3><p><strong>简介：改造电商项目 订单服务 调用商品服务获取商品信息</strong>
+<span>		</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n121" mdtype="fences" style="page-break-inside: unset;">	Feign： 伪RPC客户端(本质还是用http)
+	官方文档: https://cloud.spring.io/spring-cloud-openfeign/
+	1、使用feign步骤讲解（新旧版本依赖名称不一样）
+		加入依赖
+			 &lt;dependency&gt;
+		        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+		        &lt;artifactId&gt;spring-cloud-starter-openfeign&lt;/artifactId&gt;
+		    &lt;/dependency&gt;
+		启动类增加@EnableFeignClients
+		增加一个接口 并@FeignClient(name="product-service")
+	2、编码实战
+	3、注意点：
+		1、路径
+		2、Http方法必须对应
+		3、使用requestBody，应该使用@PostMapping
+		4、多个参数的时候，通过@RequestParam（"id") int id)方式调用
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n126' class='md-header-anchor '></a>6、Feign核心源码解读和服务调用方式ribbon和Feign选择<span>	</span></h3><p><strong>简介: 讲解Feign核心源码解读和 服务间的调用方式ribbon、feign选择</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n128" mdtype="fences" style="page-break-inside: unset;">	1、ribbon和feign两个的区别和选择
+		选择feign
+			默认集成了ribbon
+			写起来更加思路清晰和方便
+			采用注解方式进行配置，配置熔断等方式方便
+	2、超时配置
+		默认optons readtimeout是60，但是由于hystrix默认是1秒超时
+		#修改调用超时时间
+		feign:
+		  client:
+		    config:
+		      default:
+		        connectTimeout: 2000
+		        readTimeout: 2000
+		模拟接口响应慢，线程睡眠新的方式
+		  try {
+	            TimeUnit.SECONDS.sleep(1);
+	        } catch (InterruptedException e) {
+	            e.printStackTrace();
+	        }
+</pre><p>&nbsp;</p><p>&nbsp;</p><h2><a name='header-n131' class='md-header-anchor '></a>第五章 互联网架构服务降级熔断 Hystrix 实战</h2><h3><a name='header-n133' class='md-header-anchor '></a>1、分布式核心知识之熔断、降级讲解</h3><p><strong>简介：系统负载过高，突发流量或者网络等各种异常情况介绍，常用的解决方案</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n135" mdtype="fences">1、熔断：
+	保险丝，熔断服务，为了防止整个系统故障，包含子和下游服务
+	下单服务 -》商品服务
+			-》用户服务 （出现异常-》熔断）
+2、降级：
+	抛弃一些非核心的接口和数据
+	旅行箱的例子：只带核心的物品，抛弃非核心的，等有条件的时候再去携带这些物品
+3、熔断和降级互相交集
+	相同点：
+		1）从可用性和可靠性触发，为了防止系统崩溃
+		2）最终让用户体验到的是某些功能暂时不能用
+	不同点
+		1）服务熔断一般是下游服务故障导致的，而服务降级一般是从整体系统负荷考虑，由调用方控制
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n140' class='md-header-anchor '></a>2、Netflix开源组件断路器Hystrix介绍</h3><p><strong>简介：介绍Hystrix基础知识和使用场景</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n142" mdtype="fences" style="page-break-inside: unset;">文档地址：
+	https://github.com/Netflix/Hystrix
+	https://github.com/Netflix/Hystrix/wiki
+1、什么是Hystrix？
+	1）hystrix对应的中文名字是“豪猪”
+	
+	2）hystrix	英[hɪst'rɪks] 美[hɪst'rɪks]
+2、为什么要用？
+	在一个分布式系统里，一个服务依赖多个服务，可能存在某个服务调用失败，
+	比如超时、异常等，如何能够保证在一个依赖出问题的情况下，不会导致整体服务失败，
+	通过Hystrix就可以解决
+	http://cloud.spring.io/spring-cloud-netflix/single/spring-cloud-netflix.html#_circuit_breaker_hystrix_clients
+3、提供了熔断、隔离、Fallback、cache、监控等功能
+4、熔断后怎么处理？
+	出现错误之后可以 fallback 错误的处理信息
+	兜底数据
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n147' class='md-header-anchor '></a>3、Feign结合Hystrix断路器开发实战《上》</h3><p><strong>简介：讲解SpringCloud整合断路器的使用，用户服务异常情况</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n149" mdtype="fences" style="page-break-inside: unset;">1、加入依赖
+注意：网上新旧版本问题，所以要以官网为主，不然部分注解会丢失
+最新版本 2.0
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+2、增加注解
+	启动类里面增加注解
+	@EnableCircuitBreaker
+	注解越来越多-》 SpringCloudApplication注解
+3、API接口编码实战
+  熔断-》降级
+	1）最外层api使用，好比异常处理（网络异常，参数或者内部调用问题）
+		api方法上增加 @HystrixCommand(fallbackMethod = "saveOrderFail")
+		
+		编写fallback方法实现，方法签名一定要和api方法签名一致（注意点！！！）
+补充： 修改maven仓库地址
+pom.xml中修改
+&lt;repositories&gt;
+    &lt;repository&gt;
+        &lt;id&gt;nexus-aliyun&lt;/id&gt;
+        &lt;name&gt;Nexus aliyun&lt;/name&gt;
+        &lt;layout&gt;default&lt;/layout&gt;
+        &lt;url&gt;http://maven.aliyun.com/nexus/content/groups/public&lt;/url&gt;
+        &lt;snapshots&gt;
+            &lt;enabled&gt;false&lt;/enabled&gt;
+        &lt;/snapshots&gt;
+        &lt;releases&gt;
+            &lt;enabled&gt;true&lt;/enabled&gt;
+        &lt;/releases&gt;
+    &lt;/repository&gt;
+&lt;/repositories&gt;
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n154' class='md-header-anchor '></a>4、Feign结合Hystrix断路器开发实战《下》</h3><p><strong>简介：讲解SpringCloud整合断路器的使用，用户服务异常情况</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n156" mdtype="fences">1、feign结合Hystrix
+	1）开启feign支持hystrix  (注意，一定要开启，旧版本默认支持，新版本默认关闭)
+		feign:
+		  hystrix:
+		    enabled: true
+	2）FeignClient(name="xxx", fallback=xxx.class ), class需要继承当前FeignClient的类
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n166' class='md-header-anchor '></a>5、熔断降级服务异常报警通知实战</h3><p><strong>简介：完善服务熔断处理，报警机制完善</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n168" mdtype="fences" style="page-break-inside: unset;">1、加入redis依赖
+	&lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-data-redis&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+2、配置redis链接信息
+  redis:
+    database: 0
+    host: 127.0.0.1
+    port: 6379
+    timeout: 2000
+3、使用
+    //监控报警
+    String saveOrderKye = "save-order";
+    String sendValue = redisTemplate.opsForValue().get(saveOrderKye);
+    final String ip = request.getRemoteAddr();
+    new Thread( ()-&gt;{
+        if (StringUtils.isBlank(sendValue)) {
+            System.out.println("紧急短信，用户下单失败，请离开查找原因,ip地址是="+ip);
+            //发送一个http请求，调用短信服务 TODO
+            redisTemplate.opsForValue().set(saveOrderKye, "save-order-fail", 20, TimeUnit.SECONDS);
+        }else{
+            System.out.println("已经发送过短信，20秒内不重复发送");
+        }
+    }).start();
+</pre><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n172' class='md-header-anchor '></a>6、高级篇幅之深入源码剖析Hystrix降级策略和调整</h3><p><strong>简介：源码分析Hystrix降级策略和调整</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n174" mdtype="fences" style="page-break-inside: unset;">1、查看默认讲解策略 HystrixCommandProperties
+	1）execution.isolation.strategy   隔离策略
+		THREAD 线程池隔离 （默认）
+		SEMAPHORE 信号量
+			信号量适用于接口并发量高的情况，如每秒数千次调用的情况，导致的线程开销过高，通常只适用于非网络调用，执行速度快
+	2）execution.isolation.thread.timeoutInMilliseconds  超时时间
+		默认 1000毫秒
+	3）execution.timeout.enabled 是否开启超时限制 （一定不要禁用）
+	4）execution.isolation.semaphore.maxConcurrentRequests 隔离策略为 信号量的时候，如果达到最大并发数时，后续请求会被拒绝，默认是10
+官方文档:
+	https://github.com/Netflix/Hystrix/wiki/Configuration#execution.isolation.strategy
+2、调整策略
+	超时时间调整
+hystrix:
+  command:
+    default:
+      execution:
+        isolation:
+          thread:
+            timeoutInMilliseconds: 4000
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n179' class='md-header-anchor '></a>7、断路器Dashboard监控仪表盘实战</h3><p><strong>简介：讲解断路器Dashboard基础使用和查看</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n181" mdtype="fences" style="page-break-inside: unset;">1、加入依赖
+	 &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-netflix-hystrix-dashboard&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+2、启动类增加注解
+	@EnableHystrixDashboard
+
+3、配置文件增加endpoint
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"
+4、访问入口
+	http://localhost:8781/hystrix
+	Hystrix Dashboard输入： http://localhost:8781/actuator/hystrix.stream 
+参考资料
+	默认开启监控配置
+	https://docs.spring.io/spring-boot/docs/current-SNAPSHOT/reference/htmlsingle/#boot-features-security-actuator
+    配置文件类：
+		spring-configuration-metadata.json
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n185' class='md-header-anchor '></a>8、断路器监控仪表参数讲解和模拟熔断</h3><p><strong>简介：讲解 断路器监控仪表盘参数和模拟熔断</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n187" mdtype="fences">1、sse  server-send-event推送到前端
+资料：https://github.com/Netflix/Hystrix/wiki/Dashboard
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h2><a name='header-n191' class='md-header-anchor '></a>第六章 微服务网关zuul开发实战 </h2><h3><a name='header-n192' class='md-header-anchor '></a>1、微服务网关介绍和使用场景</h3><p><strong>简介：讲解网关的作用和使用场景 (画图)</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n194" mdtype="fences" style="page-break-inside: unset;">1）什么是网关
+	API Gateway，是系统的唯一对外的入口，介于客户端和服务器端之间的中间层，处理非业务功能 提供路由请求、鉴权、监控、缓存、限流等功能
+		统一接入
+			智能路由
+			AB测试、灰度测试
+			负载均衡、容灾处理
+			日志埋点（类似Nignx日志）
+		流量监控
+			限流处理
+			服务降级
+		安全防护
+			鉴权处理
+			监控
+			机器网络隔离
+2）主流的网关
+	zuul：是Netflix开源的微服务网关，和Eureka,Ribbon,Hystrix等组件配合使用，Zuul 2.0比1.0的性能提高很多
+	
+	kong: 由Mashape公司开源的，基于Nginx的API gateway
+	
+	nginx+lua：是一个高性能的HTTP和反向代理服务器,lua是脚本语言，让Nginx执行Lua脚本，并且高并发、非阻塞的处理各种请求
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n198' class='md-header-anchor '></a>2、SpringCloud的网关组件zuul基本使用</h3><p><strong>简介：讲解zuul网关基本使用</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n200" mdtype="fences" style="page-break-inside: unset;">1、加入依赖
+2、启动类加入注解 @EnableZuulProxy
+	默认集成断路器  @EnableCircuitBreaker
+	默认访问规则  
+		http://gateway:port/service-id/**
+			例子：默认 /order-service/api/v1/order/save?user_id=2&amp;product_id=1
+				 自定义 /xdclass_order/api/v1/order/save?user_id=2&amp;product_id=1
+	自定义路由转发：
+		zuul:
+		 routes:
+		 	order-service: /apigateway/**
+	环境隔离配置：
+		需求 ：不想让默认的服务对外暴露接口
+			/order-service/api/v1/order/save
+		配置：
+		zuul: 
+			ignored-patterns:
+				- /*-service/api/v1/order/save
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n205' class='md-header-anchor '></a>3、高级篇幅之Zuul常用问题分析和网关过滤器原理分析</h3><p><strong>简介：讲解Zuul网关原理和过滤器生命周期</strong>
+<span>	</span> </p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n207" mdtype="fences">1、路由名称定义问题
+	路由映射重复覆盖问题
+2、Http请求头过滤问题
+3、过滤器执行顺序问题 ，过滤器的order值越小，越先执行
+4、共享RequestContext，上下文对象
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n212' class='md-header-anchor '></a>4、自定义Zuul过滤器实现登录鉴权实战</h3><p><strong>简介：自定义Zuul过滤器实现登录鉴权实战</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n214" mdtype="fences">1、新建一个filter包
+2、新建一个类，实现ZuulFilter，重写里面的方法
+3、在类顶部加注解，@Component,让Spring扫描
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n218' class='md-header-anchor '></a>5、高级篇幅之高并发情况下接口限流特技<span>	</span></h3><p><strong>简介：谷歌guava框架介绍，网关限流使用</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n220" mdtype="fences">1、nginx层限流
+2、网关层限流
+</pre><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n223' class='md-header-anchor '></a>6、Zuul微服务网关集群搭建</h3><p><strong>简介：微服务网关Zull集群搭建</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n225" mdtype="fences">1、nginx+lvs+keepalive 
+https://www.cnblogs.com/liuyisai/p/5990645.html
+</pre><p>&nbsp;</p><p>&nbsp;</p><h2><a name='header-n228' class='md-header-anchor '></a>第七章 分布式链路追踪系统Sleuth和ZipKin实战</h2><h3><a name='header-n230' class='md-header-anchor '></a>1、微服务下的链路追踪讲解和重要性</h3><p><strong>简介：讲解什么是分布式链路追踪系统，及使用好处</strong></p><p>&nbsp;</p><h3><a name='header-n234' class='md-header-anchor '></a>2、SpringCloud的链路追踪组件Sleuth实战</h3><p><strong>简介：讲解分布式链路追踪组件Sleuth实战</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n236" mdtype="fences" style="page-break-inside: unset;">	1、官方文档
+	http://cloud.spring.io/spring-cloud-static/Finchley.SR1/single/spring-cloud.html#sleuth-adding-project
+	2、什么是Sleuth
+		一个组件，专门用于记录链路数据的开源组件
+		[order-service,96f95a0dd81fe3ab,852ef4cfcdecabf3,false]
+		1、第一个值，spring.application.name的值
+		2、第二个值，96f95a0dd81fe3ab ，sleuth生成的一个ID，叫Trace ID，用来标识一条请求链路，一条请求链路中包含一个Trace ID，多个Span ID
+		3、第三个值，852ef4cfcdecabf3、spanid 基本的工作单元，获取元数据，如发送一个http
+		4、第四个值：false，是否要将该信息输出到zipkin服务中来收集和展示。
+	3、添加依赖
+		&lt;dependency&gt;
+         &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+         &lt;artifactId&gt;spring-cloud-starter-sleuth&lt;/artifactId&gt;
+     	&lt;/dependency&gt;
+</pre><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n240' class='md-header-anchor '></a>3、SpringCloud的链路追踪组件Sleuth常见问题说明</h3><p><strong>简介：讲解分布式链路追踪组件Sleuth常见问题说明</strong></p><p><span>	</span>  </p><h3><a name='header-n244' class='md-header-anchor '></a>4、可视化链路追踪系统Zipkin部署</h3><p><strong>简介：讲解Zipkin的介绍和部署</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n246" mdtype="fences" style="page-break-inside: unset;">	1、什么是zipkin
+		官网：https://zipkin.io/
+		大规模分布式系统的APM工具（Application Performance Management）,基于Google Dapper的基础实现，和sleuth结合可以提供可视化web界面分析调用链路耗时情况			
+	2、同类产品
+		鹰眼（EagleEye）
+		CAT
+		twitter开源zipkin，结合sleuth
+		Pinpoint，运用JavaAgent字节码增强技术
+		StackDriver Trace (Google) 
+	3、开始使用
+		https://github.com/openzipkin/zipkin
+		https://zipkin.io/pages/quickstart.html
+		zipkin组成：Collector、Storage、Restful API、Web UI组成
+	4、知识拓展：OpenTracing
+	OpenTracing 已进入 CNCF，正在为全球的分布式追踪，提供统一的概念和数据标准。 
+	通过提供平台无关、厂商无关的 API，使得开发人员能够方便的添加（或更换）追踪系统的实现。
+		http://blog.daocloud.io/cncf-3/
+		https://www.zhihu.com/question/27994350
+		https://yq.aliyun.com/articles/514488?utm_content=m_43347
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n250' class='md-header-anchor '></a>5、高级篇幅之链路追踪组件Zipkin+Sleuth实战</h3><p><strong>简介：使用Zipkin+Sleuth业务分析调用链路分析实战</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n252" mdtype="fences">	1、文档
+	http://cloud.spring.io/spring-cloud-static/Finchley.SR1/single/spring-cloud.html#_sleuth_with_zipkin_via_httpsleuth收集跟踪信息通过http请求发送给zipkin server，zipkinserver进行跟踪信息的存储以及提供Rest API即可，Zipkin UI调用其API接口进行数据展示默认存储是内存，可也用mysql、或者elasticsearch等存储
+	2、加入依赖
+	&lt;dependency&gt;
+	    &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+	    &lt;artifactId&gt;spring-cloud-starter-zipkin&lt;/artifactId&gt;
+	&lt;/dependency&gt;
+	3、文档说明：http://cloud.spring.io/spring-cloud-static/Finchley.SR1/single/spring-cloud.html#_features_2
+	4、配置zipkin.base-url
+	5、配置采样百分闭spring.sleuth.sampler
+	推荐资料：
+		https://blog.csdn.net/jrn1012/article/details/77837710
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><span>	</span></p><h2><a name='header-n260' class='md-header-anchor '></a>第八章 微服务核心知识分布式配置中心Config实战</h2><p><span>	</span></p><h3><a name='header-n262' class='md-header-anchor '></a>1、微服务下的分布式配置中心</h3><p><strong>简介：讲解什么是配置中心及使用前后的好处 (画图)</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n264" mdtype="fences">	什么是配置中心：
+		一句话：统一管理配置, 快速切换各个环境的配置
+	相关产品：
+		百度的disconf 
+			地址:https://github.com/knightliao/disconf
+		
+		阿里的diamand
+			地址：https://github.com/takeseem/diamond
+		springcloud的configs-server:
+			地址：http://cloud.spring.io/spring-cloud-config/
+	推荐干货文章：http://jm.taobao.org/2016/09/28/an-article-about-config-center/
+</pre><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n267' class='md-header-anchor '></a>2、SpringCloud的配置中心组件config-server实战</h3><p><strong>简介：讲解SpringCloud配置中心config-server实战</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n269" mdtype="fences">	1、新建项目，创建config-server
+	2、启动类增加注解
+		@EnableConfigServer
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n276' class='md-header-anchor '></a>3、使用git服务器结合Config搭建分布式配置中心</h3><p><strong>简介：讲解使用git服务器结合Config搭建分布式配置中心</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n278" mdtype="fences" style="page-break-inside: unset;">	1、默认使用git存储配置中心
+		使用git服务器，可以自己搭建gitlab服务器
+		或者使用github、开源中国git、阿里云git
+		794666918@qq.com
+		xdclass.net123
+		https://gitee.com/waitforxy/config_cloud.git
+	2、配置文件添加配置
+		spring:
+		  application:
+		    name: config-server
+		#git配置
+		  cloud:
+		    config:
+		      server:
+		        git:
+		          uri: https://gitee.com/waitforxy/config_cloud
+		          username: 794666918@qq.com
+		          password: xdclass.net123
+		          #超时时间
+		          timeout: 5
+      			  #分支
+      			  default-label: master
+	3、访问方式（一定要注意语法，如果有问题，会出错）
+		多种访问路径，可以通过启动日志去查看
+		例子 http://localhost:9100/product-service.yml
+		/{name}-{profiles}.properties
+		/{name}-{profiles}.yml
+		/{name}-{profiles}.json
+		/{label}/{name}-{profiles}.yml
+		name 服务器名称
+		profile 环境名称，开发、测试、生产
+		lable 仓库分支、默认master分支
+</pre><p>&nbsp;</p><h3><a name='header-n280' class='md-header-anchor '></a>4、分布式配置中心客户端使用实战</h3><p><strong>简介：微服务里面客户端接入配置中心实战</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n282" mdtype="fences" style="page-break-inside: unset;">	官方文档：http://cloud.spring.io/spring-cloud-config/single/spring-cloud-config.html#_spring_cloud_config_client
+	
+	1、加入依赖
+		 &lt;dependency&gt;
+            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+            &lt;artifactId&gt;spring-cloud-config-client&lt;/artifactId&gt;
+        &lt;/dependency&gt;
+     2、修改对应服务的配置文件,把application.yml 改为 bootstrap.yml
+		#指定注册中心地址
+		eureka:
+		  client:
+		    serviceUrl:
+		      defaultZone: http://localhost:8761/eureka/
+		#服务的名称
+		spring:
+		  application:
+		    name: product-service
+		  #指定从哪个配置中心读取
+		  cloud:
+		    config:
+		      discovery:
+		        service-id: CONFIG-SERVER
+		        enabled: true
+		      profile: test
+		      #建议用lable去区分环境，默认是lable是master分支
+		      #label: test
+	注意点：
+		1.配置文件要用bootstrap.yml
+		2.默认读取文件名是 服务名称
+</pre><p>&nbsp;</p><p>&nbsp;</p><h2><a name='header-n286' class='md-header-anchor '></a>第九章 微服务消息总线Bus结合消息队列RabbitMQ实战</h2><h3><a name='header-n287' class='md-header-anchor '></a>1、消息总线Bus介绍和使用场景</h3><p><strong>简介：讲解消息总线Bus介绍和使用场景</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n289" mdtype="fences">	1、什么是消息
+		一个事件，需要广播或者单独传递给某个接口
+	2、为什么使用这个
+		配置更新了，但是其他系统不知道是否更新
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n294' class='md-header-anchor '></a>2、消息队列和RabbitMQ基础介绍</h3><p><strong>简介：消息队列和RabbitMQ基础介绍</strong>
+<span>			</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n296" mdtype="fences">		1、消息队列介绍
+			参考：https://www.cnblogs.com/linjiqin/p/5720865.html
+		2、同类产品
+			ActiveMQ
+			RocketMQ
+			Kafka
+			等
+		3、SpringCloud默认推荐使用RabbitMQ
+		4、RabbitMQ介绍	
+			官方文档：http://www.rabbitmq.com/getstarted.html
+			中文文档：http://rabbitmq.mr-ping.com/
+</pre><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n299' class='md-header-anchor '></a>3、实战系列使用Docker搭建RabbitMQ3.7</h3><p><strong>简介：使用Docker安装RabbitMQ</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n301" mdtype="fences" style="page-break-inside: unset;">	1、如果对Docker没基础，课程后续有讲解Docker，可以先跳转过去学习Docker
+	2、安装步骤
+		1)拉取镜像：docker pull rabbitmq:management
+		2)查看当前镜像列表：docker images
+		3)删除指定镜像：docker rmi  IMAGE_ID  (如果需要强制删除加 -f)
+		
+		4)创建容器
+		docker run -d --name="myrabbitmq" -p 5671:5671 -p 15672:15672 rabbitmq:management
+		 	-d: 后台运行容器，并返回容器ID
+		 	-p: 端口映射，格式为：主机(宿主)端口:容器端口
+		 	--name="rabbitmq": 为容器指定一个名称
+	3、RabbitMQ默认创建了一个 guest 用户，密码也是 guest, 如果访问不了记得查看防火墙，端口或者云服务器的安全组
+	  管理后台：http://127.0.0.1:15672
+其他安装方式：
+Linux安装：https://blog.csdn.net/qq_34021712/article/details/72567786
+windows安装：http://www.rabbitmq.com/install-windows.html
+</pre><p>&nbsp;</p><h3><a name='header-n304' class='md-header-anchor '></a>4、高级篇幅消息总线整合配置中心架构流程图</h3><p><strong>简介：讲解消息总线Bus结合config组件搭建配置中心项目架构图和操作流程</strong>
+<span>			</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n306" mdtype="fences" style="page-break-inside: unset;">		启动
+		rabbitmq： docker run -d -p 5672:5672 -p 15672:15672 rabbitmq:management
+		rabbitmq默认是5672,所以改为5672端口
+		
+		1、config-client加入依赖
+					   
+	        &lt;!--配置中心结合消息队列--&gt;
+	       
+	        &lt;dependency&gt;
+	            &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+	            &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+	        &lt;/dependency&gt;
+	        &lt;dependency&gt;
+	            &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+	            &lt;artifactId&gt;spring-cloud-starter-bus-amqp&lt;/artifactId&gt;
+	        &lt;/dependency&gt;
+		官方文档：http://cloud.spring.io/spring-cloud-bus/single/spring-cloud-bus.html#_bus_refresh_endpoint
+		文档里面 暴露端点 management.endpoints.web.exposure.include=bus-refresh
+		2、在配置文件中增加关于RabbitMQ的连接(如果是本机，则可以直接启动，采用默认连接配置)
+			spring:
+			  rabbitmq:
+			    host: localhost
+			    port: 5672
+			    username: guest
+			    password: guest
+			#暴露全部的监控信息
+			management:
+			  endpoints:
+			    web:
+			      exposure:
+			        include: "*"
+		3、需要刷新配置的地方，增加注解 
+			@RefreshScope
+		4、访问验证 post方式：
+			http://localhost:8773/actuator/bus-refresh
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n311' class='md-header-anchor '></a>5、微服务相关项目改造配置中心</h3><p><strong>简介：把课程项目改造成配置中心讲解</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n313" mdtype="fences" style="page-break-inside: unset;">1、git里面新增对应项目的配置文件，都要添加下面的配置
+	#服务的名称
+	spring:
+	  rabbitmq:
+	    host: localhost
+	    port: 5672
+	    username: guest
+	    password: guest
+	#暴露全部的监控信息
+	management:
+	  endpoints:
+	    web:
+	      exposure:
+	        include: "*"
+2、项目里面添加maven依赖
+    &lt;!--配置中心客户端--&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-config-client&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;!--config server--&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.boot&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-boot-starter-actuator&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+    &lt;dependency&gt;
+        &lt;groupId&gt;org.springframework.cloud&lt;/groupId&gt;
+        &lt;artifactId&gt;spring-cloud-starter-bus-amqp&lt;/artifactId&gt;
+    &lt;/dependency&gt;
+3、修改application.properties为bootstrap.yml 并拷贝配置文件
+			
+		#指定注册中心地址
+		eureka:
+		  client:
+		    serviceUrl:
+		      defaultZone: http://localhost:8761/eureka/
+		#服务的名称
+		spring:
+		  application:
+		    name: order-service
+		  #指定从哪个配置中心读取
+		  cloud:
+		    config:
+		      discovery:
+		        service-id: CONFIG-SERVER
+		        enabled: true
+		      profile: test
+4、各个项目启动顺序
+	1）注册中心
+	2）配置中心
+	3）对应的服务：商品服务、订单服务。。。
+	4）启动网关
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h2><a name='header-n320' class='md-header-anchor '></a>第十章、SpringCloud课程内容上半部分总结</h2><h3><a name='header-n322' class='md-header-anchor '></a>1、微服务核心知识内容回顾</h3><p><strong>简介：回顾SpringCloud前面10章的基础内容</strong>
+<span>		</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n324" mdtype="fences">	1)介绍微服务的基础知识，核心组件，CAP原理
+	2）SpringCloud注册中心 Eureka
+	3）product-service / order-service
+	4) 伪RPC Ribbon / feign 
+	5) hystrix熔断
+	6) 服务网关介绍，zuul
+	7）配置中心config-server
+</pre><p><span>	</span></p><p>&nbsp;</p><h3><a name='header-n327' class='md-header-anchor '></a>2、微服务下半部分知识 云服务器和Docker容器</h3><p><strong>简介：讲解云服务器和容器知识</strong></p><p><span>	</span></p><p>&nbsp;</p><h2><a name='header-n331' class='md-header-anchor '></a>第十一章 阿里云ECS服务器介绍和网络知识讲解</h2><h3><a name='header-n332' class='md-header-anchor '></a>1、云服务器介绍和阿里云服务器ECS服务器选购</h3><p><strong>简介：什么是云服务器及目前主要的几个厂商介绍</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n334" mdtype="fences">	1、阿里云、腾讯云、亚马逊云
+	阿里云：https://www.aliyun.com/
+	腾讯云：https://cloud.tencent.com/
+	亚马逊云：https://aws.amazon.com/
+</pre><p><span>		</span></p><h3><a name='header-n336' class='md-header-anchor '></a>2、阿里云服务器远程登录和常用工具</h3><p><strong>简介：讲解阿里云服务器登录使用和常见终端工具</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n338" mdtype="fences">	1、windows工具   putty，xshell, security
+		参考资料：
+			https://jingyan.baidu.com/article/e75057f210c6dcebc91a89dd.html
+			https://www.jb51.net/softjc/88235.html
+	2、苹果系统MAC： 通过终端登录 
+		ssh root@ip  回车后输入密码
+		ssh root@120.25.1.38
+	3、可以尝试自己通过百度进行找文档， 安装mysql jdk  nginx maven git redis elk 
+</pre><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n341' class='md-header-anchor '></a>3、互联网架构知识之网站部署上线基础准备</h3><p><strong>简介：讲解应用部署到可以公网访问需要步骤</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n343" mdtype="fences">     1、一个http请求的故事
+     2、什么是cname和a记录
+     		A记录和CNAME只可以同时生效一个，A记录优先
+     
+     3、域名和ip的关系，DNS作用
+     参考资料：
+     	https://blog.csdn.net/benbenzhuhwp/article/details/44704319
+     	https://www.baidu.com/s?ie=utf-8&amp;f=8&amp;rsv_bp=0&amp;rsv_idx=1&amp;ch=1&amp;tn=98050039_dg&amp;wd=%E4%B8%80%E4%B8%AAhttp%E8%AF%B7%E6%B1%82%E7%9A%84%E8%AF%A6%E7%BB%86%E8%BF%87%E7%A8%8B&amp;rsv_pq=80a65c5f00005961&amp;rsv_t=a5fcWreuJzILdSwr4gI8pFqlO7HSu5BlhjwalyVzPiV9w2L%2BKEj78pPi1Qn6Vx4wXxI&amp;rqlang=cn&amp;rsv_enter=1&amp;rsv_sug3=8&amp;rsv_sug1=8&amp;rsv_sug7=100&amp;sug=%25E4%25B8%2580%25E4%25B8%25AAhttp%25E8%25AF%25B7%25E6%25B1%2582%25E7%259A%2584%25E8%25AF%25A6%25E7%25BB%2586%25E8%25BF%2587%25E7%25A8%258B&amp;rsv_n=1
+</pre><p>&nbsp;</p><h3><a name='header-n346' class='md-header-anchor '></a>4、域名购买和配置解析实战</h3><p><strong>简介：域名购买和配置解析实战</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n348" mdtype="fences">    1、购买域名，备案
+    	阿里云 备案地址：https://beian.aliyun.com/
+    2、购买服务器，阿里云，腾讯云，亚马逊云aws
+    3、配置域名解析到服务器
+</pre><p><span>	</span></p><p>&nbsp;</p><p><span>	</span></p><h2><a name='header-n352' class='md-header-anchor '></a>第十二章 微服务必备技能Docker容器基础篇幅 </h2><p><span>	</span></p><h3><a name='header-n354' class='md-header-anchor '></a>1、微服务下的Docker介绍和使用场景</h3><p><strong>简介：Docker介绍和使用场景</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n356" mdtype="fences" style="page-break-inside: unset;">	1、什么是Dokcer
+		百科:一个开源的应用容器引擎，让开发者可以打包他们的应用以及依赖包到一个可移植的容器中，然后发布到任何流行的 Linux 机器上，也可以实现虚拟化。容器是完全使用沙箱机制，相互之间不会有任何接口；
+		使用go语言编写，在LCX（linux容器）基础上进行的封装
+		简单来说：
+			1）就是可以快速部署启动应用
+			2）实现虚拟化，完整资源隔离
+			3）一次编写，四处运行（有一定的限制，比如Docker是基于Linux 64bit的，无法在32bit的linux/Windows/unix环境下使用）
+
+	2、为什么要用
+		1、提供一次性的环境，假如需要安装Mysql，则需要安装很多依赖库、版本等，如果使用Docker则通过镜像就可以直接启动运行   
+		2、快速动态扩容，使用docker部署了一个应用，可以制作成镜像，然后通过Dokcer快速启动
+		3、组建微服务架构，可以在一个机器上模拟出多个微服务，启动多个应用
+		4、更好的资源隔离和共享
+		一句话：开箱即用，快速部署，可移植性强，环境隔离
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n360' class='md-header-anchor '></a>2、Linux云服务器Centos7安装Docker实战</h3><p><strong>简介：讲解阿里云ECS服务安装Docker实战</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n362" mdtype="fences">	Linux Standard Base的缩写，lsb_release命令用来显示LSB和特定版本的相关信息
+	命令： lsb_release -a 
+	阿里云安装手册：
+	https://help.aliyun.com/document_detail/51853.html?spm=a2c4g.11186623.6.820.RaToNY
+	常见问题：
+	https://blog.csdn.net/daluguishou/article/details/52080250
+</pre><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n366' class='md-header-anchor '></a>3、Docker仓库、镜像、容器核心知识讲解</h3><p><strong>简介：快速掌握Dokcer基础知识</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n368" mdtype="fences" style="page-break-inside: unset;">	1、概念：
+		Docker 镜像 - Docker images：
+				 容器运行时的只读模板，操作系统+软件运行环境+用户程序
+				 
+				 class User{
+					 private String userName;
+					 private int age;
+				 }
+		Docker 容器 - Docker containers：
+				容器包含了某个应用运行所需要的全部环境
+				
+				 User user = new User()
+		Docker 仓库 - Docker registeries： 
+				用来保存镜像，有公有和私有仓库，好比Maven的中央仓库和本地私服
+				镜像仓库：	
+				
+				（参考）配置国内镜像仓库：https://blog.csdn.net/zzy1078689276/article/details/77371782
+		对比面向对象的方式
+		Dokcer 里面的镜像 : Java里面的类 Class
+		Docker 里面的容器 : Java里面的对象 Object
+		通过类创建对象，通过镜像创建容器
+</pre><h3><a name='header-n370' class='md-header-anchor '></a>4、Docker容器常见命令实战</h3><p><strong>简介：讲解Docker在云服务上的实际应用</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n372" mdtype="fences" style="page-break-inside: unset;">	1、 常用命令（安装部署好Dokcer后，执行的命令是docker开头）,xxx是镜像名称
+		搜索镜像：docker search xxx
+		
+		列出当前系统存在的镜像：docker images
+		
+		拉取镜像：docker pull xxx
+			xxx是具体某个镜像名称(格式 REPOSITORY:TAG)
+			REPOSITORY：表示镜像的仓库源,TAG：镜像的标签
+		运行一个容器：docker run -d --name "xdclass_mq" -p 5672:5672 -p 15672:15672 rabbitmq:management
+			docker run - 运行一个容器
+			-d 后台运行
+			-p 端口映射
+			rabbitmq:management  (格式 REPOSITORY:TAG)，如果不指定tag，默认使用最新的
+			--name "xxx"
+		
+		列举当前运行的容器：docker ps
+		检查容器内部信息：docker inspect 容器名称
+		删除镜像：docker rmi IMAGE_NAME
+			 强制移除镜像不管是否有容器使用该镜像 增加 -f 参数，
+		停止某个容器：docker stop 容器名称
+		启动某个容器：docker start 容器名称
+		移除某个容器： docker rm 容器名称 （容器必须是停止状态）
+	文档：
+		https://blog.csdn.net/permike/article/details/51879578
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n376' class='md-header-anchor '></a>5、实战应用之使用Docker部署Nginx服务器</h3><p><strong>简介：讲解使用Docker部署Nginx服务器实战</strong>
+<span>		</span>1、获取镜像 
+<span>			</span>docker run (首先会从本地找镜像，如果有则直接启动，没有的话，从镜像仓库拉起，再启动)
+<span>			</span>docker search nignx
+<span>		</span>2、列举
+<span>			</span>docker images
+<span>		</span>3、拉取
+<span>			</span>docker pull nignx
+<span>		</span>3、启动
+<span>			</span>docker run -d --name &quot;xdclass_nginx&quot; -p 8088:80 nginx
+<span>			</span>docker run -d --name &quot;xdclass_nginx2&quot; -p 8089:80 nginx
+<span>			</span>docker run -d --name &quot;xdclass_nginx3&quot; -p 8090:80 nginx
+<span>		</span>4、访问
+<span>			</span>如果是阿里云服务，记得配置安全组，腾讯云也需要配置，这个就是一个防火墙</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n381' class='md-header-anchor '></a>6、公司中Docker镜像仓库使用讲解</h3><p><strong>简介：讲解一般公司中镜像仓库在的使用</strong>
+<span>		</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n383" mdtype="fences">	1、为啥要用镜像仓库
+	2、官方公共镜像仓库和私有镜像仓库
+		公共镜像仓库：
+				官方：https://hub.docker.com/，基于各个软件开发或者有软件提供商开发的
+				非官方：其他组织或者公司开发的镜像，供大家免费试用
+		私有镜像仓库：
+				用于存放公司内部的镜像，不提供给外部试用； 
+				SpringCloud 开发了一个支付系统 -》做成一个镜像 （操作系统+软件运行环境+用户程序）
+</pre><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n387' class='md-header-anchor '></a>7、高级篇幅之构建自己的镜像仓库</h3><p><strong>简介：使用阿里云搭建自己的镜像仓库</strong>
+<span>		</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n389" mdtype="fences" style="page-break-inside: unset;">	1、阿里云镜像仓库：https://dev.aliyun.com/search.html
+	点击管理控制台-》初次使用会提示开通，然后设置密码
+	xdclass.net123
+	2、使用阿里云私有镜像仓库
+		1)登录： docker login --username=794666918@qq.com registry.cn-shenzhen.aliyuncs.com
+		
+		2) 推送本地镜像：
+		docker tag [ImageId] registry.cn-shenzhen.aliyuncs.com/xdclass/xdclass_images:[镜像版本号]
+		例子：
+		docker tag 2f415b0e9a6e registry.cn-shenzhen.aliyuncs.com/xdclass/xdclass_images:xd_rabbitmq-v1.0.2
+		docker push registry.cn-shenzhen.aliyuncs.com/xdclass/xdclass_images:xd_rabbitmq-v1.0.2
+		3)拉取镜像
+			线上服务器拉取镜像：
+				docker login --username=794666918@qq.com registry.cn-shenzhen.aliyuncs.com
+				docker pull registry.cn-shenzhen.aliyuncs.com/xdclass/xdclass_images:xd_rabbitmq-v1.0.2
+				启动容器：
+				docker run -d --name "xdclass_mq" -p 5672:5672 -p 15672:15672 2f415b0e9a6e
+</pre><p>&nbsp;</p><p>&nbsp;</p><h2><a name='header-n393' class='md-header-anchor '></a>第十三章 微服务高级篇幅SpringCloud和Docker整合部署</h2><h3><a name='header-n394' class='md-header-anchor '></a>1、高级篇幅之构建SpringBoot应用docker镜像上集</h3><p><strong>简介:使用Docker的maven插件，构建springboot应用</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n396" mdtype="fences" style="page-break-inside: unset;">官方文档：https://spring.io/guides/gs/spring-boot-docker/
+
+1、步骤：maven里面添加配置pom.xml
+	
+	 &lt;properties&gt;
+	   &lt;docker.image.prefix&gt;xdclass&lt;/docker.image.prefix&gt;
+	&lt;/properties&gt;
+
+	&lt;build&gt;
+		&lt;finalName&gt;docker-demo&lt;/finalName&gt;
+	    &lt;plugins&gt;
+	        &lt;plugin&gt;
+	            &lt;groupId&gt;com.spotify&lt;/groupId&gt;
+	            &lt;artifactId&gt;dockerfile-maven-plugin&lt;/artifactId&gt;
+	            &lt;version&gt;1.3.6&lt;/version&gt;
+	            &lt;configuration&gt;
+	                &lt;repository&gt;${docker.image.prefix}/${project.artifactId}&lt;/repository&gt;
+	                &lt;buildArgs&gt;
+	                    &lt;JAR_FILE&gt;target/${project.build.finalName}.jar&lt;/JAR_FILE&gt;
+	                &lt;/buildArgs&gt;
+	            &lt;/configuration&gt;
+	        &lt;/plugin&gt;
+	    &lt;/plugins&gt;
+	&lt;/build&gt;
+	配置讲解
+	Spotify 的 docker-maven-plugin 插件是用maven插件方式构建docker镜像的。
+	${project.build.finalName} 产出物名称，缺省为${project.artifactId}-${project.version}
+</pre><p>&nbsp;</p><h3><a name='header-n398' class='md-header-anchor '></a>2、高级篇幅之构建SpringBoot应用docker镜像下集</h3><p><strong>简介:打包SpringCloud镜像并上传私有仓库并部署</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n400" mdtype="fences" style="page-break-inside: unset;">		1、创建Dockerfile,默认是根目录，（可以修改为src/main/docker/Dockerfile,如果修则需要制定路径）
+			什么是Dockerfile : 由一系列命令和参数构成的脚本，这些命令应用于基础镜像, 最终创建一个新的镜像
+			FROM openjdk:8-jdk-alpine
+			VOLUME /tmp
+			ARG JAR_FILE
+			COPY ${JAR_FILE} app.jar
+			ENTRYPOINT ["java","-jar","/app.jar"]
+			FROM &lt;image&gt;:&lt;tag&gt; 需要一个基础镜像，可以是公共的或者是私有的， 后续构建会基于此镜像，如果同一个Dockerfile中建立多个镜像时，可以使用多个FROM指令
+			
+			VOLUME  配置一个具有持久化功能的目录，主机 /var/lib/docker 目录下创建了一个临时文件，并链接到容器的/tmp。改步骤是可选的，如果涉及到文件系统的应用就很有必要了。/tmp目录用来持久化到 Docker 数据文件夹，因为 Spring Boot 使用的内嵌 Tomcat 容器默认使用/tmp作为工作目录 
+			ARG  设置编译镜像时加入的参数， ENV 是设置容器的环境变量
+			COPY : 只支持将本地文件复制到容器 ,还有个ADD更强大但复杂点
+			ENTRYPOINT 容器启动时执行的命令
+			EXPOSE 8080 暴露镜像端口
+
+		2、构建镜像
+		mvn install dockerfile:build
+		打标签
+		docker tag a1b9fc71720d registry.cn-shenzhen.aliyuncs.com/xdclass/xdclass_images:docker-demo-v201808
+		推送到镜像仓库
+		docker push registry.cn-shenzhen.aliyuncs.com/xdclass/xdclass_images:docker-demo-v201808
+		应用服务器拉取镜像
+		docker pull registry.cn-shenzhen.aliyuncs.com/xdclass/xdclass_images:docker-demo-v201808
+		docker run -d --name xdclass_docker_demo1 -p 8099:8080  a1b9fc71720d
+</pre><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n402" mdtype="fences">		3、查看启动日志 docker logs -f  containerid
+		文档：https://yeasy.gitbooks.io/docker_practice/image/dockerfile/
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n408' class='md-header-anchor '></a>3、实战系列之注册中心打包Docker镜像</h3><p><strong>简介：讲解使用Docker打包注册中心，上传私有镜像仓库并部署</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n410" mdtype="fences" style="page-break-inside: unset;">	1、新增maven插件
+		&lt;properties&gt;
+		   &lt;docker.image.prefix&gt;xdclass&lt;/docker.image.prefix&gt;
+		&lt;/properties&gt;
+		&lt;build&gt;
+			&lt;finalName&gt;docker-demo&lt;/finalName&gt;
+		    &lt;plugins&gt;
+		        &lt;plugin&gt;
+		            &lt;groupId&gt;com.spotify&lt;/groupId&gt;
+		            &lt;artifactId&gt;dockerfile-maven-plugin&lt;/artifactId&gt;
+		            &lt;version&gt;1.3.6&lt;/version&gt;
+		            &lt;configuration&gt;
+		                &lt;repository&gt;${docker.image.prefix}/${project.artifactId}&lt;/repository&gt;
+		                &lt;buildArgs&gt;
+		                    &lt;JAR_FILE&gt;target/${project.build.finalName}.jar&lt;/JAR_FILE&gt;
+		                &lt;/buildArgs&gt;
+		            &lt;/configuration&gt;
+		        &lt;/plugin&gt;
+		    &lt;/plugins&gt;
+		&lt;/build&gt;
+
+	2、新建Dockerfile
+			FROM openjdk:8-jdk-alpine
+			VOLUME /tmp
+			ARG JAR_FILE
+			COPY ${JAR_FILE} app.jar
+			ENTRYPOINT ["java","-jar","/app.jar"]
+	3、打包：
+		mvn install dockerfile:build
+	4、推送阿里云镜像仓库
+		阿里云镜像仓库：https://dev.aliyun.com/search.html
+		docker tag 062d2ddf272a registry.cn-shenzhen.aliyuncs.com/xdclass/xdclass_images:eureka-v20180825
+		docker push registry.cn-shenzhen.aliyuncs.com/xdclass/xdclass_images:eureka-v20180825
+		docker pull registry.cn-shenzhen.aliyuncs.com/xdclass/xdclass_images:eureka-v20180825
+	5、查看日志 docker logs -f  containerid
+</pre><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n414' class='md-header-anchor '></a>4、 实战系列之部署RabbitMQ和配置中心打包Docker镜像</h3><p><strong>简介：讲解使用Docker打包配置中心，和部署RabbitMQ</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n416" mdtype="fences">	1、服务地址 ssh root@47.106.120.173
+	部署	rabbitmq： docker run -d -p 5672:5672 -p 15672:15672 rabbitmq:management
+
+	2、推送镜像
+	docker tag 0f636543904e registry.cn-shenzhen.aliyuncs.com/xdclass/xdclass_images:config-server-v20180825
+	docker push registry.cn-shenzhen.aliyuncs.com/xdclass/xdclass_images:config-server-v20180825
+	docker pull registry.cn-shenzhen.aliyuncs.com/xdclass/xdclass_images:config-server-v20180825
+</pre><p>&nbsp;</p><h3><a name='header-n418' class='md-header-anchor '></a>5、常见问题处理之升级云服务器</h3><p><strong>简介：处理上节课出现的问题，升级服务器注意事项</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n420" mdtype="fences">	1、升级云服务器配置（购买配置后需要重启机器才生效）
+	
+	2、启动完成后，需要开启docker
+		指令： systemctl  start docker
+	3、所有对外的都要经过网关才可以对外，应用间通信(除非跨机房)都用内网通信
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n425' class='md-header-anchor '></a>6、实战系列之Docker部署Redis</h3><p><strong>简介：使用Docker安装redis</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n427" mdtype="fences">	1、搜索镜像 docker search redis
+	2、拉取 docker pull docker.io/redis
+	3、启动 docker run --name "xd_redis" -p 6379:6379 -d 4e8db158f18d
+	参考：
+	docker run --name "xd_redis" -p 6379:6379 -d 4e8db158f18d --requirepass "123456" -v $PWD/data:/data
+	4、访问redis容器里面，进行操作
+	docker exec -it 295058d2b92e redis-cli
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n433' class='md-header-anchor '></a>7、生产环境常见问题之配置中心访问</h3><p><strong>简介：讲解生产环境部署常见问题，配置中心访问路径变化</strong>
+<span>		</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n435" mdtype="fences">	1、配置中心访问出错，路径不对
+   	解决：修改所有的注册中心，增加下面配置
+    instance:
+    instance-id: ${spring.cloud.client.ip-address}:${server.port}
+    prefer-ip-address: true
+    docker tag 50a12cd66210 registry.cn-shenzhen.aliyuncs.com/xdclass/xdclass_images:config-server-v20180826
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n440' class='md-header-anchor '></a>8、实战系列之打包Docker镜像打包商品服务和订单服务、网关 </h3><p><strong>简介:打包Docker镜像部署商品服务和订单服务、网关</strong>
+<span>	</span>   </p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n442" mdtype="fences">   注意：
+   1、maven打包构建，会触发单元测试，部分情况可以跳过，
+   mvn install -Dmaven.test.skip=true dockerfile:build
+   2、生产环境不能用localhost 或者 127.0.0.1, 一定要用内网通信ip (虚拟主机映射 hosts)
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n448' class='md-header-anchor '></a>9、实战系列云服务器部署网关、订单、商品服务</h3><p><strong>简介：云服务部署商品服务、订单服务、网关服务</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n450" mdtype="fences"> 	1、拉取镜像、启动
+	 访问路径
+	 http://47.106.120.173:8781/api/v1/order/save?product_id=5&amp;user_id=5
+	 http://47.106.120.173:9000/apigateway/order/api/v1/order/save?user_id=5&amp;product_id=3&amp;token=232serer
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h2><a name='header-n464' class='md-header-anchor '></a>第十四章 课程总结和常见问题处理</h2><h3><a name='header-n465' class='md-header-anchor '></a>1、SpringCloud微服务常见问题和解决思路</h3><p><strong>简介：讲解SpringCloud开发实战常见问题，及解决思路</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n467" mdtype="fences" style="page-break-inside: unset;">	1、技术选择：SpringCloud全家桶，每个组件又有多个替代，改怎么选择
+		1）选择的时候根据公司里面团队人员熟悉程度，降低学习成本
+		2）选择社区活跃的并且文档相对较多的，怎么判断活跃，可以看github上代码提交和start数
+	2、云服务选择： 腾讯云，阿里云 ，遇到问题可以提交工单，有专人跟进
+	3、部署了应用，但是访问不了
+		解决思路：
+			1)查看应用启动是否正常，如果有错误日志，复制错误日志去百度搜索！！！！！！！特别重要
+			2）启动正常，则先在本机使用 CURL "http://lcoalhost:8080/api/v1/user/find"  访问对应的接口，看是否有响应
+			3）启动正常，且curl有响应，则检查是否有关闭防火墙，或者开放对应的访问端口，开放端口才可以访问
+			4）腾讯云和阿里云都是有安全组，类似外层防火墙，一定要去web控制台检查是否有开启端口
+	4、内网和外网访问，鉴权问题安全问题
+			1）所有应用只能通过网关提供对外访问的入口
+			2）应用程序之间通讯，采用内网
+	5、程序出错或者异常: 复制错误日志去百度搜索，网上有很多人会遇到类似的错误，多积累，特别强调
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n471' class='md-header-anchor '></a>2、课程总结和后续技术规划</h3><p><strong>简介：总结SpringCloud课程和微服务后续课程规划</strong>
+<span>	</span></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n473" mdtype="fences">	1、springCloud全家桶，技术选择和知识点特别多，一定要学会记笔记，微服务更多关注的是里面架构和数据流转，而不是具体的业务。
+	2、SpringCloud架构这些配置，一般使用一次后就不会多次修改了，进入公司主要还是开发业务，业务开发一般都用springboot，比较少让新人搭建SpringCloud的架构
+	3、开发业务，无非就是CRUD，增删改查，只不过是初级和高级的区别，封装成通用和不通用的区别
+	4、微服务和容器盛行的情况下，容器编排和自动缩扩容越来越重要
+	可以关注：k8s / service mesh /server less 等技术
+</pre><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n475" mdtype="fences">	总结：
+		1）后续会推出对应的课程，还有项目实战系列，大家记得关注 小D课堂，官网 ：https://xdclass.net,  
+		2）也可以加我微信交流： jack794666918
+		3）购买对应的课程后，记得进我们小D课堂官方的交流群，我会在里面分享主流技术和答疑，面试经验等等，还会同步更新资料和还超级干货分享 
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong>小D课堂，愿景：让编程不在难学，让技术与生活更加有趣</strong></p><p><strong>相信我们，这个是可以让你学习更加轻松的平台，里面的课程绝对会让你技术不断提升</strong></p><p><strong>欢迎加小D讲师的微信： jack794666918</strong></p><p>我们官方网站：<a href='https://xdclass.net' target='_blank' class='url'>https://xdclass.net</a></p><p><strong>千人IT技术交流QQ群： 718617859</strong></p><p><strong>重点来啦：免费赠送你干货文档大集合</strong>，包含前端，后端，测试，大数据，运维主流技术文档（持续更新）</p><p><a href='https://mp.weixin.qq.com/s/qYnjcDYGFDQorWmSfE7lpQ' target='_blank' class='url'>https://mp.weixin.qq.com/s/qYnjcDYGFDQorWmSfE7lpQ</a> </p><p>&nbsp;</p></div>
+</body>
+</html>

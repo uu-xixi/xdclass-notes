@@ -1,0 +1,795 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>高并发编程Netty实战课程笔记</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) { 
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:first-child { margin-top: -20px; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.701961); color: rgb(85, 85, 85); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; background-position: 0px 0px; background-repeat: initial initial; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print { 
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid-page; break-before: avoid-page; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid-page; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) { 
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background-color: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; background-position: initial initial; background-repeat: initial initial; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; }
+a.md-print-anchor { white-space: pre !important; border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; text-shadow: initial !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; white-space: nowrap; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; border: none !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-width: 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; word-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; background-position: 0px 0px; background-repeat: initial initial; }
+.CodeMirror-wrap pre { word-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right-width: 30px; border-right-style: solid; border-right-color: transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right-style: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right-style: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background-color: rgba(255, 255, 0, 0.4); background-position: initial initial; background-repeat: initial initial; }
+@media print { 
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Open Sans Regular'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/400.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: normal;
+    src: local('Open Sans Italic'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/400i.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Open Sans Bold'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/700.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: bold;
+    src: local('Open Sans Bold Italic'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/700i.woff') format('woff');
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    /*background: url("file:///Users/xdclass/Library/Application%20Support/images/modules/styleguide/para.png") no-repeat 10px center;*/
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    padding-bottom: .3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+   padding-bottom: .3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #dfe2e5;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 0.2em 1em;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+}
+
+ .typora-export li, .typora-export p, .typora-export,  .footnote-line {white-space: normal;} 
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-mac'><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n5' class='md-header-anchor '></a>第一章：高并发编程Netty实战课程介绍</h2><h3><a name='header-n6' class='md-header-anchor '></a>1、高并发编程Netty框架实战课程介绍</h3><p><strong>简介：讲解Netty课程大纲，适合人群，学后水平</strong></p><ul><li><p>适合人群：中高级后端开发工程师
+   <span>	</span>1、牢固的java基础</p><p>   <span>	</span>2、熟悉Linux服务器</p><p>   <span>	</span>3、有基础的网络知识</p></li><li><p>学后水平：
+   <span>	</span>1、掌握Netty核心知识和常用关键组件</p><p>   <span>	</span>2、掌握Linux服务器网络编程核心知识</p><p>   <span>	</span>3、可以自己使用Netty搭建单机百万连接</p><p>   <span>	</span>更多知识看目录和简介...</p></li></ul><p>&nbsp;</p><h3><a name='header-n19' class='md-header-anchor '></a>2、异步事件驱动NIO框架Netty介绍</h3><p><strong>简介：介绍Netty来源，版本，目前在哪些主流公司和产品框架使用</strong></p><ul><li><p>Netty是由JBOSS提供的一个java开源框架, 是业界最流行的NIO框架，整合了多种协议（
+    包括FTP、SMTP、HTTP等各种二进制文本协议）的实现经验，精心设计的框架，在多个大型商业项目中得到充分验证。
+        1）API使用简单
+        2）成熟、稳定
+        3）社区活跃  有很多种NIO框架 如mina
+        4）经过大规模的验证（互联网、大数据、网络游戏、电信通信行业）</p><p>&nbsp;</p></li><li><p>那些主流框架产品在用？</p><ul><li><p>搜索引擎框架 ElasticSerach</p></li><li><p>Hadopp子项目Avro项目，使用Netty作为底层通信框架    </p></li><li><p>阿里巴巴开源的RPC框架 Dubbo</p><ul><li><p>地址：<a href='http://dubbo.apache.org/zh-cn/' target='_blank' class='url'>http://dubbo.apache.org/zh-cn/</a></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Netty在Dubbo里面使用的地址</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  https://github.com/apache/incubator-dubbo/tree/master/dubbo-remoting/dubbo-remoting-netty4/src/main/java/org/apache/dubbo/remoting/transport/netty4</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 66px;"></div><div class="CodeMirror-gutters" style="display: none; height: 66px;"></div></div></div></pre><p>补充：netty4是dubbo2.5.6后引入的，2.5.6之前的netty用的是netty3</p></li></ul></li></ul></li></ul><p>&nbsp;</p><h4><a name='header-n41' class='md-header-anchor '></a>3、高并发编程Netty实战课程开发环境准备</h4><p><strong>简介：讲解Netty实战开发环境</strong></p><p>开发环境：IDEA旗舰版/Eclipse  + JDK8 + Maven3.5以上版本 + Netty4.x
+    </p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><span><span>​</span>x</span></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">Netty版本说明</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  采用最新的4.x版本，只要大版本一致就可以</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  官方文档: https://netty.io/wiki/user-guide-for-4.x.html</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  Github地址：https://github.com/netty/netty</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 132px;"></div><div class="CodeMirror-gutters" style="display: none; height: 132px;"></div></div></div></pre><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n50' class='md-header-anchor '></a>第二章：使用JDK自带BIO编写一个Client-Server通信</h2><h3><a name='header-n51' class='md-header-anchor '></a>1、BIO网络编程实战之编写BioServer服务端</h3><p><strong>简介: 使用jdk自带的Bio编写一个统一时间服务</strong></p><p>&nbsp;</p><h3><a name='header-n54' class='md-header-anchor '></a>2、BIO网络编程实战之编写BioClient客服端</h3><p><strong>简介：使用BIO网络编程编写BioClient客户端</strong></p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n58' class='md-header-anchor '></a>3、BIO编写Client/Server通信优缺点分析</h3><p><strong>简介：讲解BIO的优缺点，为啥不能高并发情况下性能弱</strong></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  优点：</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  模型简单</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  编码简单</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  缺点:</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  性能瓶颈，请求数和线程数 N：N关系</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  高并发情况下，CPU切换线程上下文损耗大</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  案例：web服务器Tomcat7之前，都是使用BIO，7之后就使用NIO</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  改进：伪NIO,使用线程池去处理业务逻辑</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 286px;"></div><div class="CodeMirror-gutters" style="display: none; height: 286px;"></div></div></div></pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n68' class='md-header-anchor '></a>第三章：(面试核心)服务端网络编程常见网络IO模型讲解</h2><p>&nbsp;</p><h3><a name='header-n70' class='md-header-anchor '></a>1、最通俗的方式讲解 什么是阻塞/非阻塞，什么是同/异步</h3><p><strong>简介：使用最通俗概念讲解 同步异步、堵塞和非堵塞</strong></p><ul><li><p>洗衣机洗衣服</p><ul><li>洗衣机洗衣服（无论阻塞式IO还是非阻塞式IO，都是同步IO模型）</li></ul></li><li><p>同步阻塞：你把衣服丢到洗衣机洗，然后看着洗衣机洗完，洗好后再去晾衣服（你就干等，啥都不做，阻塞在那边）</p></li><li><p>同步非阻塞：你把衣服丢到洗衣机洗，然后会客厅做其他事情，定时去阳台看洗衣机是不是洗完了，洗好后再去晾衣服（等待期间你可以做其他事情，比如用电脑打开小D课堂看视频学习）</p></li><li><p>异步阻塞: 你把衣服丢到洗衣机洗，然后看着洗衣机洗完，洗好后再去晾衣服（几乎没这个情况，几乎没这个说法，可以忽略）</p></li><li><p>异步非阻塞：你把衣服丢到洗衣机洗，然后会客厅做其他事情，洗衣机洗好后会自动去晾衣服，晾完成后放个音乐告诉你洗好衣服并晾好了</p></li></ul><p>&nbsp;</p><h3><a name='header-n87' class='md-header-anchor '></a>2、(BAT面试核心知识)Linux网络编程中的五种I/O模型讲解上集</h3><p><strong>简介：linux网络编程中的IO模型讲解上集</strong></p><ul><li>网络IO,用户程序和内核的交互为基础进行讲解</li><li>IO操作分两步：发起IO请求等待数据准备，实际IO操作（洗衣服，晾衣服）
+    同步须要主动读写数据，在读写数据的过程中还是会阻塞（好比晾衣服阻塞了你） 
+    异步仅仅须要I/O操作完毕的通知。并不主动读写数据，由操作系统内核完毕数据的读写（机器人帮你自动晾衣服）</li><li>五种IO的模型：阻塞IO、非阻塞IO、多路复用IO、信号驱动IO和异步IO, 前四种都是同步IO，在内核数据copy到用户空间时都是阻塞的</li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> 权威：RFC标准，或者书籍 《UNIX Network Programming》中文名《UNIX网络编程-卷一》第六章</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; 1）阻塞式I/O；</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; 2）非阻塞式I/O；</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; 3）I/O复用（select，poll，epoll...）；</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  I/O多路复用是阻塞在select，epoll这样的系统调用，没有阻塞在真正的I/O系统调用如recvfrom</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  进程受阻于select,等待可能多个套接口中的任一个变为可读</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  IO多路复用使用两个系统调用(select和recvfrom)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  blocking IO只调用了一个系统调用(recvfrom)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  select/epoll 核心是可以同时处理多个connection，而不是更快，所以连接数不高的话，性能不一定比多线程+阻塞IO好</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  多路复用模型中，每一个socket，设置为non-blocking,</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  阻塞是被select这</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 286px;"></div><div class="CodeMirror-gutters" style="display: none; height: 286px;"></div></div></div></pre><p>&nbsp;</p><h3><a name='header-n98' class='md-header-anchor '></a>3、(BAT面试核心知识)Linux网络编程中的五种I/O模型讲解下集</h3><p><strong>简介：linux网络编程中的IO模型讲解下集</strong></p><ul><li><p>4）信号驱动式I/O（SIGIO）；</p></li><li><p>5）异步I/O（POSIX的aio_系列函数） Future-Listener机制；</p></li><li><p>IO操作分为两步</p><ul><li>发起IO请求，等待数据准备(Waiting for the data to be ready)</li><li>实际的IO操作，将数据从内核拷贝到进程中(Copying the data from the kernel to the process)</li></ul></li><li><p>前四种IO模型都是同步IO操作，区别在于第一阶段，而他们的第二阶段是一样的：在数据从内核复制到应用缓冲区期间（用户空间），进程阻塞于recvfrom调用或者select()函数。 相反，异步I/O模型在这两个阶段都要处理。</p></li><li><p>阻塞IO和非阻塞IO的区别在于第一步，发起IO请求是否会被阻塞，如果阻塞直到完成那么就是传统的阻塞IO，如果不阻塞，那么就是非阻塞IO。同步IO和异步IO的区别就在于第二个步骤是否阻塞，如果实际的IO读写阻塞请求进程，那么就是同步IO，因此阻塞IO、非阻塞IO、IO复用、信号驱动IO都是同步IO，如果不阻塞，而是操作系统帮你做完IO操作再将结果返回给你，那么就是异步IO。</p></li></ul><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">几个核心点：</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; 阻塞非阻塞说的是线程的状态（重要）</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; 同步和异步说的是消息的通知机制（重要）</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; 同步需要主动读写数据,异步是不需要主动读写数据</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; 同步IO和异步IO是针对用户应用程序和内核的交互</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 132px;"></div><div class="CodeMirror-gutters" style="display: none; height: 132px;"></div></div></div></pre><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n119' class='md-header-anchor '></a>4、高并发编程必备知识IO多路复用技术select、poll讲解</h3><p><strong>简介：高并发编程必备知识IO多路复用技术select、poll讲解</strong></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">什么是IO多路复用：I/O多路复用，I/O是指网络I/O, 多路指多个TCP连接(即socket或者channel），复用指复用一个或几个线程。简单来说：就是使用一个或者几个线程处理多个TCP连接,最大优势是减少系统开销小，不必创建过多的进程/线程，也不必维护这些进程/线程</span></pre></div></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 66px;"></div><div class="CodeMirror-gutters" style="display: none; height: 66px;"></div></div></div></pre><p>&nbsp;</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">select：</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>基本原理：监视文件3类描述符： writefds、readfds、和exceptfds,调用后select函数会阻塞住，等有数据 可读、可写、出异常 或者 超时 就会返回, select函数正常返回后，通过遍历fdset整个数组才能发现哪些句柄发生了事件，来找到就绪的描述符fd，然后进行对应的IO操作,几乎在所有的平台上支持，跨平台支持性好</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">缺点：</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>1）select采用轮询的方式扫描文件描述符，全部扫描，随着文件描述符FD数量增多而性能下降 &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  2）每次调用 select()，需要把 fd 集合从用户态拷贝到内核态，并进行遍历(消息传递都是从内核到用户空间)</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  3）最大的缺陷就是单个进程打开的FD有限制，默认是1024 &nbsp; （可修改宏定义，但是效率仍然慢） &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;  static final  int MAX_FD = 1024</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 220px;"></div><div class="CodeMirror-gutters" style="display: none; height: 220px;"></div></div></div></pre><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang=""><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation"><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">poll:</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">  <span class="cm-tab" role="presentation" cm-text="	">  </span>基本流程：</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> select() 和 poll() 系统调用的大体一样，处理多个描述符也是使用轮询的方式，根据描述符的状态进行处理,一样需要把 fd 集合从用户态拷贝到内核态，并进行遍历。最大区别是: poll没有最大文件描述符限制（使用链表的方式存储fd）</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 110px;"></div><div class="CodeMirror-gutters" style="display: none; height: 110px;"></div></div></div></pre><p>&nbsp;</p><h3><a name='header-n126' class='md-header-anchor '></a>5、 高并发编程必备知识IO多路复用技术Epoll讲解和总结</h3><p><strong>简介：高并发编程必备知识IO多路复用技术epoll讲解和总结</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n128" mdtype="fences" style="page-break-inside: unset;">epoll 基本原理：
+      在2.6内核中提出的，对比select和poll，epoll更加灵活，没有描述符限制，用户态拷贝到内核态只需要一次
+      使用事件通知，通过epoll_ctl注册fd，一旦该fd就绪，内核就会采用callback的回调机制来激活对应的fd
+    
+      优点：
+          1)没fd这个限制，所支持的FD上限是操作系统的最大文件句柄数，1G内存大概支持10万个句柄 
+          2)效率提高，使用回调通知而不是轮询的方式，不会随着FD数目的增加效率下降
+          3)通过callback机制通知，内核和用户空间mmap同一块内存实现
+   
+          Linux内核核心函数
+          1)epoll_create()  在Linux内核里面申请一个文件系统 B+树，返回epoll对象，也是一个fd
+          2)epoll_ctl() 操作epoll对象，在这个对象里面修改添加删除对应的链接fd, 绑定一个callback函数
+          3)epoll_wait()  判断并完成对应的IO操作
+   
+      缺点：
+          编程模型比select/poll 复杂
+          例子：100万个连接，里面有1万个连接是活跃，在 select、poll、epoll分别是怎样的表现                
+          select：不修改宏定义，则需要 1000个进程才可以支持 100万连接
+          poll：100万个链接，遍历都响应不过来了，还有空间的拷贝消耗大量的资源
+          epoll: 
+</pre><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n131' class='md-header-anchor '></a>6、Java的I/O演进历史</h3><p><strong>简介：讲解java的IO演进历史</strong></p><ul><li>jdk1.4之前是采用同步阻塞模型，也就是BIO
+    大型服务一般采用C或者C++, 因为可以直接操作系统提供的异步IO,AIO</li><li>jdk1.4推出NIO,支持非阻塞IO，jdk1.7升级,推出NIO2.0,提供AIO的功能，支持文件和网络套接字的异步IO</li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n140' class='md-header-anchor '></a>7、大话Netty线程模型和Reactor模式</h3><p><strong>简介：讲解reactor模式 和 Netty线程模型</strong></p><ul><li><p>设计模式——Reactor模式（反应器设计模式），是一种基于事件驱动的设计模式，在事件驱动的应用中，将一个或多个客户的服务请求分离（demultiplex）和调度（dispatch）给应用程序。在事件驱动的应用中，同步地、有序地处理同时接收的多个服务请求 一般出现在高并发系统中，比如Netty，Redis等</p></li><li><p>优点
+    1）响应快，不会因为单个同步而阻塞，虽然Reactor本身依然是同步的； 
+    2）编程相对简单，最大程度的避免复杂的多线程及同步问题，并且避免了多线程/进程的切换开销； 
+    3）可扩展性，可以方便的通过增加Reactor实例个数来充分利用CPU资源； </p></li><li><p>缺点
+    1）相比传统的简单模型，Reactor增加了一定的复杂性，因而有一定的门槛，并且不易于调试。 
+    2）Reactor模式需要系统底层的的支持，比如Java中的Selector支持，操作系统的select系统调用支持</p></li><li><p>通俗理解：KTV例子 前台接待，服务人员带领去开机器</p></li><li><p>Reactor模式基于事件驱动，适合处理海量的I/O事件，属于同步非阻塞IO(NIO)</p></li><li><p>Reactor单线程模型(比较少用)</p><ul><li>内容：
+    1）作为NIO服务端，接收客户端的TCP连接；作为NIO客户端，向服务端发起TCP连接；
+    2）服务端读请求数据并响应；客户端写请求并读取响应</li><li>使用场景:
+    对应小业务则适合，编码简单；对于高负载、大并发的应用场景不适合，一个NIO线程处理太多请求，则负载过高，并且可能响应变慢，导致大量请求超时，而且万一线程挂了，则不可用了</li></ul></li><li><p>Reactor多线程模型</p><ul><li>内容：Acceptor不在是一个线程，而是一组NIO线程；IO线程也是一组NIO线程，这样就是两个线程池去处理接入连接和处理IO</li><li>使用场景：满足目前的大部分场景，也是Netty推荐使用的线程模型</li></ul></li></ul><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n167" mdtype="fences">附属资料：
+  为什么Netty使用NIO而不是AIO，是同步非阻塞还是异步非阻塞？
+            
+  答案：
+  在Linux系统上，AIO的底层实现仍使用EPOLL，与NIO相同，因此在性能上没有明显的优势
+  Netty整体架构是reactor模型，采用epoll机制，所以往深的说，还是IO多路复用模式，所以也可说netty是同步非阻塞模型（看的层次不一样）
+
+  很多人说这是netty是基于Java NIO 类库实现的异步通讯框架
+  特点：异步非阻塞、基于事件驱动，性能高，高可靠性和高可定制性。
+    
+  参考资料：
+   https://github.com/netty/netty/issues/2515
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n174' class='md-header-anchor '></a>第四章：高并发网络编程Netty的第一个案例</h2><p>&nbsp;</p><h3><a name='header-n176' class='md-header-anchor '></a>1、讲解什么是Echo服务和Netty项目搭建</h3><p><strong>简介：讲解什么是Echo服务和快速创建Netty项目</strong></p><ul><li>什么是Echo服务：就是一个应答服务（回显服务器），客户端发送什么数据，服务端就响应的对应的数据是一个非常有的用于调试和检测的服务</li><li>IDEA + Maven + jdk8 netty依赖包</li><li>maven地址：<a href='https://mvnrepository.com/artifact/io.netty/netty-all/4.1.32.Final' target='_blank' class='url'>https://mvnrepository.com/artifact/io.netty/netty-all/4.1.32.Final</a></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n187' class='md-header-anchor '></a>2、Netty实战之Echo服务-服务端程序编写实战</h3><p><strong>简介：讲解Echo服务-服务端程序编写实战，对应的启动类和handler处理器</strong></p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n191' class='md-header-anchor '></a>3、Netty实战之Echo服务-客户端程序编写实战</h3><p><strong>简介：讲解Echo服务客户端程序编写</strong></p><p>&nbsp;</p><p>&nbsp;</p><h4><a name='header-n195' class='md-header-anchor '></a>4、Netty实战之Echo服务演示和整个流程分析</h4><p><strong>简介：分析整个Echo服务各个组件名称和作用</strong></p><ul><li>EventLoop和EventLoopGroup</li><li>Bootstrapt启动引导类</li><li>Channel 生命周期，状态变化</li><li>ChannelHandler和ChannelPipline</li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n212' class='md-header-anchor '></a>第五章：Netty案例实战分析之核心链路源码讲解</h2><h3><a name='header-n213' class='md-header-anchor '></a>1、深入剖析EventLoop和EventLoopGroup线程模型</h3><p><strong>简介：源码讲解EventLoop和EventLoopGroup模块</strong></p><ul><li><p>高性能RPC框架的3个要素：IO模型、数据协议、线程模型</p></li><li><p>EventLoop好比一个线程，1个EventLoop可以服务多个Channel，1个Channel只有一个EventLoop可以创建多个 EventLoop 来优化资源利用，也就是EventLoopGroup</p></li><li><p>EventLoopGroup 负责分配 EventLoop 到新创建的 Channel，里面包含多个EventLoop</p><ul><li>EventLoopGroup -&gt; 多个 EventLoop ,EventLoop -&gt; 维护一个 Selector</li><li>学习资料：<a href='http://ifeve.com/selectors/' target='_blank' class='url'>http://ifeve.com/selectors/</a></li></ul></li><li><p>源码分析默认线程池数量</p></li></ul><p>&nbsp;</p><h3><a name='header-n230' class='md-header-anchor '></a>2、Netty启动引导类Bootstrap模块讲解</h3><p><strong>简介：讲解Netty启动引导类Bootstrap作用和tcp通道参数设置</strong></p><ul><li><p>服务器启动引导类ServerBootstrap</p><ul><li><p>group :设置线程组模型，Reactor线程模型对比EventLoopGroup</p><ul><li>单线程 </li><li>多线程</li><li>主从线程</li><li>参考：<a href='https://blog.csdn.net/QH_JAVA/article/details/78443646' target='_blank' class='url'>https://blog.csdn.net/QH_JAVA/article/details/78443646</a></li></ul></li><li><p>channel：设置channel通道类型NioServerSocketChannel、OioServerSocketChannel</p></li><li><p>option: 作用于每个新建立的channel，设置TCP连接中的一些参数,如下</p><ul><li><p>ChannelOption.SO_BACKLOG: 存放已完成三次握手的请求的等待队列的最大长度;</p></li><li><p>Linux服务器TCP连接底层知识：</p><ul><li>syn queue：半连接队列，洪水攻击，tcp_max_syn_backlog</li><li>accept queue：全连接队列， net.core.somaxconn</li></ul></li><li><p>系统默认的somaxconn参数要足够大 ，如果backlog比somaxconn大，则会优先用后者
+<a href='https://github.com/netty/netty/blob/4.1/common/src/main/java/io/netty/util/NetUtil.java#L250' target='_blank' class='url'>https://github.com/netty/netty/blob/4.1/common/src/main/java/io/netty/util/NetUtil.java#L250</a></p></li><li><p>ChannelOption.TCP_NODELAY: 为了解决Nagle的算法问题，默认是false, 要求高实时性，有数据时马上发送，就将该选项设置为true关闭Nagle算法；如果要减少发送次数，就设置为false，会累积一定大小后再发送</p></li><li><p>知识拓展：
+<a href='https://baike.baidu.com/item/Nagle%E7%AE%97%E6%B3%95/5645172' target='_blank' class='url'>https://baike.baidu.com/item/Nagle%E7%AE%97%E6%B3%95/5645172</a>
+ <a href='https://www.2cto.com/article/201309/241096.html' target='_blank' class='url'>https://www.2cto.com/article/201309/241096.html</a></p></li></ul></li><li><p>childOption: 作用于被accept之后的连接</p></li><li><p>childHandler: 用于对每个通道里面的数据处理</p></li></ul></li><li><p>客户端启动引导类Bootstrap</p><ul><li>remoteAddress： 服务端地址</li><li>handler：和服务端通信的处理器</li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n280' class='md-header-anchor '></a>3、Netty核心组件Channel模块讲解</h3><p><strong>简介:讲解Channel作用，核心模块知识点，生命周期等</strong></p><ul><li><p>什么是Channel: 客户端和服务端建立的一个连接通道</p></li><li><p>什么是ChannelHandler： 负责Channel的逻辑处理</p></li><li><p>什么是ChannelPipeline: 负责管理ChannelHandler的有序容器</p></li><li><p>他们是什么关系:</p><ul><li>一个Channel包含一个ChannelPipeline，所有ChannelHandler都会顺序加入到ChannelPipeline中
+创建Channel时会自动创建一个ChannelPipeline，每个Channel都有一个管理它的pipeline，这关联是永久性的</li></ul></li><li><p>Channel当状态出现变化，就会触发对应的事件</p><ul><li><p>状态：</p><ul><li><p>channelRegistered: channel注册到一个EventLoop</p></li><li><p>channelActive: 变为活跃状态（连接到了远程主机），可以接受和发送数据</p></li><li><p>channelInactive: channel处于非活跃状态，没有连接到远程主机</p></li><li><p>channelUnregistered: channel已经创建，但是未注册到一个EventLoop里面，也就是没有和Selector绑定</p><p>&nbsp;</p></li></ul></li></ul></li></ul><p>&nbsp;</p><h3><a name='header-n310' class='md-header-anchor '></a>4、ChannelHandler和ChannelPipeline模块讲解</h3><p><strong>简介：讲解ChannelHandler和ChannelPipeline核心作用和生命周期</strong></p><ul><li>方法:
+    handlerAdded : 当 ChannelHandler 添加到 ChannelPipeline 调用
+    handlerRemoved : 当 ChannelHandler 从 ChannelPipeline 移除时调用
+    exceptionCaught : 执行抛出异常时调用</li></ul><p>&nbsp;</p><ul><li><p>ChannelHandler下主要是两个子接口</p><ul><li>ChannelInboundHandler：(入站)
+    处理输入数据和Channel状态类型改变，
+    适配器 ChannelInboundHandlerAdapter（适配器设计模式）
+     常用的：SimpleChannelInboundHandler</li><li>ChannelOutboundHandler：(出站)
+    处理输出数据，适配器 ChannelOutboundHandlerAdapter </li></ul></li></ul><p>            </p><ul><li>ChannelPipeline：
+    好比厂里的流水线一样，可以在上面添加多个ChannelHanler，也可看成是一串 ChannelHandler 实例，拦截穿过 Channel 的输入输出 event,  ChannelPipeline 实现了拦截器的一种高级形式，使得用户可以对事件的处理以及ChannelHanler之间交互获得完全的控制权</li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n330' class='md-header-anchor '></a>5、Netty核心模块指ChannelHandlerContext模块讲解</h3><p><strong>简介：讲解ChannelHandlerContext模块的作用和分析</strong></p><ul><li><p>ChannelHandlerContext是连接ChannelHandler和ChannelPipeline的桥梁，ChannelHandlerContext部分方法和Channel及ChannelPipeline重合,好比调用write方法</p><ul><li>Channel、ChannelPipeline、ChannelHandlerContext 都可以调用此方法，前两者都会在整个管道流里传播，而ChannelHandlerContext就只会在后续的Handler里面传播</li></ul></li><li><p>AbstractChannelHandlerContext类双向链表结构，next/prev分别是后继节点，和前驱节点</p></li><li><p>DefaultChannelHandlerContext 是实现类，但是大部分都是父类那边完成，这个只是简单的实现一些方法
+主要就是判断Handler的类型</p></li><li><p>ChannelInboundHandler之间的传递，主要通过调用ctx里面的FireXXX()方法来实现下个handler的调用</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n346' class='md-header-anchor '></a>6、Netty案例实战常见问题之入站出站Handler执行顺序</h3><p><strong>简介: 讲解多个入站出站ChannelHandler的执行顺序</strong></p><p>1、一般的项目中，inboundHandler和outboundHandler有多个，在Pipeline中的执行顺序？
+                InboundHandler顺序执行，OutboundHandler逆序执行
+                问题：ch.pipeline().addLast(new InboundHandler1());
+                     ch.pipeline().addLast(new OutboundHandler1());
+                     ch.pipeline().addLast(new OutboundHandler2());
+                     ch.pipeline().addLast(new InboundHandler2());
+                或者：
+                     ch.pipeline().addLast(new OutboundHandler1());
+                     ch.pipeline().addLast(new OutboundHandler2());
+                     ch.pipeline().addLast(new InboundHandler1());
+                     ch.pipeline().addLast(new InboundHandler2());
+    执行顺序是：
+                InboundHandler1 channelRead
+                InboundHandler2 channelRead
+                OutboundHandler2 write
+                OutboundHandler1 write </p><p>&nbsp;</p><p>结论：</p><ul><li>InboundHandler顺序执行，OutboundHandler逆序执行</li><li>InboundHandler之间传递数据，通过ctx.fireChannelRead(msg)</li><li>InboundHandler通过ctx.write(msg)，则会传递到outboundHandler</li><li>使用ctx.write(msg)传递消息，Inbound需要放在结尾，在Outbound之后，不然outboundhandler会不执行；但是使用channel.write(msg)、pipline.write(msg)情况会不一致，都会执行</li><li>outBound和Inbound谁先执行，针对客户端和服务端而言，客户端是发起请求再接受数据，先outbound再inbound，服务端则相反</li></ul><p>&nbsp;</p><h3><a name='header-n363' class='md-header-anchor '></a>7、Netty异步操作模块ChannelFuture讲解</h3><p><strong>简介：讲解ChannelFuture异步操作模块及使用注意事项</strong></p><ul><li><p>Netty中的所有I/O操作都是异步的,这意味着任何I/O调用都会立即返回，而ChannelFuture会提供有关的信息I/O操作的结果或状态。</p></li><li><p>ChannelFuture状态</p><ul><li>未完成：当I/O操作开始时，将创建一个新的对象，新的最初是未完成的 - 它既没有成功，也没有成功，也没有被取消，因为I/O操作尚未完成。</li><li>已完成：当I/O操作完成，不管是成功、失败还是取消，Future都是标记为已完成的, 失败的时候也有具体的信息，例如原因失败，但请注意，即使失败和取消属于完成状态</li><li>注意：不要在IO线程内调用future对象的sync或者await方法。不能在channelHandler中调用sync或者await方法</li></ul></li><li><p>ChannelPromise：继承于ChannelFuture，进一步拓展用于设置IO操作的结果</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n386' class='md-header-anchor '></a>第六章：高并发架构之Netty网络数据传输编解码精讲</h2><h3><a name='header-n387' class='md-header-anchor '></a>1、Netty网络传输知识之什么是编码、解码</h3><p><strong>简介：讲解Netty编写的网络数据传输中的编码和解码</strong></p><ul><li><p>前面说的：高性能RPC框架的3个要素：IO模型、数据协议、线程模型</p></li><li><p>最开始接触的编码码：java序列化/反序列化（就是编解码）、url编码、base64编解码</p></li><li><p>为啥jdk有编解码，还要netty自己开发编解码？</p><ul><li><p>java自带序列化的缺点</p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n399" mdtype="fences">1）无法跨语言
+2) 序列化后的码流太大，也就是数据包太大
+3) 序列化和反序列化性能比较差
+</pre><p>&nbsp;</p></li></ul></li><li><p>业界里面也有其他编码框架： google的 protobuf（PB)、Facebook的Trift、Jboss的Marshalling、Kyro等</p></li><li><p>Netty里面的编解码：</p><ul><li><p>解码器：负责处理“入站 InboundHandler”数据</p></li><li><p>编码器：负责“出站 OutboundHandler” 数据</p></li><li><p>Netty里面提供默认的编解码器，也支持自定义编解码器</p><ul><li>Encoder:编码器</li><li>Decoder:解码器</li><li>Codec:编解码器</li></ul><p>&nbsp;</p></li></ul></li></ul><h3><a name='header-n420' class='md-header-anchor '></a>2、数据协议处理之Netty解码器Decoder讲解</h3><p><strong>简介:讲解Netty的解码器Decoder和使用场景</strong></p><ul><li><p>Decoder对应的就是ChannelInboundHandler，主要就是字节数组转换为消息对象</p></li><li><p>主要是两个方法
+    decode
+    decodeLast</p></li><li><p>抽象解码器 </p><ul><li>ByteToMessageDecoder用于将字节转为消息，需要检查缓冲区是否有足够的字节</li><li>ReplayingDecoder继承ByteToMessageDecoder，不需要检查缓冲区是否有足够的字节，但是ReplayingDecoder速度略满于ByteToMessageDecoder，不是所有的ByteBuf都支持</li><li>选择：项目复杂性高则使用ReplayingDecoder，否则使用 ByteToMessageDecoder </li><li>MessageToMessageDecoder用于从一种消息解码为另外一种消息（例如POJO到POJO）</li></ul><p>&nbsp;</p></li><li><p>解码器具体的实现，用的比较多的是(更多是为了解决TCP底层的粘包和拆包问题)</p><ul><li>DelimiterBasedFrameDecoder： 指定消息分隔符的解码器</li><li>LineBasedFrameDecoder: 以换行符为结束标志的解码器</li><li>FixedLengthFrameDecoder：固定长度解码器</li><li>LengthFieldBasedFrameDecoder：message = header+body, 基于长度解码的通用解码器</li><li>StringDecoder：文本解码器，将接收到的对象转化为字符串，一般会与上面的进行配合，然后在后面添加业务handle</li></ul></li></ul><p>&nbsp;</p><h3><a name='header-n453' class='md-header-anchor '></a>3、数据协议处理之Netty编码器Encoder讲解</h3><p><strong>简介：讲解Netty编码器Encoder</strong></p><ul><li>Encoder对应的就是ChannelOutboundHandler，消息对象转换为字节数组</li><li>Netty本身未提供和解码一样的编码器，是因为场景不同，两者非对等的</li><li>MessageToByteEncoder消息转为字节数组,调用write方法，会先判断当前编码器是否支持需要发送的消息类型，如果不支持，则透传；</li><li>MessageToMessageEncoder用于从一种消息编码为另外一种消息（例如POJO到POJO）</li></ul><p>&nbsp;</p><h3><a name='header-n465' class='md-header-anchor '></a>4、数据协议处理之Netty编解码器类Codec讲解</h3><p><strong>简介：讲解组合编解码器类Codec</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n467" mdtype="fences" style="page-break-inside: unset;">    组合解码器和编码器，以此提供对于字节和消息都相同的操作
+       
+        优点：成对出现，编解码都是在一个类里面完成    
+        缺点：耦合在一起，拓展性不佳
+
+        Codec:组合编解码
+            1）ByteToMessageCodec
+    
+            2）MessageToMessageCodec
+    
+        decoder:解码
+             1）ByteToMessageDecoder
+    
+             2）MessageToMessageDecoder
+        
+        encoder:编码
+             1）ByteToMessageEncoder
+    
+            2）MessageToMessageEncoder
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n475' class='md-header-anchor '></a>第七章、Netty核心知识之网络传输TCP粘包拆包</h2><h3><a name='header-n476' class='md-header-anchor '></a>1、网络编程核心知识之TCP粘包拆包讲解</h3><p><strong>简介：讲解什么是TCP粘包拆包讲解</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n478" mdtype="fences">1）TCP拆包: 一个完整的包可能会被TCP拆分为多个包进行发送
+2）TCP粘包: 把多个小的包封装成一个大的数据包发送, client发送的若干数据包 Server接收时粘成一包
+    
+发送方和接收方都可能出现这个原因
+        
+发送方的原因：TCP默认会使用Nagle算法
+        
+接收方的原因: TCP接收到数据放置缓存中，应用程序从缓存中读取 
+       
+UDP: 是没有粘包和拆包的问题，有边界协议
+</pre><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n481' class='md-header-anchor '></a>2、TCP半包读写常见解决方案</h3><p><strong>简介：讲解TCP半包读写常见的解决办法</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n483" mdtype="fences">发送方：可以关闭Nagle算法
+      接受方: TCP是无界的数据流，并没有处理粘包现象的机制, 且协议本身无法避免粘包，半包读写的发生需要在应用层进行处理
+     应用层解决半包读写的办法
+     1）设置定长消息 (10字符)
+        xdclass000xdclass000xdclass000xdclass000
+                        
+     2）设置消息的边界 ($$ 切割)
+        sdfafwefqwefwe$$dsafadfadsfwqehidwuehfiw$$879329832r89qweew$$
+    
+     3）使用带消息头的协议，消息头存储消息开始标识及消息的长度信息
+        Header+Body
+</pre><p>&nbsp;</p><h3><a name='header-n485' class='md-header-anchor '></a>3、Netty自带解决TCP半包读写方案</h3><p><strong>简介：讲解Netty自带解决半包读写问题方案介绍</strong></p><p>DelimiterBasedFrameDecoder： 指定消息分隔符的解码器
+LineBasedFrameDecoder: 以换行符为结束标志的解码器 
+FixedLengthFrameDecoder：固定长度解码器
+LengthFieldBasedFrameDecoder：message = header+body, 基于长度解码的通用解码器</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n490' class='md-header-anchor '></a>4、Netty案例实战之半包读写问题演示</h3><p><strong>简介：案例实战之使用netty进行开发，出现的TCP半包读写问题</strong></p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n494' class='md-header-anchor '></a>5、Netty案例实战之LineBasedFrameDecoder解决TCP半包读写</h3><p><strong>简介：讲解使用解码器LineBasedFrameDecoder解决半包读写问题</strong></p><p>1）LineBaseFrameDecoder 以换行符为结束标志的解码器 ,构造函数里面的数字表示最长遍历的帧数</p><p>2）StringDecoder解码器将对象转成字符串</p><p>&nbsp;</p><h3><a name='header-n499' class='md-header-anchor '></a>6、Netty案例实战之自定义分隔符解决TCP读写问题</h3><p><strong>简介：讲解使用DelimiterBasedFrameDecoder解决TCP半包读写问题</strong></p><ul><li>maxLength：表示一行最大的长度，如果超过这个长度依然没有检测自定义分隔符，将会抛出TooLongFrameException</li><li>failFast：如果为true，则超出maxLength后立即抛出TooLongFrameException，不进行继续解码.如果为false，则等到完整的消息被解码后，再抛出TooLongFrameException异常</li><li>stripDelimiter：解码后的消息是否去除掉分隔符</li><li>delimiters：分隔符，ByteBuf类型</li></ul><p>&nbsp;</p><h3><a name='header-n511' class='md-header-anchor '></a>7、自定义长度半包读写器LengthFieldBasedFrameDecoder讲解</h3><p><strong>简介：自定义长度半包读写器LengthFieldBasedFrameDecoder讲解</strong></p><p>官方文档：<a href='https://netty.io/4.0/api/io/netty/handler/codec/LengthFieldBasedFrameDecoder.html' target='_blank' class='url'>https://netty.io/4.0/api/io/netty/handler/codec/LengthFieldBasedFrameDecoder.html</a>
+    </p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n514" mdtype="fences">maxFrameLength 数据包的最大长度
+	
+lengthFieldOffset 长度字段的偏移位，长度字段开始的地方，意思是跳过指定长度个字节之后的才是消息体字段
+
+lengthFieldLength 长度字段占的字节数, 帧数据长度的字段本身的长度
+
+lengthAdjustment 
+	一般 Header + Body，添加到长度字段的补偿值,如果为负数，开发人员认为这个 Header的长度字段是整个消息包的长度，则Netty应该减去对应的数字
+
+initialBytesToStrip 从解码帧中第一次去除的字节数, 获取完一个完整的数据包之后，忽略前面的指定位数的长度字节，应用解码器拿到的就是不带长度域的数据包
+
+failFast 是否快速失败
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n522' class='md-header-anchor '></a>第八 Netty源码分析之基础数据传输讲解和设计模式</h2><h3><a name='header-n523' class='md-header-anchor '></a>1、Netty核心模块缓冲ByteBuf</h3><p><strong>简介：讲解Netty核心之ByteBuf介绍，对比JDK原生ByteBuffer</strong></p><ul><li>ByteBuf：是数据容器(字节容器)</li><li>JDK ByteBuffer:共用读写索引，每次读写操作都需要Flip()扩容麻烦，而且扩容后容易造成浪费</li><li>Netty ByteBuf: 读写使用不同的索引，所以操作便捷自动扩容，使用便捷</li></ul><p>&nbsp;</p><h3><a name='header-n533' class='md-header-anchor '></a>2、Netty数据存储模块ByteBuf创建方法和常用的模式</h3><p><strong>简介:讲解ByteBuf创建方法和常用的模式</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n535" mdtype="fences" style="page-break-inside: unset;">   ByteBuf：传递字节数据的容器
+    
+   ByteBuf的创建方法
+   	1）ByteBufAllocator
+      池化(Netty4.x版本后默认使用 PooledByteBufAllocator提高性能并且最大程度减少内存碎片
+    
+      非池化UnpooledByteBufAllocator： 每次返回新的实例
+    
+    2）Unpooled: 提供静态方法创建未池化的ByteBuf，可以创建堆内存和直接内存缓冲区
+​			
+     ByteBuf使用模式
+        堆缓存区HEAP BUFFER:
+           	优点：存储在JVM的堆空间中，可以快速的分配和释放
+            缺点：每次使用前会拷贝到直接缓存区(也叫堆外内存)
+    
+        直接缓存区DIRECR BUFFER:
+            优点：存储在堆外内存上，堆外分配的直接内存，不会占用堆空间
+            缺点：内存的分配和释放，比在堆缓冲区更复杂
+    
+        复合缓冲区COMPOSITE BUFFER:
+            可以创建多个不同的ByteBuf，然后放在一起，但是只是一个视图
+	        选择：大量IO数据读写，用“直接缓存区”； 业务消息编解码用“堆缓存区”
+
+</pre><p>&nbsp;</p><h3><a name='header-n537' class='md-header-anchor '></a>3、Netty里面的设计模式应用分析</h3><p><strong>简介：讲解设计模式的在Netty里面的应用</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n539" mdtype="fences">Builder构造器模式：ServerBootstap 
+
+责任链设计模式：pipeline的事件传播
+ 			
+工厂模式： 创建Channel
+ 			
+适配器模式：HandlerAdapter
+
+推荐书籍：《Head First设计模式》
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n547' class='md-header-anchor '></a>第九章 使用Netty搭建单机百万连接测试实战</h2><h3><a name='header-n548' class='md-header-anchor '></a>1、搭建单机百万连接的服务器实例的必备知识</h3><p><strong>简介：搭建单机百万连接的服务器实例的必备知识</strong></p><ul><li><p>网络IO模型</p></li><li><p>Linux文件描述符</p><ul><li>单进程文件句柄数(默认1024，不同系统不一样，每个进程都有最大的文件描述符限制)</li><li>全局文件句柄数</li></ul></li><li><p>如何确定一个唯一的TCP连接. TCP四元组:源IP地址、源端口、目的ip、目的端口</p></li></ul><p>&nbsp;</p><h3><a name='header-n563' class='md-header-anchor '></a>2、Netty单机百万连接实战之服务端代码编写</h3><p><strong>简介：讲解Netty单机百万连接服务端代码编写</strong></p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n567' class='md-header-anchor '></a>3、Netty单机百万连接实战之客户端代码编写</h3><p><strong>简介：讲解Netty单机百万连接之客户端代码编写</strong></p><p>&nbsp;</p><h3><a name='header-n570' class='md-header-anchor '></a>4、阿里云服务器Netty单机百万连接部署实战</h3><p><strong>简介：在阿里云服务器部署Netty服务端和Netty客户端代码</strong></p><ul><li>如果没条件，则自己搭建虚拟机 6G，4核，centos6.5/7,需要关闭防火墙，或者使用云服务器需要开放安全组）</li><li>服务端 47.107.143.89</li><li>客户端 120.25.93.69</li><li>windows: wscp图形界面，putty终端</li></ul><p>&nbsp;</p><h3><a name='header-n582' class='md-header-anchor '></a>5、Netty单机百万连接Linux内核参数优化</h3><p><strong>简介：单机百万连接Linux核心参数优化</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n584" mdtype="fences" style="page-break-inside: unset;">局部文件句柄限制（单个进程最大文件打开数）
+    ulimit -n 一个进程最大打开的文件数 fd 不同系统有不同的默认值
+
+    root身份编辑   vim /etc/security/limits.conf
+                增加下面
+                root soft nofile 1000000
+                root hard nofile 1000000
+                * soft nofile 1000000
+                * hard nofile 1000000
+    * 表示当前用户，修改后要重启
+    
+    全局文件句柄限制（所有进程最大打开的文件数，不同系统是不一样，可以直接echo临时修改）
+    查看命令
+        cat /proc/sys/fs/file-max
+    永久修改全局文件句柄, 修改后生效 sysctl -p
+        vim  /etc/sysctl.conf
+        增加 fs.file-max = 1000000
+    
+    启动
+        java -jar millionServer-1.0-SNAPSHOT.jar  -Xms5g -Xmx5g -XX:NewSize=3g -XX:MaxNewSize=3g
+
+</pre><p>&nbsp;</p><h3><a name='header-n586' class='md-header-anchor '></a>6、互联网架构数据链路分析总结</h3><p><strong>简介：讲解当下互联网架构中，数据链路分析总结</strong></p><pre spellcheck="false" class="md-fences mock-cm md-end-block" lang="" contenteditable="false" cid="n588" mdtype="fences">输入域名-》浏览器内核调度-》本地DNS解析-》远程DNS解析-》ip -》路由多层调转-》目的服务器
+        服务器内核-》代理服务器 nginx/ 网关 / 负载均衡设备-》目的服务器
+        服务器内核-》 应用程序（springboot）-》Redis-》Mysql
+</pre><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><p>&nbsp;</p><h2><a name='header-n596' class='md-header-anchor '></a>第十章：高并发系列之百万连接Netty实战课程总结</h2><h3><a name='header-n597' class='md-header-anchor '></a>1、高并发系列之百万连接Netty实战课程总结</h3><p><strong>简介：总结Netty实战课程和第二季展望</strong></p><ul><li>websocket</li><li>推送系统</li><li>RPC框架</li><li>《Netty权威指南》《Netty进阶之路》</li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong>小D课堂，愿景：让编程不在难学，让技术与生活更加有趣</strong></p><p><strong>相信我们，这个是可以让你学习更加轻松的平台，里面的课程绝对会让你技术不断提升</strong></p><p><strong>欢迎加小D讲师的微信： jack794666918</strong></p><p>我们官方网站：<a href='https://xdclass.net' target='_blank' class='url'>https://xdclass.net</a></p><p><strong>千人IT技术交流QQ群： 718617859</strong></p><p><strong>重点来啦：免费赠送你干货文档大集合</strong>，包含前端，后端，测试，大数据，运维主流技术文档（持续更新）</p><p><a href='https://mp.weixin.qq.com/s/qYnjcDYGFDQorWmSfE7lpQ' target='_blank' class='url'>https://mp.weixin.qq.com/s/qYnjcDYGFDQorWmSfE7lpQ</a> </p><p>&nbsp;</p></div>
+</body>
+</html>

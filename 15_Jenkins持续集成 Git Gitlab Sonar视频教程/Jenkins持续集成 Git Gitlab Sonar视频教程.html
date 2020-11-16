@@ -1,0 +1,833 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>Jenkins持续集成git gitlab  sonar</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) { 
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:first-child { margin-top: -20px; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.701961); color: rgb(85, 85, 85); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; background-position: 0px 0px; background-repeat: initial initial; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print { 
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid-page; break-before: avoid-page; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid-page; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) { 
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background-color: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; background-position: initial initial; background-repeat: initial initial; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; }
+a.md-print-anchor { white-space: pre !important; border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; text-shadow: initial !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+
+
+.CodeMirror { height: auto; }
+.CodeMirror.cm-s-inner { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-scroll { overflow-y: hidden; overflow-x: auto; z-index: 3; }
+.CodeMirror-gutter-filler, .CodeMirror-scrollbar-filler { background-color: rgb(255, 255, 255); }
+.CodeMirror-gutters { border-right-width: 1px; border-right-style: solid; border-right-color: rgb(221, 221, 221); background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; white-space: nowrap; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-linenumber { padding: 0px 3px 0px 5px; text-align: right; color: rgb(153, 153, 153); }
+.cm-s-inner .cm-keyword { color: rgb(119, 0, 136); }
+.cm-s-inner .cm-atom, .cm-s-inner.cm-atom { color: rgb(34, 17, 153); }
+.cm-s-inner .cm-number { color: rgb(17, 102, 68); }
+.cm-s-inner .cm-def { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-variable { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-variable-2 { color: rgb(0, 85, 170); }
+.cm-s-inner .cm-variable-3 { color: rgb(0, 136, 85); }
+.cm-s-inner .cm-string { color: rgb(170, 17, 17); }
+.cm-s-inner .cm-property { color: rgb(0, 0, 0); }
+.cm-s-inner .cm-operator { color: rgb(152, 26, 26); }
+.cm-s-inner .cm-comment, .cm-s-inner.cm-comment { color: rgb(170, 85, 0); }
+.cm-s-inner .cm-string-2 { color: rgb(255, 85, 0); }
+.cm-s-inner .cm-meta { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-qualifier { color: rgb(85, 85, 85); }
+.cm-s-inner .cm-builtin { color: rgb(51, 0, 170); }
+.cm-s-inner .cm-bracket { color: rgb(153, 153, 119); }
+.cm-s-inner .cm-tag { color: rgb(17, 119, 0); }
+.cm-s-inner .cm-attribute { color: rgb(0, 0, 204); }
+.cm-s-inner .cm-header, .cm-s-inner.cm-header { color: rgb(0, 0, 255); }
+.cm-s-inner .cm-quote, .cm-s-inner.cm-quote { color: rgb(0, 153, 0); }
+.cm-s-inner .cm-hr, .cm-s-inner.cm-hr { color: rgb(153, 153, 153); }
+.cm-s-inner .cm-link, .cm-s-inner.cm-link { color: rgb(0, 0, 204); }
+.cm-negative { color: rgb(221, 68, 68); }
+.cm-positive { color: rgb(34, 153, 34); }
+.cm-header, .cm-strong { font-weight: 700; }
+.cm-del { text-decoration: line-through; }
+.cm-em { font-style: italic; }
+.cm-link { text-decoration: underline; }
+.cm-error { color: red; }
+.cm-invalidchar { color: red; }
+.cm-constant { color: rgb(38, 139, 210); }
+.cm-defined { color: rgb(181, 137, 0); }
+div.CodeMirror span.CodeMirror-matchingbracket { color: rgb(0, 255, 0); }
+div.CodeMirror span.CodeMirror-nonmatchingbracket { color: rgb(255, 34, 34); }
+.cm-s-inner .CodeMirror-activeline-background { background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror { position: relative; overflow: hidden; }
+.CodeMirror-scroll { height: 100%; outline: 0px; position: relative; box-sizing: content-box; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+.CodeMirror-sizer { position: relative; }
+.CodeMirror-gutter-filler, .CodeMirror-hscrollbar, .CodeMirror-scrollbar-filler, .CodeMirror-vscrollbar { position: absolute; z-index: 6; display: none; }
+.CodeMirror-vscrollbar { right: 0px; top: 0px; overflow: hidden; }
+.CodeMirror-hscrollbar { bottom: 0px; left: 0px; overflow: hidden; }
+.CodeMirror-scrollbar-filler { right: 0px; bottom: 0px; }
+.CodeMirror-gutter-filler { left: 0px; bottom: 0px; }
+.CodeMirror-gutters { position: absolute; left: 0px; top: 0px; padding-bottom: 30px; z-index: 3; }
+.CodeMirror-gutter { white-space: normal; height: 100%; box-sizing: content-box; padding-bottom: 30px; margin-bottom: -32px; display: inline-block; }
+.CodeMirror-gutter-wrapper { position: absolute; z-index: 4; border: none !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.CodeMirror-gutter-background { position: absolute; top: 0px; bottom: 0px; z-index: 4; }
+.CodeMirror-gutter-elt { position: absolute; cursor: default; z-index: 4; }
+.CodeMirror-lines { cursor: text; }
+.CodeMirror pre { border-top-left-radius: 0px; border-top-right-radius: 0px; border-bottom-right-radius: 0px; border-bottom-left-radius: 0px; border-width: 0px; font-family: inherit; font-size: inherit; margin: 0px; white-space: pre; word-wrap: normal; color: inherit; z-index: 2; position: relative; overflow: visible; background-position: 0px 0px; background-repeat: initial initial; }
+.CodeMirror-wrap pre { word-wrap: break-word; white-space: pre-wrap; word-break: normal; }
+.CodeMirror-code pre { border-right-width: 30px; border-right-style: solid; border-right-color: transparent; width: fit-content; }
+.CodeMirror-wrap .CodeMirror-code pre { border-right-style: none; width: auto; }
+.CodeMirror-linebackground { position: absolute; left: 0px; right: 0px; top: 0px; bottom: 0px; z-index: 0; }
+.CodeMirror-linewidget { position: relative; z-index: 2; overflow: auto; }
+.CodeMirror-wrap .CodeMirror-scroll { overflow-x: hidden; }
+.CodeMirror-measure { position: absolute; width: 100%; height: 0px; overflow: hidden; visibility: hidden; }
+.CodeMirror-measure pre { position: static; }
+.CodeMirror div.CodeMirror-cursor { position: absolute; visibility: hidden; border-right-style: none; width: 0px; }
+.CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+.CodeMirror-focused div.CodeMirror-cursor { visibility: inherit; }
+.cm-searching { background-color: rgba(255, 255, 0, 0.4); background-position: initial initial; background-repeat: initial initial; }
+@media print { 
+  .CodeMirror div.CodeMirror-cursor { visibility: hidden; }
+}
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Open Sans Regular'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/400.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: normal;
+    src: local('Open Sans Italic'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/400i.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Open Sans Bold'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/700.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: bold;
+    src: local('Open Sans Bold Italic'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/700i.woff') format('woff');
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    /*background: url("file:///Users/xdclass/Library/Application%20Support/images/modules/styleguide/para.png") no-repeat 10px center;*/
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    padding-bottom: .3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+   padding-bottom: .3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #dfe2e5;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 0.2em 1em;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+}
+
+ .typora-export li, .typora-export p, .typora-export,  .footnote-line {white-space: normal;} 
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-mac'><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><h2><a name='header-n4' class='md-header-anchor '></a>第一章  git系列课程</h2><h3><a name='header-n5' class='md-header-anchor '></a>第一集  课程介绍</h3><ul><li><p>课程适用群体</p><p><span>	</span>面向初级开发者、想了解并使用git、自行搭建企业内部gitlab、自行搭建企业内部持续集成平台</p></li><li><p>课程范围</p><p><span>	</span>git的使用
+​<span>	</span>gitlab的搭建与使用
+​<span>	</span>持续集成平台jenkins搭建与使用
+​<span>	</span>代码质量管理平台sonarqube的搭建与使用
+​<span>	</span>企业私服--nexus搭建及使用
+​<span>	</span>部分linux命令</p></li><li><p>课程大纲</p></li><li><p>课程效果演示</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n19' class='md-header-anchor '></a>第二集 git简介</h3><ul><li><p>git是什么呢？</p><p><span>	</span>维基百科给出的定义： git是一个分布式版本控制软件，最初由（Linus Torvalds）创作</p><p><span>	</span>什么是版本控制</p><p><span>		</span>项目经理与程序员的恩怨情仇
+​<span>		</span>企业真实案例：开发了a功能，之后项目所要改成b功能，开发完之后又要改c功能，最后又说还是用回a功能。
+​<span>		</span>没有git等版本控制软件之前，如何做版本控制。
+​<span>		</span>有了git之后，如何做版本控制。</p><p>&nbsp;</p></li><li><p>git的作用是什么？</p><p><span>	</span>版本控制</p></li><li><p>git的优势哪里？</p><p><span>	</span>同类型软件有svn、cvs，git相比于他们最大的优势就在于git是分布式的
+​<span>	</span>企业真实案例：svn服务器欠费，急需发版本。非常麻烦
+​<span>	</span>Git 允许多个远程仓库存在，使得这样一种工作流成为可能：每个开发者拥有自己仓库的写权限和其他所有人仓库的读权限。 这种情形下通常会有个代表`‘官方’&#39;项目的权威的仓库。 要为这个项目做贡献，你需要从该项目克隆出一个自己的公开仓库，然后将自己的修改推送上去。 接着你可以请求官方仓库的维护者拉取更新合并到主项目。 维护者可以将你的仓库作为远程仓库添加进来，在本地测试你的变更，将其合并入他们的分支并推送回官方仓库。</p></li><li><p>初识github</p><p><span>	</span>全球最大的同性交友网站：<a href='https://github.com/' target='_blank' class='url'>https://github.com/</a></p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n41' class='md-header-anchor '></a>第三集  window与linux双环境安装git</h3><ul><li><p>windows下面安装git</p><p><span>	</span>下载git
+​<span>	</span>到git官网上下载，自行选择合适系统的<span>	</span><a href='https://git-scm.com/' target='_blank' class='url'>https://git-scm.com/</a>
+​<span>	</span>如果是win版本的，直接按默认安装即可</p></li><li><p>linux上安装，以centos 6.6为例</p><p><span>	</span>yum命令安装</p><p><span>		</span>yum install gityum install     <span>		</span>安装的git不是最新版本，如需最新版本需要自行编译</p><p><span>	</span></p><p><span>	</span>编译git源码安装：</p><p><span>		</span>到下面的网站下载合适的版本
+​<span>		</span>    <a href='https://mirrors.edge.kernel.org/pub/software/scm/git/' target='_blank' class='url'>https://mirrors.edge.kernel.org/pub/software/scm/git/</a></p><p><span>	</span>安装git的依赖项</p><p><span>		</span>yum install curl-devel expat-devel gettext-devel openssl-devel zlib-devel</p><p><span>		</span>yum install  gcc perl-ExtUtils-MakeMaker</p><p><span>	</span>移除已经安装的git</p><p><span>		</span>yum remove git</p><p><span>	</span>cd git 解压目录</p><p><span>	</span>预编译git</p><p><span>		</span>./configure --prefix=/usr/local/git_2.9.5</p><p><span>	</span>编译并安装git</p><p><span>		</span>make &amp;&amp; make install</p><p><span>	</span>将git的脚本软连接到/usr/bin/ 目录下</p><p><span>		</span>ln -s /usr/local/git_2.9.5/bin/* /usr/bin/</p><p><span>	</span>git安装完成</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n69' class='md-header-anchor '></a>第四集  git的入门级命令（上）</h3><ul><li><p>为什么建议使用命令行的方式操作git？</p><p>    1.命令行会了，图形界面的操作时完全没问题的，反之，则不然
+​    2.有些地方如linux服务器，没有图形界面，如果碰到问题需要使用git，不会命令行操作啥都干不了</p></li><li><p>git 本地操作</p><p><span>	</span>git --help
+​    <span>	</span>调出Git的帮助文档
+​<span>	</span>git +命令 --help
+​    <span>	</span>查看某个具体命令的帮助文档
+​<span>	</span>git --version
+​    <span>	</span>查看git的版本
+​<span>	</span>git init 
+​    <span>	</span>生成空的本地仓库
+​<span>	</span>git add
+​    <span>	</span>将文件添加到暂存区</p></li><li><p>初次commit之前，需要配置用户邮箱及用户名，使用以下命令</p><p>git config --global user.email &quot;<a href='mailto:you@example.com' target='_blank' class='url'>you@example.com</a>&quot;
+   <span>	</span>git config --global user.name &quot;Your Name&quot;</p></li><li><p>git commit </p><p><span>	</span>将暂存区里的文件提交到本地仓库</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n88' class='md-header-anchor '></a>第五集   git的入门级命令（下）</h3><ul><li><p>git remote</p><p><span>	</span>用于管理远程仓库</p></li><li><p>git push -u origin master、</p><p><span>	</span>往名字为origin的仓库的master分支上提交变更</p></li><li><p>git fetch</p><p><span>	</span>拉取远程仓库的变更到本地仓库</p></li><li><p>git merge origin/master</p><p><span>	</span>将远程的变更，合并到本地仓库的master分支</p></li><li><p>git pull</p><p><span>	</span>不建议使用  等同于fetch之后merge</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n109' class='md-header-anchor '></a>第六集  git的文件状态</h3><ul><li><p>git status</p><p><span>	</span>用于查看git的状态</p></li><li><p>git rm</p><p><span>	</span>用于git文件的删除操作
+​<span>	</span>如果只是 git rm --cache 仅删除暂存区里的文件
+​<span>	</span>如果不加--cache 会删除工作区里的文件 并提交到暂存区</p></li><li><p>git checkout</p><p><span>	</span>直接加文件名   从暂存区将文件恢复到工作区，如果工作区已经有该文件，则会选择覆盖加了【分支名】 +文件名  则表示从分支名为所写的分支名中拉取文件 并覆盖工作区里的文件</p><p><span>	</span>新建文件---&gt;Untracked
+ <span>	</span>使用add命令将新建的文件加入到暂存区---&gt;Staged
+ <span>	</span>使用commit命令将暂存区的文件提交到本地仓库---&gt;Unmodified
+ <span>	</span>如果对Unmodified状态的文件进行修改---&gt; modified
+​<span>	</span>如果对Unmodified状态的文件进行remove操作---&gt;Untracked</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n124' class='md-header-anchor '></a>第七集  git的图形化客户端</h3><ul><li><p>图形化客户端: sourcetree</p></li><li><p>下载:  <a href='https://www.sourcetreeapp.com/' target='_blank' class='url'>https://www.sourcetreeapp.com/</a></p></li><li><p>安装:  由于种种不可描述的原因，无法注册账号且无法登陆所以需要绕过登陆</p></li><li><p>绕过登陆</p><p><span>	</span>去到 C:\Users\当前用户目录\AppData\Local\Atlassian\SourceTree 目录下
+​<span>	</span>新建 accounts.json 文件
+​<span>	</span>将一下内容复制进去
+​<span>	</span>[
+ <span>	</span> {
+​    <span>	</span>&quot;<span class="MathJax_SVG" tabindex="-1" style="font-size: 100%; display: inline-block;"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="11.436ex" height="2.344ex" viewBox="0 -755.9 4924 1009.2" role="img" focusable="false" style="vertical-align: -0.588ex;"><defs><path stroke-width="0" id="E1-MJMATHI-69" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path><path stroke-width="0" id="E1-MJMATHI-64" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path><path stroke-width="0" id="E1-MJMAIN-22" d="M34 634Q34 659 50 676T93 694Q121 694 144 668T168 579Q168 525 146 476T101 403T73 379Q69 379 60 388T50 401Q50 404 62 417T88 448T116 500T131 572Q131 584 130 584T125 581T112 576T94 573Q69 573 52 590T34 634ZM238 634Q238 659 254 676T297 694Q325 694 348 668T372 579Q372 525 350 476T305 403T277 379Q273 379 264 388T254 401Q254 404 266 417T292 448T320 500T335 572Q335 584 334 584T329 581T316 576T298 573Q273 573 256 590T238 634Z"></path><path stroke-width="0" id="E1-MJMAIN-3A" d="M78 370Q78 394 95 412T138 430Q162 430 180 414T199 371Q199 346 182 328T139 310T96 327T78 370ZM78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z"></path><path stroke-width="0" id="E1-MJMAIN-31" d="M213 578L200 573Q186 568 160 563T102 556H83V602H102Q149 604 189 617T245 641T273 663Q275 666 285 666Q294 666 302 660V361L303 61Q310 54 315 52T339 48T401 46H427V0H416Q395 3 257 3Q121 3 100 0H88V46H114Q136 46 152 46T177 47T193 50T201 52T207 57T213 61V578Z"></path><path stroke-width="0" id="E1-MJMAIN-2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#E1-MJMATHI-69" x="0" y="0"></use><use xlink:href="#E1-MJMATHI-64" x="345" y="0"></use><g transform="translate(1145,0)"><use xlink:href="#E1-MJMAIN-22"></use><use xlink:href="#E1-MJMAIN-3A" x="500" y="0"></use><use xlink:href="#E1-MJMAIN-22" x="778" y="0"></use></g><use xlink:href="#E1-MJMAIN-31" x="2701" y="0"></use><use xlink:href="#E1-MJMAIN-22" x="3479" y="0"></use><use xlink:href="#E1-MJMAIN-2C" x="3979" y="0"></use><use xlink:href="#E1-MJMAIN-22" x="4424" y="0"></use></g></svg></span><script type="math/tex">id": "1",
+    "</script>type&quot;: &quot;SourceTree.Api.Host.Identity.Model.IdentityAccount, SourceTree.Api.Host.Identity&quot;,
+   <span>	</span> &quot;Authenticate&quot;: true,
+​    <span>	</span>&quot;HostInstance&quot;: {
+​      <span>	</span>&quot;<span class="MathJax_SVG" tabindex="-1" style="font-size: 100%; display: inline-block;"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="11.436ex" height="2.344ex" viewBox="0 -755.9 4924 1009.2" role="img" focusable="false" style="vertical-align: -0.588ex;"><defs><path stroke-width="0" id="E2-MJMATHI-69" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path><path stroke-width="0" id="E2-MJMATHI-64" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path><path stroke-width="0" id="E2-MJMAIN-22" d="M34 634Q34 659 50 676T93 694Q121 694 144 668T168 579Q168 525 146 476T101 403T73 379Q69 379 60 388T50 401Q50 404 62 417T88 448T116 500T131 572Q131 584 130 584T125 581T112 576T94 573Q69 573 52 590T34 634ZM238 634Q238 659 254 676T297 694Q325 694 348 668T372 579Q372 525 350 476T305 403T277 379Q273 379 264 388T254 401Q254 404 266 417T292 448T320 500T335 572Q335 584 334 584T329 581T316 576T298 573Q273 573 256 590T238 634Z"></path><path stroke-width="0" id="E2-MJMAIN-3A" d="M78 370Q78 394 95 412T138 430Q162 430 180 414T199 371Q199 346 182 328T139 310T96 327T78 370ZM78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z"></path><path stroke-width="0" id="E2-MJMAIN-32" d="M109 429Q82 429 66 447T50 491Q50 562 103 614T235 666Q326 666 387 610T449 465Q449 422 429 383T381 315T301 241Q265 210 201 149L142 93L218 92Q375 92 385 97Q392 99 409 186V189H449V186Q448 183 436 95T421 3V0H50V19V31Q50 38 56 46T86 81Q115 113 136 137Q145 147 170 174T204 211T233 244T261 278T284 308T305 340T320 369T333 401T340 431T343 464Q343 527 309 573T212 619Q179 619 154 602T119 569T109 550Q109 549 114 549Q132 549 151 535T170 489Q170 464 154 447T109 429Z"></path><path stroke-width="0" id="E2-MJMAIN-2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#E2-MJMATHI-69" x="0" y="0"></use><use xlink:href="#E2-MJMATHI-64" x="345" y="0"></use><g transform="translate(1145,0)"><use xlink:href="#E2-MJMAIN-22"></use><use xlink:href="#E2-MJMAIN-3A" x="500" y="0"></use><use xlink:href="#E2-MJMAIN-22" x="778" y="0"></use></g><use xlink:href="#E2-MJMAIN-32" x="2701" y="0"></use><use xlink:href="#E2-MJMAIN-22" x="3479" y="0"></use><use xlink:href="#E2-MJMAIN-2C" x="3979" y="0"></use><use xlink:href="#E2-MJMAIN-22" x="4424" y="0"></use></g></svg></span><script type="math/tex">id": "2",
+      "</script>type&quot;: &quot;SourceTree.Host.Atlassianaccount.AtlassianAccountInstance, SourceTree.Host.AtlassianAccount&quot;,
+​      <span>	</span>&quot;Host&quot;: {
+​       <span>	</span> &quot;<span class="MathJax_SVG" tabindex="-1" style="font-size: 100%; display: inline-block;"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="11.436ex" height="2.344ex" viewBox="0 -755.9 4924 1009.2" role="img" focusable="false" style="vertical-align: -0.588ex;"><defs><path stroke-width="0" id="E3-MJMATHI-69" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path><path stroke-width="0" id="E3-MJMATHI-64" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path><path stroke-width="0" id="E3-MJMAIN-22" d="M34 634Q34 659 50 676T93 694Q121 694 144 668T168 579Q168 525 146 476T101 403T73 379Q69 379 60 388T50 401Q50 404 62 417T88 448T116 500T131 572Q131 584 130 584T125 581T112 576T94 573Q69 573 52 590T34 634ZM238 634Q238 659 254 676T297 694Q325 694 348 668T372 579Q372 525 350 476T305 403T277 379Q273 379 264 388T254 401Q254 404 266 417T292 448T320 500T335 572Q335 584 334 584T329 581T316 576T298 573Q273 573 256 590T238 634Z"></path><path stroke-width="0" id="E3-MJMAIN-3A" d="M78 370Q78 394 95 412T138 430Q162 430 180 414T199 371Q199 346 182 328T139 310T96 327T78 370ZM78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z"></path><path stroke-width="0" id="E3-MJMAIN-33" d="M127 463Q100 463 85 480T69 524Q69 579 117 622T233 665Q268 665 277 664Q351 652 390 611T430 522Q430 470 396 421T302 350L299 348Q299 347 308 345T337 336T375 315Q457 262 457 175Q457 96 395 37T238 -22Q158 -22 100 21T42 130Q42 158 60 175T105 193Q133 193 151 175T169 130Q169 119 166 110T159 94T148 82T136 74T126 70T118 67L114 66Q165 21 238 21Q293 21 321 74Q338 107 338 175V195Q338 290 274 322Q259 328 213 329L171 330L168 332Q166 335 166 348Q166 366 174 366Q202 366 232 371Q266 376 294 413T322 525V533Q322 590 287 612Q265 626 240 626Q208 626 181 615T143 592T132 580H135Q138 579 143 578T153 573T165 566T175 555T183 540T186 520Q186 498 172 481T127 463Z"></path><path stroke-width="0" id="E3-MJMAIN-2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#E3-MJMATHI-69" x="0" y="0"></use><use xlink:href="#E3-MJMATHI-64" x="345" y="0"></use><g transform="translate(1145,0)"><use xlink:href="#E3-MJMAIN-22"></use><use xlink:href="#E3-MJMAIN-3A" x="500" y="0"></use><use xlink:href="#E3-MJMAIN-22" x="778" y="0"></use></g><use xlink:href="#E3-MJMAIN-33" x="2701" y="0"></use><use xlink:href="#E3-MJMAIN-22" x="3479" y="0"></use><use xlink:href="#E3-MJMAIN-2C" x="3979" y="0"></use><use xlink:href="#E3-MJMAIN-22" x="4424" y="0"></use></g></svg></span><script type="math/tex">id": "3",
+        "</script>type&quot;: &quot;SourceTree.Host.Atlassianaccount.AtlassianAccountHost, SourceTree.Host.AtlassianAccount&quot;,
+​       <span>	</span> &quot;Id&quot;: &quot;atlassian account&quot;
+​     <span>	</span> },
+​      <span>	</span>&quot;BaseUrl&quot;: &quot;<a href='https://id.atlassian.com/' target='_blank' class='url'>https://id.atlassian.com/</a>&quot;
+   <span>	</span> },
+​    <span>	</span>&quot;Credentials&quot;: {
+​    <span>	</span> &quot;<span class="MathJax_SVG" tabindex="-1" style="font-size: 100%; display: inline-block;"><svg xmlns:xlink="http://www.w3.org/1999/xlink" width="11.436ex" height="2.344ex" viewBox="0 -755.9 4924 1009.2" role="img" focusable="false" style="vertical-align: -0.588ex;"><defs><path stroke-width="0" id="E4-MJMATHI-69" d="M184 600Q184 624 203 642T247 661Q265 661 277 649T290 619Q290 596 270 577T226 557Q211 557 198 567T184 600ZM21 287Q21 295 30 318T54 369T98 420T158 442Q197 442 223 419T250 357Q250 340 236 301T196 196T154 83Q149 61 149 51Q149 26 166 26Q175 26 185 29T208 43T235 78T260 137Q263 149 265 151T282 153Q302 153 302 143Q302 135 293 112T268 61T223 11T161 -11Q129 -11 102 10T74 74Q74 91 79 106T122 220Q160 321 166 341T173 380Q173 404 156 404H154Q124 404 99 371T61 287Q60 286 59 284T58 281T56 279T53 278T49 278T41 278H27Q21 284 21 287Z"></path><path stroke-width="0" id="E4-MJMATHI-64" d="M366 683Q367 683 438 688T511 694Q523 694 523 686Q523 679 450 384T375 83T374 68Q374 26 402 26Q411 27 422 35Q443 55 463 131Q469 151 473 152Q475 153 483 153H487H491Q506 153 506 145Q506 140 503 129Q490 79 473 48T445 8T417 -8Q409 -10 393 -10Q359 -10 336 5T306 36L300 51Q299 52 296 50Q294 48 292 46Q233 -10 172 -10Q117 -10 75 30T33 157Q33 205 53 255T101 341Q148 398 195 420T280 442Q336 442 364 400Q369 394 369 396Q370 400 396 505T424 616Q424 629 417 632T378 637H357Q351 643 351 645T353 664Q358 683 366 683ZM352 326Q329 405 277 405Q242 405 210 374T160 293Q131 214 119 129Q119 126 119 118T118 106Q118 61 136 44T179 26Q233 26 290 98L298 109L352 326Z"></path><path stroke-width="0" id="E4-MJMAIN-22" d="M34 634Q34 659 50 676T93 694Q121 694 144 668T168 579Q168 525 146 476T101 403T73 379Q69 379 60 388T50 401Q50 404 62 417T88 448T116 500T131 572Q131 584 130 584T125 581T112 576T94 573Q69 573 52 590T34 634ZM238 634Q238 659 254 676T297 694Q325 694 348 668T372 579Q372 525 350 476T305 403T277 379Q273 379 264 388T254 401Q254 404 266 417T292 448T320 500T335 572Q335 584 334 584T329 581T316 576T298 573Q273 573 256 590T238 634Z"></path><path stroke-width="0" id="E4-MJMAIN-3A" d="M78 370Q78 394 95 412T138 430Q162 430 180 414T199 371Q199 346 182 328T139 310T96 327T78 370ZM78 60Q78 84 95 102T138 120Q162 120 180 104T199 61Q199 36 182 18T139 0T96 17T78 60Z"></path><path stroke-width="0" id="E4-MJMAIN-34" d="M462 0Q444 3 333 3Q217 3 199 0H190V46H221Q241 46 248 46T265 48T279 53T286 61Q287 63 287 115V165H28V211L179 442Q332 674 334 675Q336 677 355 677H373L379 671V211H471V165H379V114Q379 73 379 66T385 54Q393 47 442 46H471V0H462ZM293 211V545L74 212L183 211H293Z"></path><path stroke-width="0" id="E4-MJMAIN-2C" d="M78 35T78 60T94 103T137 121Q165 121 187 96T210 8Q210 -27 201 -60T180 -117T154 -158T130 -185T117 -194Q113 -194 104 -185T95 -172Q95 -168 106 -156T131 -126T157 -76T173 -3V9L172 8Q170 7 167 6T161 3T152 1T140 0Q113 0 96 17Z"></path></defs><g stroke="currentColor" fill="currentColor" stroke-width="0" transform="matrix(1 0 0 -1 0 0)"><use xlink:href="#E4-MJMATHI-69" x="0" y="0"></use><use xlink:href="#E4-MJMATHI-64" x="345" y="0"></use><g transform="translate(1145,0)"><use xlink:href="#E4-MJMAIN-22"></use><use xlink:href="#E4-MJMAIN-3A" x="500" y="0"></use><use xlink:href="#E4-MJMAIN-22" x="778" y="0"></use></g><use xlink:href="#E4-MJMAIN-34" x="2701" y="0"></use><use xlink:href="#E4-MJMAIN-22" x="3479" y="0"></use><use xlink:href="#E4-MJMAIN-2C" x="3979" y="0"></use><use xlink:href="#E4-MJMAIN-22" x="4424" y="0"></use></g></svg></span><script type="math/tex">id": "4",
+      "</script>type&quot;: &quot;SourceTree.Model.BasicAuthCredentials, SourceTree.Api.Account&quot;,
+​     <span>	</span> &quot;Username&quot;: &quot;&quot;,
+​     <span>	</span> &quot;Email&quot;: null
+   <span>	</span> },
+​    <span>	</span>&quot;IsDefault&quot;: false
+​<span>	</span>  }
+​<span>	</span>]</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n138' class='md-header-anchor '></a>第八集  git的分支</h3><ul><li><p>什么是分支</p><p><span>	</span>软件项目中启动一套单独的开发线的方法</p></li><li><p>为什么使用git</p><p><span>	</span>可以很好的避免版本兼容开发的问题，避免不同版本之间的相互影响
+​<span>	</span>封装一个开发阶段
+​<span>	</span>解决bug的时候新建分支，用于对该bug的研究</p></li><li><p>git中跟分支相关的命令</p><p><span>	</span>git branch 分支名
+git branch 不加任何参数，列出所有的分支，分支前面有*号，代表该分支为当前所在分支</p><ul><li><p>创建分支的时候，分支名不用使用特殊符号
+git branch -d 分支名<br/>*不能删除当前所在的分支
+git branch -m 旧分支名 新分支名</p><p>git checkout 分支名  切换分支
+如果在分支上面对文件进行修改之后，没有commit就切换到另外一个分支b，
+这个时候会报错，因为没有commit的文件在切换分支之后会不覆盖。所以Git 报错提示。</p><p>git checkout -f 分支名 强制切换到分支，如果当前有为提交的变更，会直接丢弃
+-f 参数一定一定要非常非常小心使用，一般情况下不建议使用，除非真的要强制去执行 </p></li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n158' class='md-header-anchor '></a>第九集  log命令</h3><ul><li><p>log命令的作用</p><p><span>	</span>用于查看git的提交历史</p></li><li><p>git log命令显示的信息的具体含义</p><p><span>	</span>commit 4a70ceb24b6849ad830d6af5126c9227b333d2d1 --SHA-1 校验和  commit id
+​<span>	</span>Author: wiggin <a href='mailto:wiggin@gmail.com' target='_blank' class='url'>wiggin@gmail.com</a>  --作者跟邮箱概要信息
+​<span>	</span>Date:   Wed May 16 23:51:02 2018 +0800 --提交时间</p><p><span>	</span>v2  --commit的时候，使用-m选项说写一段概要说明
+​<span>	</span>日常在使用commit的时候，-m选项所写得内容一定不能随便写
+​<span>	</span>“修改了登陆的bug”--》“新增用户管理中心”</p></li><li><p>git log -数字  表示查看最近几次的提交</p></li><li><p>git log -p -2 显示最近两次提交的不同点</p></li><li><p>git log --author 查看具体某个作者的提交</p></li><li><p>git log --online 输出简要的信息</p></li><li><p>git log --graph 以一个简单的线串联起整个提交历史</p></li><li><p>git log 输出信息的定制</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n185' class='md-header-anchor '></a>第十集  文件对比利器--git diff</h3><ul><li><p>diff --&gt;difference的缩写，用于比较差异</p></li><li><p>使用场景</p><p><span>	</span>解决冲突
+​<span>	</span>制作补丁</p></li><li><p>git diff 不加任何参数  用于比较当前工作区跟暂存区的差异</p></li><li><p>git diff --cached 或者--staged </p></li><li><p>git diff HEAD </p></li><li><p>git diff 分支名  查看当前分支跟指定的分支的差异</p></li><li><p>git diff 分支名1 分支名2 查看两个指定分支(已提交的)的差异，分支2 跟分支1的差别</p></li><li><p>git diff 文件名 查看指定文件的差异</p></li><li><p>git diff commitid1 commitid2 用于列出两个历史提交的差异</p></li><li><p>git diff --stat 用于罗列有变更的文件</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n211' class='md-header-anchor '></a>第十一集  git更改状态</h3><ul><li>将不必要的文件add</li><li>上次提交觉得是错的</li><li>不想改变暂存区内容，只是想调整提交的信息</li><li>版本回滚</li><li>git reset HEAD 文件名  移除不必要的添加到暂存区的文件</li><li>git reset HEAD^ 或者 commitid 去掉上一次的提交 </li><li>git reset --soft  HEAD^ 修改上次提交的信息吧即commit -m &quot;修改这里的内容&quot;</li><li>git reset --soft 只是将HEAD引用指向指定的提交，工作区跟暂存区的内容不会改变</li><li>git reset --mixed （默认选项）将HEAD指向指定的提交，暂存区的内容随之改变，工作区内容不变</li><li>git reset --hard 将HEAD指向指定的提交，暂存区跟工作区都会改变</li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n235' class='md-header-anchor '></a>第十二集  分支合并及冲突解决</h3><ul><li><p>git merge 分支名</p><p><span>	</span>表示：拿指定的分支名与当前分支进行合并</p></li><li><p>git diff --name-only --diff-filter=U  用于查看产生冲突的文件</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n245' class='md-header-anchor '></a>第十三集  git的标签</h3><ul><li><p>git tag  不加任何参数 表示显示标签（按字母序） 非按时间</p></li><li><p>git tag 标签名  默认是给最近一次提交打上标签</p></li><li><p>git tag 标签名  commitId  给响应的提交打上标签</p></li><li><p>git show 标签名  显示该标签相关的那次提价的相关信息</p></li><li><p>git  tag -d 标签名  删除该标签</p></li><li><p>git push 远程分支名 标签名 把某个标签（必须是本地已存在的，否则推动失败） 推送到远程分支</p></li><li><p>删除远程标签的步骤</p><p><span>	</span>删除本地标签  git tag -d 标签名</p><p><span>	</span>在删除远程的  git push  origin :refs/tags/标签名</p><p>&nbsp;</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n267' class='md-header-anchor '></a>第十四集  gitignore</h3><ul><li><p>为什么要使用.gitignore 文件</p><p><span>	</span>大量与项目无关的文件全推到远程仓库上，同步的时候会非常慢，且跟编辑器相关的一些配置推上去之后，别人更新也会受其影响。所以，我们使用该文件，对不必要的文件进行忽略，使其不被git追踪</p><p><span>	</span>一把情况下，.gitignore文件，在项目一开始创建的时候就创建，并推送到远程服务器上。这样大家初次同步项目的时候，就是用到该文件，避免以后，团队成员把与项目无关的文件，传到远程服务器上</p><p><span>	</span></p><p><span>	</span><em>.log 表示忽略项目中所有以.log结尾的文件
+​<span>	</span>123?.log 表示忽略项目中所有以123加任意字符的文件
+​<span>	</span>/error.log 表示忽略项目中根目录中的error.log 这个文件
+​<span>	</span>src/main/test/</em> 表示忽略/src/main/test/目录下的所有文件
+​<span>	</span>*.class 
+​<span>	</span>**/java/ 匹配所有java目录下的所有文件
+​<span>	</span>!/error.log 表示在之前的匹配规则下，被命中的文件，可以使用!对前面的规则进行否定</p></li><li><p>对于已经提交到远程或本地仓库的文件，.gitignore配置之后不会生效。我们必须先删除本地暂存区里的文件，之后在加上.gitignore 文件，最后再把变更提交到远程仓库上。</p></li><li><p>git rm --cached 文件名  从暂存区删除某个文件</p></li><li><p>git rm -rf --cached 文件夹 表示递归删除暂存区该文件夹的所有东西</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h2><a name='header-n286' class='md-header-anchor '></a>第二章  gitlab系列课程</h2><h3><a name='header-n287' class='md-header-anchor '></a>第一集  虚拟机的安装</h3><ul><li><p>安装virtualbox</p><p><span>	</span><a href='https://www.virtualbox.org/' target='_blank' class='url'>https://www.virtualbox.org/</a></p></li><li><p>安装centos6.6</p></li><li><p>配置网络</p><p><span>	</span>右键--&gt;网络--&gt;网卡2--&gt;host-only
+​<span>	</span>cd /etc/sysconfig/network-scripts/
+​<span>	</span>vi ifcfg-eth0
+​<span>	</span>将此处改为yes ONBOOT=yes
+​<span>	</span>此时可ping外网
+​<span>	</span>cp ifcfg-eth0 ifcfg-eth1
+​<span>	</span>加入以下内容
+​<span>	</span>DEVICE=eth1
+​<span>	</span>ONBOOT=yes
+​<span>	</span>BOOTPROTO=static
+​<span>	</span>IPADDR=192.168.56.1</p><p><span>	</span>NETMASK=255.255.255.0</p></li><li><p>使用工具连接centos</p><p><span>	</span><a href='https://winscp.net/eng/download.php' target='_blank' class='url'>https://winscp.net/eng/download.php</a></p><p><span>	</span><a href='https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html' target='_blank' class='url'>https://www.chiark.greenend.org.uk/~sgtatham/putty/latest.html</a></p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n307' class='md-header-anchor '></a>第二集  gitlab的简介</h3><ul><li><p>gitlab是什么</p><p><span>	</span>是一个用于仓库管理系统的开源项目，使用Git作为代码管理工具，并在此基础上搭建起来的web服务。
+​<span>	</span>基础功能免费，高级功能收费</p></li><li><p>为什么要使用gitlab</p><p><span>	</span>基础功能开源，可自行搭建
+​<span>	</span>可以进行权限控制，使得代码对部分人可见
+​<span>	</span>gitlab使用方便，非常适合企业内部使用</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n318' class='md-header-anchor '></a>第三集  gitlab的安装</h3><ul><li><p>在防火墙里开放http跟ssh端口</p><p><span>	</span>yum install lokkit
+​<span>	</span>yum install curl openssh-server openssh-clients postfix cronie -y
+​<span>	</span>service postfix start
+​<span>	</span>chkconfig postfix on
+​<span>	</span>lokkit -s http -s ssh</p></li><li><p>添加gitlab仓库，并安装</p><p><span>	</span>curl -sS <a href='http://packages.gitlab.cc/install/gitlab-ce/script.rpm.sh' target='_blank' class='url'>http://packages.gitlab.cc/install/gitlab-ce/script.rpm.sh</a> | sudo bash
+​<span>	</span>sudo yum install gitlab-ce</p></li><li><p>启动gitlab</p><p><span>	</span>gitlab-ctl reconfigure
+​<span>	</span>vim /etc/gitlab/gitlab.rb 
+​<span>	</span>修改external_url为gitlab机子的ip+要使用的端口 如：<a href='http://192.168.56.101:8888' target='_blank' class='url'>http://192.168.56.101:8888</a>
+​<span>	</span>修改nginx[&#39;listen_port&#39;] = 8888
+​<span>	</span>重新配置gitlab并重启<span>		</span>
+​<span>	</span>gitlab-ctl reconfigure
+​<span>	</span>gitlab-ctl restart</p></li><li><p>配置防火墙</p><p><span>	</span>vim /etc/sysconfig/iptables
+​<span>	</span>-A INPUT -m state --state NEW -m tcp -p tcp --dport 8888 -j ACCEPT
+​<span>	</span>service iptables restart</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n334' class='md-header-anchor '></a>第四集  配置gitlab邮件服务</h3><ul><li><p>配置邮箱服务的用途</p><p><span>	</span>有合并请求时，邮件通知
+​<span>	</span>账号注册时，邮件验证
+​<span>	</span>修改密码时，通过邮件修改</p></li><li><p>配置步骤</p><ul><li><p>开启QQ邮箱的smtp服务(不建议使用163邮箱，发几次之后，就不能发送)</p><p><span>	</span>设置--》账户--》smtp--》密保验证--》验证成功返回一串字符串，形状如（ausdixersybgcgid）</p><p><span>	</span>保存返回的字符串</p></li><li><p>修改gitlab配置</p><p><span>	</span></p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="shell" style="page-break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="shell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><span><span>​</span>x</span></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-builtin">vim</span> /etc/gitlab/gitlab.rb</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">按/后输入smtp_enable，找到下面这一串文本，进行修改</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">gitlab_rails[<span class="cm-string">'smtp_enable'</span>] <span class="cm-operator">=</span> <span class="cm-atom">true</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">gitlab_rails[<span class="cm-string">'smtp_address'</span>] <span class="cm-operator">=</span> <span class="cm-string">"smtp.qq.com"</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">gitlab_rails[<span class="cm-string">'smtp_port'</span>] <span class="cm-operator">=</span> <span class="cm-number">465</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">gitlab_rails[<span class="cm-string">'smtp_user_name'</span>] <span class="cm-operator">=</span> <span class="cm-string">"1403780990@qq.com"</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">gitlab_rails[<span class="cm-string">'smtp_password'</span>] <span class="cm-operator">=</span> <span class="cm-string">"开通smtp时返回的字符"</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">gitlab_rails[<span class="cm-string">'smtp_domain'</span>] <span class="cm-operator">=</span> <span class="cm-string">"qq.com"</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">gitlab_rails[<span class="cm-string">'smtp_authentication'</span>] <span class="cm-operator">=</span> <span class="cm-string">"login"</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">gitlab_rails[<span class="cm-string">'smtp_enable_starttls_auto'</span>] <span class="cm-operator">=</span> <span class="cm-atom">true</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">gitlab_rails[<span class="cm-string">'smtp_tls'</span>] <span class="cm-operator">=</span> <span class="cm-atom">true</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">user[<span class="cm-string">'git_user_email'</span>] <span class="cm-operator">=</span> <span class="cm-string">"1403780990@qq.com"</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">gitlab_rails[<span class="cm-string">'gitlab_email_from'</span>] <span class="cm-operator">=</span> <span class="cm-string">'1403780990@qq.com'</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">按esc退出到命令行模式</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">之后:wq 保存并退出</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">gitlab-ctl reconfigure</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 374px;"></div><div class="CodeMirror-gutters" style="display: none; height: 374px;"></div></div></div></pre></li><li><p>测试邮件服务是否正常</p><p>gitlab-rails console</p><p>Notify.test_email(&#39;接收方邮件地址&#39;,&#39;邮件标题&#39;,&#39;邮件内容&#39;).deliver_now</p><p>按回车，测试发送。</p></li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n359' class='md-header-anchor '></a>第五集  gitlab的账号注册及分组</h3><ul><li><p>开启注册邮箱验证</p><p><span>	</span>admin area --》setting--》Sign-up restrictions--》勾选Send confirmation email on sign-up</p></li><li><p>当前用户</p><p><span>	</span>root、123、wiggin</p></li><li><p>创建组</p><p><span>	</span>首页-&gt;create a group(<a href='http://192.168.56.101:8888/dashboard/groups' target='_blank' class='url'>http://192.168.56.101:8888/dashboard/groups</a>)</p><p><span>	</span>访问级别</p><p><span>		</span>Private：只有组成员才能看到</p><p><span>		</span>Internal：只要登录的用户就能看到</p><p><span>		</span>Public：所有人都能看到</p></li><li><p>Guest：可以创建issue、发表评论，不能读写版本库</p></li><li><p>Reporter：可以克隆代码，不能提交</p></li><li><p>Developer：可以克隆代码、开发、提交、push</p></li><li><p>Master：可以创建项目、添加tag、保护分支、添加项目成员、编辑项目</p></li><li><p>Owner：可以设置项目访问权限 - Visibility Level、删除项目、迁移项目、管理组成员</p></li><li><p>键入命令：ssh-keygen -t rsa</p></li><li><p>提醒你输入key的名称，输入如id_rsa </p></li><li><p>在C:\Users\用户.ssh下产生两个文件：id_rsa和id_rsa.pub </p></li><li><p>用记事本打开id_rsa.pub文件，复制内容，在gitlab.com的网站上到ssh密钥管理页面，添加新公钥，随便取个名字，内容粘贴刚才复制的内容。</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n394' class='md-header-anchor '></a>第六集  gitlab分支及标签的保护</h3><ul><li><p>为什么要保护分支？</p><p><span>	</span>保护特定的分支不被随便合并，以免影响相应的分支</p></li><li><p>进入项目--&gt; repository--&gt;branches--&gt;project setting</p></li><li><p>注意 能push 就能merge ，相应的权限把握好（master分支设置只能masters可以合并）</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h2><a name='header-n407' class='md-header-anchor '></a>第三章  敏捷持续集成</h2><h3><a name='header-n408' class='md-header-anchor '></a>第一集  敏捷持续集成简介</h3><ul><li><p>什么是持续集成？</p><p><span>	</span>持续集成是一种软件开发实践，即团队开发成员经常集成他们的工作，通过每个成员每天至少集成一次，也就意味着每天可能会发生多次集成。每次集成都通过自动化的构建（包括编译，发布，自动化测试）来验证，从而尽早地发现集成错误。</p></li><li><p>好处</p><p><span>	</span>节省人力成本
+​<span>	</span>加快软件开发进度
+​<span>	</span>实时交付</p></li><li><p>整体流程</p><p><span>	</span>成员通过git提交代码--》持续集成引擎来去代码并使用构建工具自动构建--》发布项目</p></li><li><p>重要组成部分</p><p><span>	</span>git
+​<span>	</span>gitlab
+​<span>	</span>jenkins 持续集成引擎
+​<span>	</span>maven 构建工具
+​<span>	</span>sonarqube 代码质量管理
+​<span>	</span>junit 自动执行单元测试
+​<span>	</span>JDK
+​<span>	</span>Tomcat</p><p><span>	</span>几个war--》微服务架构</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n427' class='md-header-anchor '></a>第二集  jdk及maven的安装</h3><ul><li><p>版本说明</p><p><span>	</span>jdk1.8（目前大部分公司内部使用的还是JDK8，大部分依赖java的工具或框架，对JDK8的支持度是最好的）
+​<span>	</span>maven3.5.3</p></li><li><p>安装步骤</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="" style="page-break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>vim /etc/profile</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; 在最下面，按i进入insert模式，添加一下内容</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;  JAVA_HOME=/usr/local/jdk1.8.0_91</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>export JAVA_HOME</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>CLASSPATH=.:$JAVA_HOME/lib</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>export CLASSPATH</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>PATH=$PATH:$JAVA_HOME/bin:$CLASSPATH</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>export PATH</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span> 按esc进入命令行模式，再按:wq保存退出</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span> 激活配置</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span> <span class="cm-tab" role="presentation" cm-text="	">   </span>source /etc/profile</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>5.解压maven</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span> &nbsp; &nbsp; tar -zxvf apache-maven-3.5.3-bin.tar.gz -C /usr/local/</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>6.配置maven环境变量</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span> &nbsp; &nbsp; vim /etc/profile</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; 在最下面，按i进入insert模式，添加一下内容</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;  <span class="cm-tab" role="presentation" cm-text="	">    </span>MAVEN_HOME=/usr/local/apache-maven-3.5.3</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>export MAVEN_HOME</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>PATH=$PATH:$MAVEN_HOME/bin</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>export PATH</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>按esc进入命令行模式，再按:wq保存退出</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span> 激活配置</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span> <span class="cm-tab" role="presentation" cm-text="	">   </span>source /etc/profile</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 506px;"></div><div class="CodeMirror-gutters" style="display: none; height: 506px;"></div></div></div></pre></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n440' class='md-header-anchor '></a>第三集  nexus的安装</h3><ul><li><p>下载nexus</p><p><span>	</span><a href='https://www.sonatype.com/download-oss-sonatype' target='_blank' class='url'>https://www.sonatype.com/download-oss-sonatype</a></p></li><li><p>上传到服务器/root/</p></li><li><p>解压</p><p><span>	</span>tar -zxvf nexus-3.12.1-01-unix.tar.gz -C /usr/local/</p></li><li><p>修改配置文件</p><p><span>	</span>vim /usr/local/nexus-3.12.1-01/etc/nexus-default.properties
+​<span>		</span>修改对应的端口
+​<span>	</span>修改防火墙
+​<span>		</span>vim  /etc/sysconfig/iptables
+​<span>		</span>-A INPUT -m state --state NEW -m tcp -p tcp --dport 8081 -j ACCEPT</p></li><li><p>浏览器打开并登陆</p><p><span>	</span><a href='http://192.168.56.102:8081/' target='_blank' class='url'>http://192.168.56.102:8081/</a></p><p><span>	</span>账号admin
+​<span>	</span>密码 admin123
+​<span>	</span>System Requirement: max file descriptors [4096] likely too low, increase to at least [65536].</p></li><li><p>修改ulimit</p><p><span>	</span>vim /etc/security/limits.conf</p><p><span>	</span>新增</p><p><span>		</span>soft nofile 65535</p><p><span>		</span>hard nofile 65535</p></li><li><p>配置开机自启动</p><p><span>	</span>su - nexus -c &#39;/usr/local/nexus-3.12.1-01/bin/nexus start&#39;</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n470' class='md-header-anchor '></a>第四集  nexus的使用</h3><ul><li><p>仓库类型</p><p><span>	</span>proxy:代理仓库，用于代理远程仓库
+​<span>	</span>group:仓库组，通常包含了多个代理仓库和宿主仓库，在项目中只要引入仓库组就可以下载到代理仓库和宿主仓库中的包
+​<span>	</span>hosted:宿主仓库，内部项目、付费jar
+​<span>		</span>releases  发布内部release版本的仓库
+​<span>		</span>snapshots 发布内部snapshots版本的仓库
+​<span>		</span>third 自建第三方jar</p></li><li><p>配置代理</p><p><span>	</span>选择阿里云<a href='http://maven.aliyun.com/nexus/content/groups/public/' target='_blank' class='url'>http://maven.aliyun.com/nexus/content/groups/public/</a></p></li><li><p>本地maven配置</p><p><span>	</span>修改maven目录下的conf/setting.xml</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="xml" style="page-break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="xml"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-meta">&lt;?xml</span> <span class="cm-meta">version="1.0" encoding="UTF-8"?&gt;</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">settings</span> <span class="cm-attribute">xmlns</span>=<span class="cm-string">"http://maven.apache.org/SETTINGS/1.0.0"</span> <span class="cm-attribute">xmlns:xsi</span>=<span class="cm-string">"http://www.w3.org/2001/XMLSchema-instance"</span> <span class="cm-attribute">xsi:schemaLocation</span>=<span class="cm-string">"http://maven.apache.org/SETTINGS/1.0.0 http://maven.apache.org/xsd/settings-1.0.0.xsd"</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">pluginGroups</span><span class="cm-tag cm-bracket">/&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">proxies</span><span class="cm-tag cm-bracket">/&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">servers</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">server</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">id</span><span class="cm-tag cm-bracket">&gt;</span>xdclass-releases<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">id</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">username</span><span class="cm-tag cm-bracket">&gt;</span>admin<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">username</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">password</span><span class="cm-tag cm-bracket">&gt;</span>admin123<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">password</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">server</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">server</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">id</span><span class="cm-tag cm-bracket">&gt;</span>xdclass-snapshots<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">id</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">username</span><span class="cm-tag cm-bracket">&gt;</span>admin<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">username</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">password</span><span class="cm-tag cm-bracket">&gt;</span>admin123<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">password</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">server</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">servers</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">mirrors</span><span class="cm-tag cm-bracket">/&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">profiles</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">profile</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">id</span><span class="cm-tag cm-bracket">&gt;</span>xdclass<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">id</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">activation</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">activeByDefault</span><span class="cm-tag cm-bracket">&gt;</span>false<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">activeByDefault</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">activation</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-comment">&lt;!-- 私有库地址--&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">repositories</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">repository</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">id</span><span class="cm-tag cm-bracket">&gt;</span>xdclass<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">id</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">url</span><span class="cm-tag cm-bracket">&gt;</span>http://192.168.56.101:8081/repository/maven-public/<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">url</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">releases</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">enabled</span><span class="cm-tag cm-bracket">&gt;</span>true<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">enabled</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">releases</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">snapshots</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">enabled</span><span class="cm-tag cm-bracket">&gt;</span>true<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">enabled</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">snapshots</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">repository</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">repositories</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-comment">&lt;!--插件库地址--&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">pluginRepositories</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">pluginRepository</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">id</span><span class="cm-tag cm-bracket">&gt;</span>xdclass<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">id</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">url</span><span class="cm-tag cm-bracket">&gt;</span>http://192.168.56.101:8081/repository/maven-public/<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">url</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">releases</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">enabled</span><span class="cm-tag cm-bracket">&gt;</span>true<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">enabled</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">releases</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">snapshots</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">enabled</span><span class="cm-tag cm-bracket">&gt;</span>true<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">enabled</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">snapshots</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">pluginRepository</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">pluginRepositories</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">profile</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">profiles</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">activeProfiles</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">activeProfile</span><span class="cm-tag cm-bracket">&gt;</span>xdclass<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">activeProfile</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">activeProfiles</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">settings</span><span class="cm-tag cm-bracket">&gt;</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 1276px;"></div><div class="CodeMirror-gutters" style="display: none; height: 1276px;"></div></div></div></pre></li><li><p>修改编辑器中maven的配置，将配置指向setting.xml</p></li><li><p>修改pom</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="xml" style="page-break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="xml"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-comment">&lt;!--pom.xml 远程仓库的配置  id要跟本地maven的setting.xml相同 --&gt;</span></span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">distributionManagement</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">repository</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">id</span><span class="cm-tag cm-bracket">&gt;</span>xdclass-releases<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">id</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">name</span><span class="cm-tag cm-bracket">&gt;</span>Ruizhi Release Repository<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">name</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">url</span><span class="cm-tag cm-bracket">&gt;</span>http://192.168.56.101:8081/repository/maven-releases/<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">url</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">repository</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">snapshotRepository</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">id</span><span class="cm-tag cm-bracket">&gt;</span>xdclass-snapshots<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">id</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">name</span><span class="cm-tag cm-bracket">&gt;</span>Ruizhi Snapshot Repository<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">name</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;</span><span class="cm-tag">url</span><span class="cm-tag cm-bracket">&gt;</span>http://192.168.56.101:8081/repository/maven-snapshots/<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">url</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp; &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">snapshotRepository</span><span class="cm-tag cm-bracket">&gt;</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"> &nbsp; &nbsp;<span class="cm-tag cm-bracket">&lt;/</span><span class="cm-tag">distributionManagement</span><span class="cm-tag cm-bracket">&gt;</span></span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 308px;"></div><div class="CodeMirror-gutters" style="display: none; height: 308px;"></div></div></div></pre></li><li><p>测试是否nexus搭建成功</p><p><span>	</span>pom添加本地没有的依赖，看nexus会不会代理
+​<span>	</span>mvn deploy 看是否成功推送至nexus</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n492' class='md-header-anchor '></a>第五集  编译安装mysql</h3><ul><li><p>linux下安装mysql的方式</p><p><span>	</span>yum 安装简单
+​<span>	</span>自行编译安装 自由</p></li><li><p>mysql下载</p><p><span>	</span><a href='http://mirrors.sohu.com/mysql/MySQL-5.7/mysql-5.7.17.tar.gz' target='_blank' class='url'>http://mirrors.sohu.com/mysql/MySQL-5.7/mysql-5.7.17.tar.gz</a></p></li><li><p>编译安装mysql</p><ul><li><p>解压</p><p><span>	</span>tar -zxvf mysql-5.7.17.tar.gz</p></li><li><p>安装相应的依赖</p><p><span>	</span>yum install make cmake gcc gcc-c++ bison bison-devel ncurses ncurses-devel autoconf automake wget</p></li><li><p>下载boost</p><p><span>	</span>mkdir /usr/local/boost</p><p><span>	</span>wget <a href='http://www.sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz' target='_blank' class='url'>http://www.sourceforge.net/projects/boost/files/boost/1.59.0/boost_1_59_0.tar.gz</a> --no-check-certificate</p></li><li><p>添加用户并创建相应目录存放数据</p><p><span>	</span>useradd mysql
+​<span>	</span>cd /home/mysql/
+​<span>	</span>mkdir data logs temp
+​<span>	</span>chown -R  mysql:mysql data logs temp</p></li><li><p>执行cmake</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="shell" style="page-break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang="shell"><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>cmake \</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-attribute">-DCMAKE_INSTALL_PREFIX</span><span class="cm-operator">=</span>/usr/local/mysql \</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-attribute">-DMYSQL_UNIX_ADDR</span><span class="cm-operator">=</span>/usr/local/mysql/mysql.sock \</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-attribute">-DDEFAULT_CHARSET</span><span class="cm-operator">=</span>utf8 \</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-attribute">-DDEFAULT_COLLATION</span><span class="cm-operator">=</span>utf8_general_ci \</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-attribute">-DWITH_MYISAM_STORAGE_ENGINE</span><span class="cm-operator">=</span><span class="cm-number">1</span> \</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-attribute">-DWITH_INNOBASE_STORAGE_ENGINE</span><span class="cm-operator">=</span><span class="cm-number">1</span> \</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-attribute">-DWITH_ARCHIVE_STORAGE_ENGINE</span><span class="cm-operator">=</span><span class="cm-number">1</span> \</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-attribute">-DWITH_BLACKHOLE_STORAGE_ENGINE</span><span class="cm-operator">=</span><span class="cm-number">1</span> \</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-attribute">-DWITH_MEMORY_STORAGE_ENGINE</span><span class="cm-operator">=</span><span class="cm-number">1</span> \</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-attribute">-DWITH_READLINE</span><span class="cm-operator">=</span><span class="cm-number">1</span> \</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-attribute">-DENABLED_LOCAL_INFILE</span><span class="cm-operator">=</span><span class="cm-number">1</span> \</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-attribute">-DMYSQL_DATADIR</span><span class="cm-operator">=</span>/home/mysql/data \</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-attribute">-DMYSQL_USER</span><span class="cm-operator">=</span>mysql \</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-attribute">-DMYSQL_TCP_PORT</span><span class="cm-operator">=</span><span class="cm-number">3306</span> \</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-attribute">-DWITH_BOOST</span><span class="cm-operator">=</span>/usr/local/boost</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 352px;"></div><div class="CodeMirror-gutters" style="display: none; height: 352px;"></div></div></div></pre></li><li><p>编译安装</p><p><span>	</span>make  进行编译
+​<span>	</span>make install 安装</p></li><li><p>修改mysql安装目录权限</p><p><span>	</span>chown -R mysql:mysql /usr/local/mysql</p></li><li><p>初始化mysql</p><p><span>	</span>mysqld --initialize --user=mysql --basedir=/usr/local/mysql --datadir=/home/mysql/data</p><p><span>	</span>产生密码 eqK:iH;+S6dC</p></li><li><p>删除/etc下的my.cnf</p><p><span>	</span>rm /etc/my.cnf</p></li><li><p>复制服务启动脚本</p><p><span>	</span>cp /usr/local/mysql/support-files/mysql.server /etc/init.d/mysql</p></li><li><p>启动 MySQL 服务</p><p><span>	</span>service mysql start</p></li><li><p>设置mysql服务开机自启动</p><p><span>	</span>chkconfig mysql on</p></li><li><p>登陆mysql并设置可远程登陆</p><p><span>	</span>mysql -u root -p 回车
+​<span>	</span>粘贴初始化时产生的临时密码 eqK:iH;+S6dC
+​<span>	</span>GRANT ALL PRIVILEGES ON <em>.</em> TO &#39;root&#39;@&#39;%&#39; IDENTIFIED BY &#39;xdclass&#39; WITH GRANT OPTION;此时不让改，提示要先设置下密码
+​<span>	</span>SET PASSWORD = PASSWORD(&#39;xdclass&#39;);
+​<span>	</span>ALTER USER &#39;root&#39;@&#39;localhost&#39; PASSWORD EXPIRE NEVER;
+​<span>	</span>flush privileges;
+​<span>	</span>exit；
+​<span>	</span>重新登陆，使用刚刚设置的密码
+​<span>	</span>mysql -u root -p
+​<span>	</span>登陆完成之后，即可设置允许远程登陆
+​<span>	</span>GRANT ALL PRIVILEGES ON <em>.</em> TO &#39;root&#39;@&#39;%&#39; IDENTIFIED BY &#39;xdclass&#39; WITH GRANT OPTION;</p></li><li><p>开启防火墙端口</p><p><span>	</span>vim /etc/sysconfig/iptables</p><p><span>	</span>加入
+​<span>	</span>-A INPUT -m state --state NEW -m tcp -p tcp --dport 3306 -j ACCEPT</p></li><li><p>使用连接工具测试远程连接</p></li></ul></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n552' class='md-header-anchor '></a>第六集 代码质量管理平台--sonarqube安装</h3><ul><li><p>前置依赖 </p><p><span>	</span>mysql 5.6 or 5.7
+​<span>	</span>jdk 1.8</p></li><li><p>下载</p><p><span>	</span><a href='https://www.sonarqube.org/' target='_blank' class='url'>https://www.sonarqube.org/</a></p></li><li><p>安装unzip并解压sonarqube并移动到/usr/local</p><p><span>	</span>yum install unzip
+​<span>	</span>unzip sonarqube-6.7.4.zip
+​<span>	</span>mv sonarqube-6.7.4 /usr/local/</p></li><li><p>mysql里新增数据库</p><p><span>	</span>CREATE DATABASE sonar DEFAULT CHARACTER SET utf8;</p></li><li><p>修改sonarqube相应的配置</p><p><span>	</span>vim /usr/local/sonarqube-6.7.4/conf/sonar.properties
+​<span>	</span>sonar.jdbc.username=root
+​<span>	</span>sonar.jdbc.password=wiggin
+​<span>	</span>sonar.jdbc.url=改成步骤4创建的库名
+​<span>	</span>sonar.web.context=/sonar
+​<span>	</span>sonar.web.host=0.0.0.0</p></li><li><p>新增用户，并将目录所属权赋予该用户</p><p><span>	</span>useradd sonar
+​<span>	</span>chown -R sonar:sonar sonarqube-6.7.4/</p></li><li><p>启动</p><p><span>	</span>su soanr
+​<span>	</span>/usr/local/sonarqube-6.7.4/bin/linux-x86-64/sonar.sh start</p></li><li><p>界面访问</p><p><span>	</span><a href='http://192.168.56.101:9000/sonar' target='_blank' class='url'>http://192.168.56.101:9000/sonar</a>
+​<span>	</span>开启防火墙
+​<span>	</span>vim /etc/sysconfig/iptables
+​<span>	</span>新增9000端口
+​<span>	</span>在界面产生令牌，并将项目代码使用以下命令进行提交由sonarqube进行分析，完成后，查看相应的分析结果</p></li><li><p>mvn sonar:sonar \
+-Dsonar.host.url=<a href='http://192.168.56.101:9000/sonar' target='_blank' class='url'>http://192.168.56.101:9000/sonar</a> \
+-Dsonar.login=830edadfcb2c6326b1c6e2110f43c9f74d008450</p></li></ul><p>&nbsp;</p><h3><a name='header-n581' class='md-header-anchor '></a>第七集  Jenkins安装课堂笔记及常见问题分析定位</h3><ul><li><p>前置条件</p><p><span>	</span>JDK、tomcat</p></li><li><p>安装tomcat</p><p><span>	</span>下载地址： <a href='https://tomcat.apache.org/download-90.cgi' target='_blank' class='url'>https://tomcat.apache.org/download-90.cgi</a>
+​<span>	</span>useradd tomcat --新增一个名为tomcat的用户
+​<span>	</span>passwd tomcat --给tomcat用户设置密码
+​<span>	</span>tar -zxvf apache-tomcat-9.0.8.tar.gz -C /usr/local/ --将tomcat解压到相应目录
+​<span>	</span>chown -R tomcat:tomcat /usr/local/apache-tomcat-9.0.8 --将整个目录的所属权转移给tomcat用户、tomcat组</p></li><li><p>安装Jenkins</p><p><span>	</span>下载地址： <a href='https://jenkins.io/download/' target='_blank' class='url'>https://jenkins.io/download/</a>
+​<span>	</span>将Jenkins上传到tomcat的webapp目录
+​<span>	</span>chown  tomcat:tomcat Jenkins.war 修改Jenkinswar包为tomcat用户所有
+​<span>	</span>启动tomcat
+​<span>	</span>--通过浏览器无法访问tomcat
+​<span>		</span>1.看tomcat是否存活  ps aux | grep tomcat 
+​<span>		</span>2.看端口  netstat -tlun 看到8080端口已经使用了
+​<span>		</span>3.检查防火墙  vim /etc/sysconfig/iptables 加入8080
+​<span>		</span>4.查看tomcat日志  --》出现异常，地址已经被使用
+​<span>		</span>5.关闭tomcat --》 查看端口（步骤2）--》发现8080依旧存在
+​<span>		</span>6.断定8080被其他程序占用 --》netstat -tlunp | grep 8080 --&gt;看到被gitlab相关的程序使用了
+​<span>		</span>7.修改tomcat端口 vim conf/server.xml ,找到8080 --》将8080改成不被占用的9999端口
+​<span>		</span>8.防火墙开启9999端口
+​<span>		</span>9.可以正常访问tomcat</p><p><span>	</span>浏览器打开<a href='http://192.168.56.101:9999/jenkins' target='_blank' class='url'>http://192.168.56.101:9999/jenkins</a>
+​<span>	</span>more /home/tomcat/.jenkins/secrets/initialAdminPassword
+​<span>	</span>将里面的内容复制粘贴
+​<span>	</span>此时发现提示Jenkins离线
+​<span>	</span>访问 <a href='http://192.168.56.101:9999/jenkins/pluginManager/advanced' target='_blank' class='url'>http://192.168.56.101:9999/jenkins/pluginManager/advanced</a>
+​<span>	</span>拉到最底下，将https--》改成http，之后提交
+​<span>	</span>重启tomcat
+​<span>	</span>浏览器打开<a href='http://192.168.56.101:9999/jenkins' target='_blank' class='url'>http://192.168.56.101:9999/jenkins</a>
+​<span>	</span>more /home/tomcat/.jenkins/secrets/initialAdminPassword
+​<span>	</span>选择默认安装</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n595' class='md-header-anchor '></a>第八集  Jenkins插件安装及配置课堂笔记</h3><ul><li><p>插件安装</p><p><span>	</span>系统管理--》插件管理
+​<span>	</span>1.安装Maven Integration plugin 
+​<span>	</span>2.安装SonarQube Scanner for Jenkins
+​<span>	</span>3.Publish Over SSH --发布到远程服务器</p></li><li><p>系统配置</p><p><span>	</span>系统管理--》全局工具配置
+​<span>	</span>1.配置jdk
+​<span>	</span>2.配置maven
+​<span>	</span>3.配置sonar
+​<span>	</span>4.邮件配置
+​<span>		</span>系统管理--》系统设置--》邮件通知--》
+​<span>		</span>smtp服务器 smtp.qq.com
+​<span>		</span>用户默认邮件后缀 @qq.com
+​<span>		</span>勾选ssl
+​<span>		</span>Reply-To Address发件者邮箱
+​<span>		</span>之后测试一下配置，无误即可</p></li><li><p>配置gitlab授权</p><p><span>	</span>Credentials--》system--》Global credentials </p></li><li><p>配置免密登陆</p><p><span>	</span>yum -y install openssh-clients
+​<span>	</span>ssh-keygen -t rsa -- 产生私钥
+​        配置git登陆
+​<span>	</span>将Jenkins所在机子的公钥 more ~/.ssh/id_rsa.pub 的内容拷贝到gitlab项目上</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n612' class='md-header-anchor '></a>第九集  Jenkins仪表盘简介</h3><ul><li><p>用户  --显示Jenkins里的用户</p></li><li><p>构建历史 --以时间轴的形式，显示项目的构建历史</p></li><li><p>系统管理 --跟Jenkins相关的配置都在里面</p><p><span>	</span>3.1 系统设置
+​<span>		</span>全局设置相关的都在里面(maven、邮件、ssh服务器等都在里面配置)
+​<span>	</span>3.2<span>	</span>全局安全配置
+​<span>		</span>用户权限、是否允许用户登录等配置
+​<span>	</span>3.3 configure credentials
+​<span>		</span>配置证书相关的
+​<span>	</span>3.4 全局工具配置
+​<span>		</span>JDK Git Maven 等都在里面配置
+​<span>	</span>3.5 读取配置
+​<span>		</span>放弃当前配置，而读取配置文件
+​<span>	</span>3.6 管理插件
+​<span>		</span>所有的插件都是在此处管理的，安装，升级
+​<span>	</span>3.7 系统信息
+​<span>		</span>系统相关的信息
+​<span>	</span>3.8 系统日志
+​<span>		</span>系统日志，帮助定位问题
+​<span>	</span>3.9 负载统计
+​<span>	</span>3.10 Jenkins cli
+​<span>	</span>3.11 脚本命令行
+​<span>	</span>3.12 管理节点
+​<span>	</span>3.13 关于Jenkins
+​<span>	</span>3.14 manage old data
+​<span>	</span>3.15 管理用户</p><p><span>		</span>Jenkins用户的管理</p></li><li><p>我的视图  --我们配置的要构建的项目</p></li><li><p>Credentials --证书相关，授权相关</p></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n628' class='md-header-anchor '></a>第十集 持续集成--手动集成</h3><ul><li>详见视频</li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h2><a name='header-n637' class='md-header-anchor '></a>第四章  持续集成实战</h2><h3><a name='header-n638' class='md-header-anchor '></a>第一、二集--Jenkins本地持续集成</h3><ul><li><p>nohup 的用途就是让提交的命令忽略 hangup 信号，那什么叫做hangup信号？这里给出了答案</p><p><span>	</span>0：标准输入 1：标准输出，2：标准错误</p></li><li><p>--本地手动构建</p><ul><li><p>新建job并配置</p><p>General --可不配
+<span>	</span>源码管理 --按项目所使用的源码管理选择，课程使用git
+<span>		</span>填写项目地址，Credentials选择配置好的认证
+<span>		</span>选择分支  可以是项目中的任意分支
+<span>	</span>构建触发器
+<span>		</span>触发远程构建 (例如,使用脚本)
+<span>		</span>其他工程构建后触发 -- 在Jenkins中其他项目构建之后，触发本项目构建，一般用于项目间有依赖关系，一方修改，另一方需实时感知
+<span>		</span>定时构建 --定时进行构建，无论是否有变更 （类似cron表达式）
+<span>		</span>GitHub hook trigger for GITScm polling --github的hook触发构建,一般不使用
+<span>		</span>轮询 SCM --设置定时检查源码变更，有更新就构建（类似cron表达式）</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="" style="page-break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>定时表达式含义</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>* * * * * --五个字段</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span><span class="cm-tab" role="presentation" cm-text="	">    </span>分 时 天 月 周</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">构建环境</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>Delete workspace before build starts：在构建之前清空工作空间</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>Abort the build if it's stuck：如果构建出现问题则终止构建</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>Add timestamps to the Console Output：给控制台输出增加时间戳</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>Use secret text(s) or file(s)：使用加密文件或者文本</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">执行shell</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">#!/bin/bash</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">mv target/*.jar /root/demo/</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">cd /root/demo</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">BUILD_ID= </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;">java -jar springboot-demo.jar &gt;log 2&gt;&amp;1 &amp;</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 308px;"></div><div class="CodeMirror-gutters" style="display: none; height: 308px;"></div></div></div></pre></li></ul></li></ul><p>&nbsp;</p><ul><li><p>本地gitlab触发构建</p></li><li><p>配置gitlab webhook</p><p><span>	</span>系统管理员登陆
+​<span>		</span><a href='http://192.168.56.101:8888/admin/application_settings' target='_blank' class='url'>http://192.168.56.101:8888/admin/application_settings</a>
+​<span>	</span>settings
+​<span>		</span>Outbound requests
+​<span>		</span>勾选Allow requests to the local network from hooks and services</p></li><li><p>sonarqube整合</p><p><span>	</span>required metadata</p><pre spellcheck="false" class="md-fences md-end-block ty-contain-cm modeLoaded" lang="" style="page-break-inside: unset;"><div class="CodeMirror cm-s-inner CodeMirror-wrap" lang=""><div style="overflow: hidden; position: relative; width: 3px; height: 0px; top: 0px; left: 8px;"><textarea autocorrect="off" autocapitalize="off" spellcheck="false" tabindex="0" style="position: absolute; bottom: -1em; padding: 0px; width: 1000px; height: 1em; outline: none;"></textarea></div><div class="CodeMirror-scrollbar-filler" cm-not-content="true"></div><div class="CodeMirror-gutter-filler" cm-not-content="true"></div><div class="CodeMirror-scroll" tabindex="-1"><div class="CodeMirror-sizer" style="margin-left: 0px; margin-bottom: 0px; border-right-width: 0px; padding-right: 0px; padding-bottom: 0px;"><div style="position: relative; top: 0px;"><div class="CodeMirror-lines" role="presentation"><div role="presentation" style="position: relative; outline: none;"><div class="CodeMirror-measure"><pre><span>xxxxxxxxxx</span></pre></div><div class="CodeMirror-measure"></div><div style="position: relative; z-index: 1;"></div><div class="CodeMirror-code" role="presentation" style=""><div class="CodeMirror-activeline" style="position: relative;"><div class="CodeMirror-activeline-background CodeMirror-linebackground"></div><div class="CodeMirror-gutter-background CodeMirror-activeline-gutter" style="left: 0px; width: 0px;"></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>#projectKey项目的唯一标识，不能重复</span></pre></div><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>sonar.projectKey=xdclass</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>sonar.projectName=xdclass</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>sonar.projectVersion=1.0 </span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>sonar.sourceEncoding=UTF-8</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>sonar.modules=java-module</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span cm-text="">​</span></span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span># Java module</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>java-module.sonar.projectName=test</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>java-module.sonar.language=java</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span># .表示projectBaseDir指定的目录</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>java-module.sonar.sources=src</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>java-module.sonar.projectBaseDir=.</span></pre><pre class=" CodeMirror-line " role="presentation"><span role="presentation" style="padding-right: 0.1px;"><span class="cm-tab" role="presentation" cm-text="	">    </span>java-module.sonar.java.binaries=target/</span></pre></div></div></div></div></div><div style="position: absolute; height: 0px; width: 1px; border-bottom-width: 0px; border-bottom-style: solid; border-bottom-color: transparent; top: 330px;"></div><div class="CodeMirror-gutters" style="display: none; height: 330px;"></div></div></div></pre></li></ul><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n663' class='md-header-anchor '></a>第三集  jenkins blue ocean 与 pipeline</h3><ul><li>详见视频</li></ul><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><h3><a name='header-n670' class='md-header-anchor '></a>第四集  分布式构建</h3><ul><li><p>详见视频</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p></li></ul><p>&nbsp;</p><p>&nbsp;</p></div>
+</body>
+</html>

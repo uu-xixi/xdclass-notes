@@ -1,0 +1,538 @@
+<!doctype html>
+<html>
+<head>
+<meta charset='UTF-8'><meta name='viewport' content='width=device-width initial-scale=1'>
+<title>Vue第二季学习笔记</title><link href='https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext' rel='stylesheet' type='text/css' /><style type='text/css'>html {overflow-x: initial !important;}:root { --bg-color: #ffffff; --text-color: #333333; --select-text-bg-color: #B5D6FC; --select-text-font-color: auto; --monospace: "Lucida Console",Consolas,"Courier",monospace; }
+html { font-size: 14px; background-color: var(--bg-color); color: var(--text-color); font-family: "Helvetica Neue", Helvetica, Arial, sans-serif; -webkit-font-smoothing: antialiased; }
+body { margin: 0px; padding: 0px; height: auto; bottom: 0px; top: 0px; left: 0px; right: 0px; font-size: 1rem; line-height: 1.42857143; overflow-x: hidden; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; background-position: inherit inherit; background-repeat: inherit inherit; }
+iframe { margin: auto; }
+a.url { word-break: break-all; }
+a:active, a:hover { outline: 0px; }
+.in-text-selection, ::selection { text-shadow: none; background: var(--select-text-bg-color); color: var(--select-text-font-color); }
+#write { margin: 0px auto; height: auto; width: inherit; word-break: normal; word-wrap: break-word; position: relative; white-space: normal; overflow-x: visible; padding-top: 40px; }
+#write.first-line-indent p { text-indent: 2em; }
+#write.first-line-indent li p, #write.first-line-indent p * { text-indent: 0px; }
+#write.first-line-indent li { margin-left: 2em; }
+.for-image #write { padding-left: 8px; padding-right: 8px; }
+body.typora-export { padding-left: 30px; padding-right: 30px; }
+.typora-export .footnote-line, .typora-export li, .typora-export p { white-space: pre-wrap; }
+@media screen and (max-width: 500px) { 
+  body.typora-export { padding-left: 0px; padding-right: 0px; }
+  .CodeMirror-sizer { margin-left: 0px !important; }
+  .CodeMirror-gutters { display: none !important; }
+}
+#write li > figure:first-child { margin-top: -20px; }
+#write ol, #write ul { position: relative; }
+img { max-width: 100%; vertical-align: middle; }
+button, input, select, textarea { color: inherit; font-family: inherit; font-size: inherit; font-style: inherit; font-variant-caps: inherit; font-weight: inherit; font-stretch: inherit; line-height: inherit; }
+input[type="checkbox"], input[type="radio"] { line-height: normal; padding: 0px; }
+*, ::after, ::before { box-sizing: border-box; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p, #write pre { width: inherit; }
+#write h1, #write h2, #write h3, #write h4, #write h5, #write h6, #write p { position: relative; }
+h1, h2, h3, h4, h5, h6 { break-after: avoid-page; break-inside: avoid; orphans: 2; }
+p { orphans: 4; }
+h1 { font-size: 2rem; }
+h2 { font-size: 1.8rem; }
+h3 { font-size: 1.6rem; }
+h4 { font-size: 1.4rem; }
+h5 { font-size: 1.2rem; }
+h6 { font-size: 1rem; }
+.md-math-block, .md-rawblock, h1, h2, h3, h4, h5, h6, p { margin-top: 1rem; margin-bottom: 1rem; }
+.hidden { display: none; }
+.md-blockmeta { color: rgb(204, 204, 204); font-weight: 700; font-style: italic; }
+a { cursor: pointer; }
+sup.md-footnote { padding: 2px 4px; background-color: rgba(238, 238, 238, 0.701961); color: rgb(85, 85, 85); border-top-left-radius: 4px; border-top-right-radius: 4px; border-bottom-right-radius: 4px; border-bottom-left-radius: 4px; cursor: pointer; }
+sup.md-footnote a, sup.md-footnote a:hover { color: inherit; text-transform: inherit; text-decoration: inherit; }
+#write input[type="checkbox"] { cursor: pointer; width: inherit; height: inherit; }
+figure { overflow-x: auto; margin: 1.2em 0px; max-width: calc(100% + 16px); padding: 0px; }
+figure > table { margin: 0px !important; }
+tr { break-inside: avoid; break-after: auto; }
+thead { display: table-header-group; }
+table { border-collapse: collapse; border-spacing: 0px; width: 100%; overflow: auto; break-inside: auto; text-align: left; }
+table.md-table td { min-width: 32px; }
+.CodeMirror-gutters { border-right-width: 0px; background-color: inherit; }
+.CodeMirror { text-align: left; }
+.CodeMirror-placeholder { opacity: 0.3; }
+.CodeMirror pre { padding: 0px 4px; }
+.CodeMirror-lines { padding: 0px; }
+div.hr:focus { cursor: none; }
+#write pre { white-space: pre-wrap; }
+#write.fences-no-line-wrapping pre { white-space: pre; }
+#write pre.ty-contain-cm { white-space: normal; }
+.CodeMirror-gutters { margin-right: 4px; }
+.md-fences { font-size: 0.9rem; display: block; break-inside: avoid; text-align: left; overflow: visible; white-space: pre; background-image: inherit; background-size: inherit; background-attachment: inherit; background-origin: inherit; background-clip: inherit; background-color: inherit; position: relative !important; background-position: inherit inherit; background-repeat: inherit inherit; }
+.md-diagram-panel { width: 100%; margin-top: 10px; text-align: center; padding-top: 0px; padding-bottom: 8px; overflow-x: auto; }
+#write .md-fences.mock-cm { white-space: pre-wrap; }
+.md-fences.md-fences-with-lineno { padding-left: 0px; }
+#write.fences-no-line-wrapping .md-fences.mock-cm { white-space: pre; overflow-x: auto; }
+.md-fences.mock-cm.md-fences-with-lineno { padding-left: 8px; }
+.CodeMirror-line, twitterwidget { break-inside: avoid; }
+.footnotes { opacity: 0.8; font-size: 0.9rem; margin-top: 1em; margin-bottom: 1em; }
+.footnotes + .footnotes { margin-top: 0px; }
+.md-reset { margin: 0px; padding: 0px; border: 0px; outline: 0px; vertical-align: top; text-decoration: none; text-shadow: none; float: none; position: static; width: auto; height: auto; white-space: nowrap; cursor: inherit; line-height: normal; font-weight: 400; text-align: left; box-sizing: content-box; direction: ltr; background-position: 0px 0px; background-repeat: initial initial; }
+li div { padding-top: 0px; }
+blockquote { margin: 1rem 0px; }
+li .mathjax-block, li p { margin: 0.5rem 0px; }
+li { margin: 0px; position: relative; }
+blockquote > :last-child { margin-bottom: 0px; }
+blockquote > :first-child, li > :first-child { margin-top: 0px; }
+.footnotes-area { color: rgb(136, 136, 136); margin-top: 0.714rem; padding-bottom: 0.143rem; white-space: normal; }
+#write .footnote-line { white-space: pre-wrap; }
+@media print { 
+  body, html { border: 1px solid transparent; height: 99%; break-after: avoid-page; break-before: avoid-page; }
+  #write { margin-top: 0px; padding-top: 0px; border-color: transparent !important; }
+  .typora-export * { -webkit-print-color-adjust: exact; }
+  html.blink-to-pdf { font-size: 13px; }
+  .typora-export #write { padding-left: 32px; padding-right: 32px; padding-bottom: 0px; break-after: avoid-page; }
+  .typora-export #write::after { height: 0px; }
+  @page { margin: 20mm 0px; }
+}
+.footnote-line { margin-top: 0.714em; font-size: 0.7em; }
+a img, img a { cursor: pointer; }
+pre.md-meta-block { font-size: 0.8rem; min-height: 0.8rem; white-space: pre-wrap; background-color: rgb(204, 204, 204); display: block; overflow-x: hidden; background-position: initial initial; background-repeat: initial initial; }
+p > .md-image:only-child:not(.md-img-error) img, p > img:only-child { display: block; margin: auto; }
+p > .md-image:only-child { display: inline-block; width: 100%; }
+#write .MathJax_Display { margin: 0.8em 0px 0px; }
+.md-math-block { width: 100%; }
+.md-math-block:not(:empty)::after { display: none; }
+[contenteditable="true"]:active, [contenteditable="true"]:focus { outline: 0px; box-shadow: none; }
+.md-task-list-item { position: relative; list-style-type: none; }
+.task-list-item.md-task-list-item { padding-left: 0px; }
+.md-task-list-item > input { position: absolute; top: 0px; left: 0px; margin-left: -1.2em; margin-top: calc(1em - 10px); }
+.math { font-size: 1rem; }
+.md-toc { min-height: 3.58rem; position: relative; font-size: 0.9rem; border-top-left-radius: 10px; border-top-right-radius: 10px; border-bottom-right-radius: 10px; border-bottom-left-radius: 10px; }
+.md-toc-content { position: relative; margin-left: 0px; }
+.md-toc-content::after, .md-toc::after { display: none; }
+.md-toc-item { display: block; color: rgb(65, 131, 196); }
+.md-toc-item a { text-decoration: none; }
+.md-toc-inner:hover { text-decoration: underline; }
+.md-toc-inner { display: inline-block; cursor: pointer; }
+.md-toc-h1 .md-toc-inner { margin-left: 0px; font-weight: 700; }
+.md-toc-h2 .md-toc-inner { margin-left: 2em; }
+.md-toc-h3 .md-toc-inner { margin-left: 4em; }
+.md-toc-h4 .md-toc-inner { margin-left: 6em; }
+.md-toc-h5 .md-toc-inner { margin-left: 8em; }
+.md-toc-h6 .md-toc-inner { margin-left: 10em; }
+@media screen and (max-width: 48em) { 
+  .md-toc-h3 .md-toc-inner { margin-left: 3.5em; }
+  .md-toc-h4 .md-toc-inner { margin-left: 5em; }
+  .md-toc-h5 .md-toc-inner { margin-left: 6.5em; }
+  .md-toc-h6 .md-toc-inner { margin-left: 8em; }
+}
+a.md-toc-inner { font-size: inherit; font-style: inherit; font-weight: inherit; line-height: inherit; }
+.footnote-line a:not(.reversefootnote) { color: inherit; }
+.md-attr { display: none; }
+.md-fn-count::after { content: "."; }
+code, pre, samp, tt { font-family: var(--monospace); }
+kbd { margin: 0px 0.1em; padding: 0.1em 0.6em; font-size: 0.8em; color: rgb(36, 39, 41); background-color: rgb(255, 255, 255); border: 1px solid rgb(173, 179, 185); border-top-left-radius: 3px; border-top-right-radius: 3px; border-bottom-right-radius: 3px; border-bottom-left-radius: 3px; box-shadow: rgba(12, 13, 14, 0.2) 0px 1px 0px, rgb(255, 255, 255) 0px 0px 0px 2px inset; white-space: nowrap; vertical-align: middle; background-position: initial initial; background-repeat: initial initial; }
+.md-comment { color: rgb(162, 127, 3); opacity: 0.8; font-family: var(--monospace); }
+code { text-align: left; }
+a.md-print-anchor { white-space: pre !important; border: none !important; display: inline-block !important; position: absolute !important; width: 1px !important; right: 0px !important; outline: 0px !important; text-shadow: initial !important; background-position: 0px 0px !important; background-repeat: initial initial !important; }
+.md-inline-math .MathJax_SVG .noError { display: none !important; }
+.html-for-mac .inline-math-svg .MathJax_SVG { vertical-align: 0.2px; }
+.md-math-block .MathJax_SVG_Display { text-align: center; margin: 0px; position: relative; text-indent: 0px; max-width: none; max-height: none; min-height: 0px; min-width: 100%; width: auto; overflow-y: hidden; display: block !important; }
+.MathJax_SVG_Display, .md-inline-math .MathJax_SVG_Display { width: auto; margin: inherit; display: inline-block !important; }
+.MathJax_SVG .MJX-monospace { font-family: var(--monospace); }
+.MathJax_SVG .MJX-sans-serif { font-family: sans-serif; }
+.MathJax_SVG { display: inline; font-style: normal; font-weight: 400; line-height: normal; zoom: 90%; text-indent: 0px; text-align: left; text-transform: none; letter-spacing: normal; word-spacing: normal; word-wrap: normal; white-space: nowrap; float: none; direction: ltr; max-width: none; max-height: none; min-width: 0px; min-height: 0px; border: 0px; padding: 0px; margin: 0px; }
+.MathJax_SVG * { transition: none; }
+.MathJax_SVG_Display svg { vertical-align: middle !important; margin-bottom: 0px !important; }
+.os-windows.monocolor-emoji .md-emoji { font-family: "Segoe UI Symbol", sans-serif; }
+.md-diagram-panel > svg { max-width: 100%; }
+[lang="mermaid"] svg, [lang="flow"] svg { max-width: 100%; }
+[lang="mermaid"] .node text { font-size: 1rem; }
+table tr th { border-bottom-width: 0px; }
+video { max-width: 100%; display: block; margin: 0px auto; }
+iframe { max-width: 100%; width: 100%; border: none; }
+.highlight td, .highlight tr { border: 0px; }
+
+
+:root {
+    --side-bar-bg-color: #fafafa;
+    --control-text-color: #777;
+}
+
+@include-when-export url(https://fonts.loli.net/css?family=Open+Sans:400italic,700italic,700,400&subset=latin,latin-ext);
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: normal;
+    src: local('Open Sans Regular'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/400.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: normal;
+    src: local('Open Sans Italic'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/400i.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: normal;
+    font-weight: bold;
+    src: local('Open Sans Bold'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/700.woff') format('woff');
+}
+
+@font-face {
+    font-family: 'Open Sans';
+    font-style: italic;
+    font-weight: bold;
+    src: local('Open Sans Bold Italic'),url('file:///Users/xdclass/Library/Application%20Support/abnerworks.Typora/themes/github/700i.woff') format('woff');
+}
+
+html {
+    font-size: 16px;
+}
+
+body {
+    font-family: "Open Sans","Clear Sans","Helvetica Neue",Helvetica,Arial,sans-serif;
+    color: rgb(51, 51, 51);
+    line-height: 1.6;
+}
+
+#write {
+    max-width: 860px;
+  	margin: 0 auto;
+  	padding: 30px;
+    padding-bottom: 100px;
+}
+#write > ul:first-child,
+#write > ol:first-child{
+    margin-top: 30px;
+}
+
+a {
+    color: #4183C4;
+}
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+    position: relative;
+    margin-top: 1rem;
+    margin-bottom: 1rem;
+    font-weight: bold;
+    line-height: 1.4;
+    cursor: text;
+}
+h1:hover a.anchor,
+h2:hover a.anchor,
+h3:hover a.anchor,
+h4:hover a.anchor,
+h5:hover a.anchor,
+h6:hover a.anchor {
+    /*background: url("file:///Users/xdclass/Library/Application%20Support/images/modules/styleguide/para.png") no-repeat 10px center;*/
+    text-decoration: none;
+}
+h1 tt,
+h1 code {
+    font-size: inherit;
+}
+h2 tt,
+h2 code {
+    font-size: inherit;
+}
+h3 tt,
+h3 code {
+    font-size: inherit;
+}
+h4 tt,
+h4 code {
+    font-size: inherit;
+}
+h5 tt,
+h5 code {
+    font-size: inherit;
+}
+h6 tt,
+h6 code {
+    font-size: inherit;
+}
+h1 {
+    padding-bottom: .3em;
+    font-size: 2.25em;
+    line-height: 1.2;
+    border-bottom: 1px solid #eee;
+}
+h2 {
+   padding-bottom: .3em;
+    font-size: 1.75em;
+    line-height: 1.225;
+    border-bottom: 1px solid #eee;
+}
+h3 {
+    font-size: 1.5em;
+    line-height: 1.43;
+}
+h4 {
+    font-size: 1.25em;
+}
+h5 {
+    font-size: 1em;
+}
+h6 {
+   font-size: 1em;
+    color: #777;
+}
+p,
+blockquote,
+ul,
+ol,
+dl,
+table{
+    margin: 0.8em 0;
+}
+li>ol,
+li>ul {
+    margin: 0 0;
+}
+hr {
+    height: 2px;
+    padding: 0;
+    margin: 16px 0;
+    background-color: #e7e7e7;
+    border: 0 none;
+    overflow: hidden;
+    box-sizing: content-box;
+}
+
+li p.first {
+    display: inline-block;
+}
+ul,
+ol {
+    padding-left: 30px;
+}
+ul:first-child,
+ol:first-child {
+    margin-top: 0;
+}
+ul:last-child,
+ol:last-child {
+    margin-bottom: 0;
+}
+blockquote {
+    border-left: 4px solid #dfe2e5;
+    padding: 0 15px;
+    color: #777777;
+}
+blockquote blockquote {
+    padding-right: 0;
+}
+table {
+    padding: 0;
+    word-break: initial;
+}
+table tr {
+    border-top: 1px solid #dfe2e5;
+    margin: 0;
+    padding: 0;
+}
+table tr:nth-child(2n),
+thead {
+    background-color: #f8f8f8;
+}
+table tr th {
+    font-weight: bold;
+    border: 1px solid #dfe2e5;
+    border-bottom: 0;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr td {
+    border: 1px solid #dfe2e5;
+    text-align: left;
+    margin: 0;
+    padding: 6px 13px;
+}
+table tr th:first-child,
+table tr td:first-child {
+    margin-top: 0;
+}
+table tr th:last-child,
+table tr td:last-child {
+    margin-bottom: 0;
+}
+
+.CodeMirror-lines {
+    padding-left: 4px;
+}
+
+.code-tooltip {
+    box-shadow: 0 1px 1px 0 rgba(0,28,36,.3);
+    border-top: 1px solid #eef2f2;
+}
+
+.md-fences,
+code,
+tt {
+    border: 1px solid #e7eaed;
+    background-color: #f8f8f8;
+    border-radius: 3px;
+    padding: 0;
+    padding: 2px 4px 0px 4px;
+    font-size: 0.9em;
+}
+
+code {
+    background-color: #f3f4f4;
+    padding: 0 2px 0 2px;
+}
+
+.md-fences {
+    margin-bottom: 15px;
+    margin-top: 15px;
+    padding: 0.2em 1em;
+    padding-top: 8px;
+    padding-bottom: 6px;
+}
+
+
+.md-task-list-item > input {
+  margin-left: -1.3em;
+}
+
+@media print {
+    html {
+        font-size: 13px;
+    }
+    table,
+    pre {
+        page-break-inside: avoid;
+    }
+    pre {
+        word-wrap: break-word;
+    }
+}
+
+.md-fences {
+	background-color: #f8f8f8;
+}
+#write pre.md-meta-block {
+	padding: 1rem;
+    font-size: 85%;
+    line-height: 1.45;
+    background-color: #f7f7f7;
+    border: 0;
+    border-radius: 3px;
+    color: #777777;
+    margin-top: 0 !important;
+}
+
+.mathjax-block>.code-tooltip {
+	bottom: .375rem;
+}
+
+.md-mathjax-midline {
+    background: #fafafa;
+}
+
+#write>h3.md-focus:before{
+	left: -1.5625rem;
+	top: .375rem;
+}
+#write>h4.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h5.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+#write>h6.md-focus:before{
+	left: -1.5625rem;
+	top: .285714286rem;
+}
+.md-image>.md-meta {
+    /*border: 1px solid #ddd;*/
+    border-radius: 3px;
+    padding: 2px 0px 0px 4px;
+    font-size: 0.9em;
+    color: inherit;
+}
+
+.md-tag {
+    color: #a7a7a7;
+    opacity: 1;
+}
+
+.md-toc { 
+    margin-top:20px;
+    padding-bottom:20px;
+}
+
+.sidebar-tabs {
+    border-bottom: none;
+}
+
+#typora-quick-open {
+    border: 1px solid #ddd;
+    background-color: #f8f8f8;
+}
+
+#typora-quick-open-item {
+    background-color: #FAFAFA;
+    border-color: #FEFEFE #e5e5e5 #e5e5e5 #eee;
+    border-style: solid;
+    border-width: 1px;
+}
+
+/** focus mode */
+.on-focus-mode blockquote {
+    border-left-color: rgba(85, 85, 85, 0.12);
+}
+
+header, .context-menu, .megamenu-content, footer{
+    font-family: "Segoe UI", "Arial", sans-serif;
+}
+
+.file-node-content:hover .file-node-icon,
+.file-node-content:hover .file-node-open-state{
+    visibility: visible;
+}
+
+.mac-seamless-mode #typora-sidebar {
+    background-color: #fafafa;
+    background-color: var(--side-bar-bg-color);
+}
+
+.md-lang {
+    color: #b4654d;
+}
+
+.html-for-mac .context-menu {
+    --item-hover-bg-color: #E6F0FE;
+}
+
+#md-notification .btn {
+    border: 0;
+}
+
+.dropdown-menu .divider {
+    border-color: #e5e5e5;
+}
+
+ .typora-export li, .typora-export p, .typora-export,  .footnote-line {white-space: normal;} 
+</style>
+</head>
+<body class='typora-export' >
+<div  id='write'  class = 'is-mac'><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><h3><a name='header-n3' class='md-header-anchor '></a>=============================================</h3><h3><a name='header-n4' class='md-header-anchor '></a>小D课堂QQ客服Vicky：561509994</h3><h5><a name='header-n5' class='md-header-anchor '></a>此课程主要为项目实战，无笔记章节请直接参考项目源码与课程学习即可</h5><h3><a name='header-n6' class='md-header-anchor '></a>=============================================</h3><h2><a name='header-n7' class='md-header-anchor '></a>第一章 vue全家桶项目实战介绍</h2><h3><a name='header-n8' class='md-header-anchor '></a>第一节：介绍前后端分离模式项目及项目演示讲解</h3><p><strong>简介：前后端分离开发模式介绍及学完能做出的项目演示与讲解</strong></p><ul><li>演示项目成果，讲解学后能到达的水平</li></ul><h3><a name='header-n13' class='md-header-anchor '></a>第二节：介绍vue全家桶项目所用到的技术栈</h3><p><strong>简介：介绍全家桶项目成员及其在项目中的定位与作用</strong></p><ol start='' ><li><h5><a name='header-n17' class='md-header-anchor '></a>项目构建工具vue-cli</h5><ul><li><h5><a name='header-n20' class='md-header-anchor '></a>vue-cli是一个脚手架工具，为我们搭建了开发所需要的环境和生成目录架构</h5></li></ul></li><li><h5><a name='header-n22' class='md-header-anchor '></a>路由vue-router</h5><ul><li><h5><a name='header-n25' class='md-header-anchor '></a>创建单页应用，我们的单页应用只做路由切换，组件拼凑成的页面映射成路由</h5></li><li><h5><a name='header-n27' class='md-header-anchor '></a>路由是我们单页应用的核心插件</h5></li></ul></li><li><h5><a name='header-n29' class='md-header-anchor '></a>状态管理vuex</h5><ul><li><h5><a name='header-n32' class='md-header-anchor '></a>状态管理库，可理解为全局数据集中地</h5></li><li><h5><a name='header-n34' class='md-header-anchor '></a>推荐小项目尽量别用vuex，会显得有点繁琐，bus总线机制完全可以处理了</h5></li></ul></li><li><h5><a name='header-n36' class='md-header-anchor '></a>http请求工具axios（ vue-resource官方已停止维护）</h5><ul><li><h5><a name='header-n39' class='md-header-anchor '></a>一个经过封装的ajax,可以根据自己的项目情况再进行封装</h5></li><li><h5><a name='header-n41' class='md-header-anchor '></a>axios是经过了ES6的promise封装的</h5></li></ul></li></ol><h3><a name='header-n42' class='md-header-anchor '></a>第三节：前后端联调必备技术之Mock讲解</h3><p><strong>简介：带入新概念之前端自编写开发阶段接口，实现前后端开发可并行状态</strong></p><ul><li><p>什么是Mock数据？</p><ul><li>处于开发环境模拟接口返回的数据（用于开发状态后端还没给接口）</li><li>不会影响生产环境，只是方便我们还没与后端交互时不阻塞我们开发流程</li></ul></li><li><p>Mock数据的好处</p><ul><li>团队可以并行工作（后端进度不至于影响前端开发进度）</li><li>可以用来演示开发成果，实时反馈开发进度</li><li>模拟测试并简单了解接口编写为全栈打基础</li><li><img src='F:\vue第二季\Mock.png' alt='' referrerPolicy='no-referrer' /></li></ul></li></ul><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><h2><a name='header-n66' class='md-header-anchor '></a>第二章 搭建vue单页面应用工程架构</h2><h3><a name='header-n67' class='md-header-anchor '></a>第一节：对比vue-cli2.x和vue-cli3.x的搭建</h3><p><strong>简介：深入了解脚手架vue-cli2.x版本与3.x版本构建项目的区别</strong></p><ul><li><h5><a name='header-n71' class='md-header-anchor '></a>搭建前提条件：</h5><ol start='' ><li><h5><a name='header-n74' class='md-header-anchor '></a>node环境</h5><ul><li><h5><a name='header-n77' class='md-header-anchor '></a>node是傻瓜式安装的，直接去官网下载安装不断下一步</h5></li><li><h5><a name='header-n79' class='md-header-anchor '></a>命令行输入node -v查询版本号，有版本号即安装成功</h5></li><li><h5><a name='header-n81' class='md-header-anchor '></a>node自带npm包管理工具（安装好node也可以输入npm -v查看版本号）</h5></li><li><h5><a name='header-n83' class='md-header-anchor '></a>npm太慢，下载国内淘宝镜像cnpm(npm install -g cnpm --registry=<a href='https://registry.npm.taobao.org' target='_blank' class='url'>https://registry.npm.taobao.org</a>)</h5></li></ul></li><li><h5><a name='header-n85' class='md-header-anchor '></a>安装webpack</h5><ul><li><h5><a name='header-n88' class='md-header-anchor '></a>运行npm install webpack -g</h5></li></ul></li><li><h5><a name='header-n90' class='md-header-anchor '></a>安装vue-cli  2.x</h5><ul><li><h5><a name='header-n93' class='md-header-anchor '></a>npm install vue-cli -g  </h5></li><li><h5><a name='header-n95' class='md-header-anchor '></a>创建项目：vue init webpack 项目名(不要取中文名字)</h5></li></ul></li><li><h5><a name='header-n97' class='md-header-anchor '></a>安装vue-cli  3.x</h5><ul><li><strong>npm install @vue/cli -g</strong></li><li><strong>创建项目：vue create  项目名（不要取中文名字）</strong></li></ul></li></ol></li><li><p><strong>不添加指定版本号就是下载最新稳定版本</strong></p></li></ul><h3><a name='header-n105' class='md-header-anchor '></a>第二节：深度介绍vue-cli2.x和vue-cli3.x的项目架构</h3><p><strong>简介：深入了解vue-cli2.x和3.x版本项目架构的区别</strong></p><ul><li><h5><a name='header-n109' class='md-header-anchor '></a>vuecli3.x:</h5><p>**<span>	</span>去掉了<code>2.x</code> <code>build</code>和<code>config</code>等目录 ,大部分配置 都集成到<code>vue.config.js</code>这里了**</p><p><span>	</span>vue.config.js里大概包括了配置 常用的输出路径名、跟目录、预处理、devServer配置、pwa、dll、第三方插件等等<span>	</span></p><p><strong>​<span>	</span>具体配置可参考(<a href='https://www.cnblogs.com/zjhr/p/9472648.html' target='_blank' class='url'>https://www.cnblogs.com/zjhr/p/9472648.html</a>)</strong></p><p><strong>​<span>	</span>因为绝大部分的配置和扩展尤大大已经做好了封装的了，我们常用的开发基本可以满足，不满足的我们自己可以自行去扩展</strong></p><p>**<span>	</span>webpack的配置在这个属性里修改configureWebpack（Mock也是在这里面的）**</p></li></ul><h3><a name='header-n115' class='md-header-anchor '></a>第三节：开启我们的单页面项目之旅</h3><p><strong>简介：正式开始我们的代码之旅，搭建项目→启动项目</strong></p><h3><a name='header-n117' class='md-header-anchor '></a>第四节：核心技能之ui库选择</h3><p><strong>简介：分析市场上各种各样的ui框架及如何选择适合自己项目的ui框架</strong></p><ul><li><h5><a name='header-n121' class='md-header-anchor '></a>vue是一套渐进式的框架，设计的时候就是自底层向上组层应用的。</h5><h5><a name='header-n122' class='md-header-anchor '></a>PC端的ui库基本不用做选型了，ElementUI的霸主地位无人能撼动</h5><h5><a name='header-n123' class='md-header-anchor '></a>移动端的选型看好几点即可</h5><ul><li>能否自定义皮肤</li><li>是否使用rem控制尺寸，完美适应不同分辨率移动设备</li><li>组件类型风格是否与自己的项目相同或类似</li><li>单元测试覆盖率</li><li>更新频率的快慢</li></ul><h4><a name='header-n135' class='md-header-anchor '></a>移动端的框架有哪些：</h4><p>mint-ui  vux  vant  cube-ui</p><p>有赞：<a href='https://youzan.github.io/vant/#/zh-CN/intro' target='_blank' class='url'>https://youzan.github.io/vant/#/zh-CN/intro</a></p><p>滴滴：<a href='https://didi.github.io/cube-ui/#/zh-CN/docs/switch' target='_blank' class='url'>https://didi.github.io/cube-ui/#/zh-CN/docs/switch</a></p></li></ul><h3><a name='header-n139' class='md-header-anchor '></a>第五节：实战系列之安装使用ui框架-----cube-ui</h3><p><strong>简介：敲定ui框架，安装使用cube-ui作为我们项目的ui框架</strong></p><ul><li><p>vuecli3.x版本安装：vue add cube-ui</p><p>cube-ui:<a href='https://didi.github.io/cube-ui/#/zh-CN/docs/quick-start' target='_blank' class='url'>https://didi.github.io/cube-ui/#/zh-CN/docs/quick-start</a></p><p>安装cube-ui的配置选择：<a href='https://github.com/cube-ui/cube-template/wiki' target='_blank' class='url'>https://github.com/cube-ui/cube-template/wiki</a></p></li></ul><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><h2><a name='header-n149' class='md-header-anchor '></a>第三章 注册登陆实战</h2><h3><a name='header-n150' class='md-header-anchor '></a>第一节：cube-ui表单初体验实现注册页面</h3><p><strong>简介：体验cube-ui表单组件给我们编写注册页面带来的方便之处</strong></p><h3><a name='header-n152' class='md-header-anchor '></a>第二节：精讲vue.config.js配置如何Mock数据</h3><p><strong>简介：讲解如何进行webpack配置扩展之配置Mock</strong></p><h3><a name='header-n154' class='md-header-anchor '></a>第三节：实战应用之本地配置mock编写注册接口</h3><p><strong>简介：编写本地开发的第一个接口之注册接口</strong></p><h3><a name='header-n156' class='md-header-anchor '></a>第四节：详解请求插件axios并模拟完成注册</h3><p><strong>简介：引入全家桶成员之axios并讲解axios的作用</strong></p><h3><a name='header-n158' class='md-header-anchor '></a>第五节：撰写路由配置文件并复习cube-ui表单实现登录页面</h3><p><strong>简介：复习巩固表单组件完成登录页面</strong></p><h3><a name='header-n160' class='md-header-anchor '></a><strong>第六节：实战应用之Mock编写</strong>登录接口并返回token</h3><p><strong>简介：深入讲解登录以及登录后续处理token</strong></p><h3><a name='header-n162' class='md-header-anchor '></a>第七节：深入剖析vuex并存储token</h3><p><strong>简介：引入全家桶成员vuex并进行token的处理，讲解vuex与本地存储的配合</strong></p><h3><a name='header-n164' class='md-header-anchor '></a>第八节：编写axios请求拦截配置内容精讲</h3><p><strong>简介：讲解全局拦截配置及内部可实现内容(把token在请求头带回给后端以及可以根据状态码进行一系列处理)</strong></p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><h2><a name='header-n169' class='md-header-anchor '></a>第四章 商城首页 + 分类页实战</h2><h3><a name='header-n170' class='md-header-anchor '></a>第一节：使用cube-ui实现轮播图并进行内部扩展</h3><p><strong>简介：详细讲解cube-ui的组件使用，cube-ui的api讲解</strong></p><h3><a name='header-n172' class='md-header-anchor '></a>第二节：详解cube-ui实现商品类别滑动组件</h3><p><strong>简介：详细讲解cube-ui的组件使用，cube-ui的api讲解</strong></p><h3><a name='header-n174' class='md-header-anchor '></a>第三节：实战应用之嵌套路由的使用</h3><p><strong>简介：剖析嵌套路由使用场景，手把手教学实现嵌套路由</strong></p><h3><a name='header-n176' class='md-header-anchor '></a>第四节：精讲路由跳转如何加上一个过渡效果提高用户体验</h3><p><strong>简介：更贴近原生app的体验优化</strong></p><h3><a name='header-n178' class='md-header-anchor '></a>第五节：讲解cube-ui如何仿照京东实现分类页</h3><p><strong>简介：拓展cube-ui组件开发实现分类页应用</strong></p><h3><a name='header-n180' class='md-header-anchor '></a>第六节：根据不同屏幕动态获取滚动盒子高度</h3><p><strong>简介：动态获取滚动盒子高度，兼容不同屏幕高度场景</strong></p><h3><a name='header-n182' class='md-header-anchor '></a>第七节：深度讲解路由拦截搭配路由属性使用方案</h3><p><strong>简介：使用路由配置之meta属性配合路由守卫进行页面权限拦截用法详解</strong></p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><h2><a name='header-n187' class='md-header-anchor '></a>第五章 购物车 + 个人中心页实战</h2><h3><a name='header-n188' class='md-header-anchor '></a>第一节：实现购物车页面</h3><p><strong>简介：编写购物车页面讲解购物车内部功能</strong></p><h3><a name='header-n190' class='md-header-anchor '></a>第二节：详解分类页商品添加基本逻辑及显示购物车数量</h3><p><strong>简介：使用vuex配合实现添加商品到购物车以及底部导航栏实时显示购物车数量</strong></p><h3><a name='header-n192' class='md-header-anchor '></a>第三节：配合vuex实现购物车内部功能</h3><p><strong>简介：使用vuex实现购物车内部的增加、减少以及清空购物车功能</strong></p><h3><a name='header-n194' class='md-header-anchor '></a>第四节：vuex核心知识之配合内置方法实现购物车数据持久化</h3><p><strong>简介：讲述vuex的内置方法的实现以及配合本地存储的使用</strong></p><h3><a name='header-n196' class='md-header-anchor '></a>第五节：面试加分项之详细讲解添加购物车动画实现思路</h3><p><strong>简介：详细讲解购物车动画的实现思路及实现动画效果</strong></p><h3><a name='header-n198' class='md-header-anchor '></a>第六节：精讲个人中心实现及注销登录功能</h3><p><strong>简介：编写个人中心页面及实现注销登录功能</strong></p><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><h2><a name='header-n203' class='md-header-anchor '></a>第六章 项目打包及面试讲解</h2><h3><a name='header-n204' class='md-header-anchor '></a>第一节：精讲项目打包</h3><p><strong>简介：打包项目给后端进行处理</strong></p><h3><a name='header-n206' class='md-header-anchor '></a>第二节：理解MVVM和组件带出来的面试题详解</h3><p><strong>简介：详细讲解面试高频出现问题之MVVM开发模式及组件通信</strong></p><ol start='' ><li><h5><a name='header-n210' class='md-header-anchor '></a>谈谈你对MVVM开发模式的理解</h5><ul><li><p>MVVM分为Model、View、ViewModel三者</p><ul><li>Model：代表数据模型，数据和业务逻辑都是在Model层中定义</li><li>View：代表UI视图，负责对数据的展示</li><li>ViewModel：负责监听Model中数据的改变并控制视图的更新，处理用户交互操作</li></ul></li></ul><p>Model和View并无直接关联，而是通过ViewModel来进行联系的，Model和ViewModel之间有着双向数据绑定的联系。因此当Model中的数据改变时会触发View层的刷新，View中由于用户交互操作而改变的数据也会在Model中同步。</p><p>这种模式实现了Model和View的数据自动同步，因此开发者只需要专注对数据的维护操作即可，而不需要自己操作dom。</p></li><li><h5><a name='header-n224' class='md-header-anchor '></a>对于组件通信你了解多少，请描述一下你是怎么完成组件的通信的</h5><ul><li>父传子用 props传递</li><li>子传父用$emit传递 </li><li>非父子之间的传值  建立一个空实例进行传值，中央事件总线机制</li><li>祖孙之间的传值可以利用provide inject模式</li></ul><h5><a name='header-n234' class='md-header-anchor '></a>VUEX可以处理上述的每一个情况</h5></li></ol><h3><a name='header-n235' class='md-header-anchor '></a>第三节：单页面应用首屏加载时间过长如何优化及输入网址到渲染完成过程</h3><p><strong>简介：详细讲解单页面应用首屏加载时间过长如何优化及输入网址到渲染完成过程</strong></p><ol start='' ><li><h5><a name='header-n239' class='md-header-anchor '></a><strong>关于单页应用首屏加载速度慢，出现白屏时间过长问题你怎么处理</strong></h5><ul><li><strong>将公用的JS库通过script标签在index.html进行外部引入，减少我们打包出来的js文件的大小，让浏览器并行下载资源文件，提高下载速度</strong></li><li><strong>在配置路由的时候进行路由的懒加载，在调用到改路由时再加载次路由相对应的js文件</strong></li><li><strong>加一个首屏loading图或骨架屏，提高用户的体验</strong></li><li><strong>尽可能使用CSS Sprites和字体图标库</strong></li><li><strong>图片的懒加载等</strong></li></ul></li><li><h5><a name='header-n252' class='md-header-anchor '></a><strong>从输入网址到网页渲染完成经历了什么</strong></h5><ol start='' ><li><strong>输入网址按回车键或点击跳转</strong></li><li><strong>发送到DNS服务器进行DNS解析，获取到我们对应web服务器对应的ip地址</strong></li><li><strong>与Web服务器建立TCP连接</strong></li><li><strong>浏览器向web服务器发送http请求</strong></li><li><strong>Web服务器进行响应请求并返回指定的url数据（当然这里也可能是错误信息或者重定向到新的url地址等）</strong></li><li><strong>浏览器下载web服务器返回的数据及解析html源文件</strong></li><li><strong>根据文件生成DOM树和样式树合成我们的渲染树，解析js，最后渲染我们的页面然后显示出来</strong></li></ol></li></ol><h3><a name='header-n268' class='md-header-anchor '></a>第四节：修改数据视图试图不更新情况该怎么处理和如何监听数据</h3><p><strong>简介：分析修改数据视图试图不更新情况和讲述如何处理，讲解监听数据面试问题</strong></p><ol start='' ><li><h5><a name='header-n272' class='md-header-anchor '></a>关于修改了数据，视图不更新的理解和处理方式</h5><ol start='' ><li><p><strong>Vue中给data中的对象属性添加一个新的属性时会发生什么</strong></p><p><strong>经过打印发现数据是已经改变了，但是由于在Vue实例创建时， 新添加的属性并未声明，因此就没有被Vue转换为响应式的属性，自然就不会触发视图的更新，这时就需要使用Vue的全局api——&gt; <code>$set()</code></strong></p><p><strong>$set()使用方法：</strong></p><p><strong>$set(需要修改的对象，&quot;对象的属性&quot;,值)</strong></p></li></ol></li><li><h5><a name='header-n280' class='md-header-anchor '></a>在vue里面你如何做数据的监听</h5><ol start='' ><li><p><strong>watch里面监听</strong></p><ul><li><p><strong>第一种写法</strong></p><p><strong>​<span>		</span>watch:{</strong>
+<strong>​<span>				</span>obj(newval,oldval){</strong>
+<strong>​<span>					</span>console.log(newval,oldval)</strong>
+<strong>​<span>				</span>},</strong>
+<strong>​<span>			</span>}</strong></p></li><li><p><strong>第二种写法可设置deep为true对数据进行深层遍历监听</strong></p><p><strong>​<span>		</span>watch:{</strong>
+<strong>​<span>				</span>obj:{</strong>
+<strong>​<span>					</span>handler(newval,oldval){</strong>
+<strong>​<span>						</span>console.log(222)</strong>
+<strong>​<span>						</span>console.log(newval,oldval)</strong>
+<strong>​<span>					</span>},</strong>
+<strong>​<span>					</span>deep:true</strong>
+<strong>​<span>				</span>}</strong>
+<strong>​<span>			</span>}</strong></p></li></ul></li><li><p><strong>computed 里面监听</strong></p><ul><li><strong>computed里面的依赖改变时，所计算的属性或作出事实的改变</strong></li></ul></li></ol></li></ol><p>&nbsp;</p><p><strong><img src='data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAGoAAAAiCAMAAACA9LykAAAAY1BMVEUAAAAjJikjJiojJiokJigjJikkJigjJikjJikjJikjJikkJigjJiojJiokJigjJiomJiYmJibWABPWABMmJiYmJiYmJibWABN9Ex99Ex/WABMmJiYjJiqgoKB3d3dcXFxBQUEZhcyGAAAAG3RSTlMAQIC/MGAQz9+fj+8gr3BQv4C/gCCvUN+/gGCwJXa4AAACP0lEQVRIx72W2ZLbIBBFe2EVQrLHnslCZ/n/rwwoOCDH5CWyzxO2VJy63TQlGGAQFbwEhagpOseE8BpmzRL8Cq9h9iJOw2uYWYRneBb67LtTsYiEZwXDlE47s4g8x2VsVplXuJRLGbtzUXap4zOFYvr54x16rIiFo1lS4fu3sIuFzyjhe6qcocftYukJRrQn7c0Bp6a679bcfvHDLpMCEB/jVB8bWonB4EBlq8kDjCvYVF8vlwtpA4UoMauQGeU2kZYYfBhMb9oIV7gjq6YHqrdPb28sQUEGGUsq5/ymQvLi2MUwkX5Y6lRdCgpq6VT8SHUphYphLi8z9KnIol+w4HnUqpZLJ2/+UsWpqBQvVVVcjrYiFwE5RwSZWQHlJauyesA53bAA14RQ6VWxqKIIZD5/gYLnqkJEaxGxpRccj9UNDR+2XfBZFaFgRJUt1uAhw1T1N9Wy9KrAPFSppnJwPu2uQaqT0vWqqpToTaUAJsc82b6rQ0Jz4dJU9s8tSGavQkQKXAdiXmVhBuuriNgRjWL5pprQ9mPlunPKuykIWZ+Zg1ZuBea88oNUgwpalfpQ1G0/ja6lGYoKVJYbzHiLmRke4prLJFN3KKG6+xfhHygFGwYrQ9XUVB8O65nIIBxNf9zPJ9z+ka18/816Hw7vVMZLxsMBTOvwXPikAJ1kJjgEYuzr1/XKnRSLHPlthtZq08rXYSVz7BendmIJi+7aPJJ+ixCOZY3btuw3ScMjHI9ZvZUdzq8GngYiVTQeq/kFPvQz03kWbEEAAAAASUVORK5CYII=' alt='å°Dè¯¾å ' referrerPolicy='no-referrer' />   愿景：&quot;让编程不在难学，让技术与生活更加有趣&quot;          <span>		</span>更多教程请访问 <a href=''>xdclass.net</a></strong></p><hr /><h2><a name='header-n299' class='md-header-anchor '></a>第七章 vue全家桶项目总结与学习路线介绍</h2><h3><a name='header-n300' class='md-header-anchor '></a>第一节：vue全家桶仿京东电商项目总结</h3><p><strong>简介：回顾vue全家桶仿京东电商项目所用到的技术栈</strong></p><ol start='' ><li><h5><a name='header-n304' class='md-header-anchor '></a>全家桶成员登场及介绍各自的作用（vue-cli、vue-router、axios、vuex）</h5></li><li><h5><a name='header-n306' class='md-header-anchor '></a>新知识Mock自己编写本地运行接口返回数据</h5></li><li><h5><a name='header-n308' class='md-header-anchor '></a>开始利用脚手架快速构建我们的工程项目（分别介绍了vue-cli2.x和vue-cli3.x构建命令的区别）</h5></li><li><h5><a name='header-n310' class='md-header-anchor '></a>讲解vue-cli2.x和vue-cli3.x构建出来的项目架构的区别</h5></li><li><h5><a name='header-n312' class='md-header-anchor '></a>面对市场上花样百出的ui库如何选择质量高适合自己项目的ui库</h5></li><li><h5><a name='header-n314' class='md-header-anchor '></a>使用cube-ui开始我们的项目之旅（tips：多看api文档就能熟练使用ui库）</h5></li><li><h5><a name='header-n316' class='md-header-anchor '></a>使用Mock编写我们的接口并返回我们需要的信息</h5></li><li><h5><a name='header-n318' class='md-header-anchor '></a>介绍那种场景下使用嵌套路由以及如何实现</h5></li><li><h5><a name='header-n320' class='md-header-anchor '></a>介绍token的用途和编写axios请求的全局拦截和路由守卫（轻易实现权限控制）</h5></li><li><h5><a name='header-n322' class='md-header-anchor '></a>利用vuex和本地存储的配合实现购物车的功能</h5></li><li><h5><a name='header-n324' class='md-header-anchor '></a>进行项目的性能优化及体验优化(优化首屏加载、路由跳转过渡效果、购物车动画效果)</h5></li><li><h5><a name='header-n326' class='md-header-anchor '></a>打包项目及详解面试关于vue的高频面试题</h5></li></ol><h3><a name='header-n327' class='md-header-anchor '></a>第二节：中高级前端工程师学习路线介绍</h3><p><strong>简介：介绍中高级前端工程师学习路线，让你进阶的路上不再迷茫</strong></p><ul><li><h4><a name='header-n331' class='md-header-anchor '></a>中高级前端工程师的学习路线：</h4><ul><li><h4><a name='header-n334' class='md-header-anchor '></a>html5→css3→js→es6→ps切图基础→vue→react→angular→小程序生态→webpack→http知识→node.js→express、koa→Linux→mysql、mongoDB、redis→Git和持续集成→Docker→JS高级→前端性能优化→浏览器知识→前端安全性问题→项目实战</h4></li></ul></li></ul><h4><a name='header-n335' class='md-header-anchor '></a> </h4><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p>&nbsp;</p><p><strong>小D课堂，愿景：让编程不在难学，让技术与生活更加有趣</strong></p><p><strong>相信我们，这个是可以让你学习更加轻松的平台，里面的课程绝对会让你技术不断提升</strong></p><p><strong>欢迎加小D讲师的微信： jack794666918</strong></p><p>我们官方网站：<a href='https://xdclass.net' target='_blank' class='url'>https://xdclass.net</a></p><p><strong>千人IT技术交流QQ群： 718617859</strong></p><p><strong>重点来啦：免费赠送你干货文档大集合</strong>，包含前端，后端，测试，大数据，运维主流技术文档（持续更新）</p><p><a href='https://mp.weixin.qq.com/s/qYnjcDYGFDQorWmSfE7lpQ' target='_blank' class='url'>https://mp.weixin.qq.com/s/qYnjcDYGFDQorWmSfE7lpQ</a> </p><p>&nbsp;</p></div>
+</body>
+</html>
